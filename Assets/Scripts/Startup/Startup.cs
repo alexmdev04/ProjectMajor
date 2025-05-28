@@ -6,22 +6,22 @@ namespace Major.Startup {
         private void Awake() {
             UnityEngine.Debug.Log("[Startup] Starting up...");
             LoadScene("Persistence").completed += operation1 => {
-                LoadScene("Game", LoadSceneMode.Additive,true).completed += operation2 => {
+                LoadScene("Game", LoadSceneMode.Additive, true).completed += operation2 => {
                     ClearStartupChecks();
                 };
             };
         }
 
         private AsyncOperation LoadScene(string scene, LoadSceneMode loadSceneMode = LoadSceneMode.Single, bool setActive = false) {
-            UnityEngine.Debug.Log($"[Startup] Loading '{ scene }' scene...");
-            
+            UnityEngine.Debug.Log($"[Startup] Loading '{scene}' scene...");
+
             var returnOperation = SceneManager.LoadSceneAsync(scene, loadSceneMode)!;
-            
+
             returnOperation.completed += operation => {
-                UnityEngine.Debug.Log($"[Startup] Loading '{ scene }' scene completed.");
-                if (setActive) { SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));            }
+                UnityEngine.Debug.Log($"[Startup] Loading '{scene}' scene completed.");
+                if (setActive) { SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene)); }
             };
-            
+
             return returnOperation;
         }
 

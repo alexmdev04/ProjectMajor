@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Major {
     public class Player : MonoBehaviour {
-        public bool 
+        public bool
             frictionType;
         public float
             // groundedAccelerate = 15f,
@@ -14,19 +14,22 @@ namespace Major {
 
         [Range(0.01f, 1f)] public float friction1 = 0.7f;
         [Range(1f, 5f)] public float friction2 = 1f;
-        
+
         [Space] public bool moveFixedUpdate;
-        public bool 
+        public bool
             lookActive = true,
             moveActive = true;
         public Rigidbody rb { get; private set; }
 
-        [SerializeField, Range(0f, 0.99f)] private float 
+        [SerializeField, Range(0f, 0.99f)]
+        private float
             friction = 0.85f;
-        [SerializeField, Range(0f, 0.1f)] private float 
+        [SerializeField, Range(0f, 0.1f)]
+        private float
             forceToApplyFriction = 0.1f,
             flatvelMin = 0.1f;
-        [SerializeField] private float
+        [SerializeField]
+        private float
             walkSpeed = 4f,
             sprintSpeed = 6.5f,
             cameraHeight = 0.825f,
@@ -39,13 +42,15 @@ namespace Major {
             movementRampTime,
             heldObjectDistance = 6.0f,
             crouchLerpSpeed = 15.0f;
-        [SerializeField] private GameObject 
+        [SerializeField]
+        private GameObject
             body,
             heldObject;
-        [SerializeField] private Camera 
+        [SerializeField]
+        private Camera
             cam;
         public Vector2 playerEulerAngles { get; private set; } = Vector2.zero;
-        
+
         [Header("Interaction")]
         [SerializeField] private float interactDistance = 100.0f;
         [SerializeField] private LayerMask interactLayerMask = int.MaxValue;
@@ -74,11 +79,11 @@ namespace Major {
             heldObjectDistance = Math.Clamp(heldObjectDistance + Input.Handler.instance.scrollDelta.y, 1.0f, 15.0f);
             Crouch();
         }
-        
+
         private void FixedUpdate() {
             if (moveActive && moveFixedUpdate) { Move(); }
         }
-        
+
         private void LateUpdate() {
             if (lookActive) { Look(); }
         }
@@ -98,11 +103,11 @@ namespace Major {
             body.transform.localEulerAngles = new Vector3(0f, playerEulerAngles.y, 0f);
             cam.transform.localEulerAngles = new Vector3(playerEulerAngles.x, 0f, 0f);
         }
-        
+
         private void Move() {
             float maxVelocity = Input.Handler.instance.sprinting ? sprintSpeed : walkSpeed;
             Vector3 movementDirectionGlobal = body.transform.TransformDirection(Input.Handler.instance.movementDirection);
-            
+
             if (grounded) {
                 // apply friction
                 float speed = rb.linearVelocity.magnitude;
@@ -142,7 +147,7 @@ namespace Major {
             if (!grounded) { return; }
             rb.AddForce(jumpForce * Vector3.up, ForceMode.VelocityChange);
         }
-        
+
         private void Crouch() {
             transform.localScale = Vector3.Lerp(
                 transform.localScale,
@@ -154,21 +159,21 @@ namespace Major {
                 crouchLerpSpeed * Time.deltaTime
             );
         }
-        
+
         private void Interact() {
             // if - func: drop if held
-            
+
             // get the hit
             if (!Physics.Raycast(
                 new Ray(cam.transform.position, cam.transform.forward),
                 out var hit,
-                interactDistance, 
+                interactDistance,
                 interactLayerMask)) {
                 return;
             }
 
             // func: check if object is interactble besides layer/tag
-            
+
             // func: pickup object
         }
     }

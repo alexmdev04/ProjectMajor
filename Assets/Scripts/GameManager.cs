@@ -21,7 +21,7 @@ namespace Major {
             inGame = true;
         }
 
-        private void Start() {    
+        private void Start() {
             Input.Handler.instance.OnPause += SetPause;
         }
 
@@ -29,7 +29,7 @@ namespace Major {
             Input.Handler.instance.OnPause -= SetPause;
             PlayerPrefs.Save();
         }
-        
+
         public void QuitToDesktop() {
             Application.Quit();
         }
@@ -38,7 +38,7 @@ namespace Major {
             Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = state;
         }
-        
+
         public void SetPause(bool state) {
             if (!inGame) { return; }
             SetCursorVisible(state);

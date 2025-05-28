@@ -15,11 +15,11 @@ namespace Major {
         public string alias;
 
         public CommandAttribute() {
-            
+
         }
 
         public CommandAttribute(string alias) {
             this.alias = alias;
         }
-    };    
+    };
 }

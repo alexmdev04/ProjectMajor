@@ -19,14 +19,14 @@ namespace Major.Input {
         // }
         public float sensitivity = 1.0f;
         private float _sens = 1.0f;
-        public event Action OnJump = () => {};
-        public event Action OnInteract = () => {};
-        public event Action<bool> OnPause = paused => {};
+        public event Action OnJump = () => { };
+        public event Action OnInteract = () => { };
+        public event Action<bool> OnPause = paused => { };
         private const string sensPrefKey = "sensitivity";
-        
+
         private void Awake() {
             instance = this;
-            input = new ();
+            input = new();
             input.Player.Enable();
         }
 
@@ -43,10 +43,10 @@ namespace Major.Input {
             // movement vector
             var vec = input.Player.Movement.ReadValue<Vector2>();
             movementDirection = new Vector3(vec.x, 0.0f, vec.y);
-            
+
             // scroll vector
             scrollDelta = input.Player.Scroll.ReadValue<Vector2>();
-            
+
             // sprint
             sprinting = input.Player.Sprint.IsPressed();
 
@@ -57,12 +57,12 @@ namespace Major.Input {
             if (input.Player.Jump.WasPressedThisFrame()) {
                 OnJump();
             }
-            
+
             // interact
             if (input.Player.Interact.WasPressedThisFrame()) {
                 OnInteract();
             }
-            
+
             // pause
             if (input.Player.Pause.WasPressedThisFrame()) {
                 OnPause(!GameManager.instance.paused);

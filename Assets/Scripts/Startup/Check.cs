@@ -8,7 +8,7 @@ namespace Major.Startup {
         [SerializeField] private string sceneName;
         [SerializeField] private bool shouldBeLoaded = true;
         private bool logged;
-        
+
         // not sure of the reliability of the execution order, this is destroyed during an Awake AsyncOperation
         private void LateUpdate() {
             if (logged) { return; }
