@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 // Per client manager for general Game and UI management
 namespace Major {
@@ -19,6 +20,7 @@ namespace Major {
             Application.targetFrameRate = 165;
             QualitySettings.vSyncCount = 1;
             inGame = true;
+            Addressables.InitializeAsync();
         }
 
         private void Start() {
