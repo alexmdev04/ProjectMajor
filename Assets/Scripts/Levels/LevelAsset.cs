@@ -1,4 +1,3 @@
-using System.Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +5,6 @@ using System.Threading.Tasks;
 using Unity.Logging;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
@@ -24,30 +22,33 @@ namespace Major.Levels {
         [field: AssetReferenceUILabelRestriction("asset")]
         public List<AssetReference> assetReferences { get; private set; }
 
-        // Prefabs referenced within this level, 
+        // Prefabs referenced within this level
         [field: SerializeField]
         [field: AssetReferenceUILabelRestriction("prefab")]
         public List<AssetReference> prefabReferences { get; private set; }
 
 
-        public async Task<Level.ConstructData> LoadAsync(string key = "", bool logTasks = false, bool timeTasks = false)  {
+        public async Task<Level.ConstructData> LoadAsync(string key = "", bool logTasks = false, bool timeTasks = false) {
             Log.Debug("Loading level " + key + "...");
 
-            // Waits for all 
+            // Loads all prefabs and assets in this level
             var assetLoadResults = await WrapTask(Task.WhenAll(
                 CacheAssetsFromReferences<GameObject>(assetReferences),
                 CacheAssetsFromReferences<GameObject>(prefabReferences)
             ), name: "Asset & Prefab Caching", logged: logTasks, timed: timeTasks);
 
+            // Loads the scenes in this level, it is done after to prevent the game needing to load assets within the scene as well
             var scenes = await WrapTask(
                 CacheScenesFromReferences(sceneReferences),
                 name: "Scene Caching", logged: logTasks, timed: timeTasks
             );
 
+            // Typically levels will have at least 1 scene
             if (scenes.Item1.Length <= 0) {
                 Log.Warning("Level '" + key + "' contains no scenes");
             }
 
+            // Returns the construction data for levels
             return new() {
                 levelAsset = this,
                 key = key,
@@ -57,6 +58,8 @@ namespace Major.Levels {
             };
         }
 
+        // Loads a list of assets from an AssetReference list
+        // Gathers their resource location data first then loads the assets using the data
         private static async Task<IList<TAssetType>> CacheAssetsFromReferences<TAssetType>(
             IList<AssetReference> refs,
             Addressables.MergeMode mergeMode = Addressables.MergeMode.None
@@ -64,6 +67,8 @@ namespace Major.Levels {
             return await Addressables.LoadAssetsAsync<TAssetType>(await Addressables.LoadResourceLocationsAsync(keys: refs, mode: mergeMode).Task, null).Task;
         }
 
+        // Similar to CacheAssetsFromReferences but for scenes
+        // Loads all scenes in the level and stores a database of their names to addresses to be used later
         private static async Task<(SceneInstance[], Dictionary<string, IResourceLocation>)> CacheScenesFromReferences(
             IList<AssetReference> refs,
             Addressables.MergeMode mergeMode = Addressables.MergeMode.None
@@ -114,7 +119,7 @@ namespace Major.Levels {
             if (logged) {
                 Log.Debug("Beginning " + name + "...");
                 onTaskComplete += (t) => { Log.Debug("Finished " + name + "."); };
-            }            
+            }
 
             var result = await task;
             onTaskComplete?.Invoke(task.Result);

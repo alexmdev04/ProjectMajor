@@ -27,6 +27,7 @@ namespace Major.Levels {
         }
 
         private void Update() {
+            // Debug Keys
             if (Keyboard.current.f1Key.wasPressedThisFrame) {
                 LoadLevel(levelKey_Intro);
             }
@@ -41,15 +42,12 @@ namespace Major.Levels {
         }
 
         public async void LoadLevel(string key) {
+            // Loads a new level via its name/key and attaches it to an empty game object
             var levelAsset = await Addressables.LoadAssetAsync<LevelAsset>(key).Task;
             var newObj = new GameObject(key);
             var newLevel = newObj.AddComponent<Level>();
             newLevel.Construct(await levelAsset.LoadAsync(key, true, true));
             levelCurrent = newLevel;
         }
-
-        // public async void UnloadLevel() {
-        //     levelCurrent.
-        // }
     }
 }
