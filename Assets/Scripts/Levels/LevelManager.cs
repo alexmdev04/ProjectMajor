@@ -43,7 +43,7 @@ namespace Major.Levels {
             var levelAssetLoadHandle = Addressables.LoadAssetAsync<LevelAsset>(key);
             var levelAsset = await levelAssetLoadHandle.Task;
             if (levelAssetLoadHandle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed) {
-                Log.Error("Load Level failed");
+                Log.Error("[LevelManager] Load Level failed");
                 Log.Error(levelAssetLoadHandle.OperationException.ToString());
                 return;
             }
