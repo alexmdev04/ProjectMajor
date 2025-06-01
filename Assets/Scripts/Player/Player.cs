@@ -168,8 +168,6 @@ namespace Major {
         }
 
         private void Interact() {
-            // if - func: drop if held
-
             // get the hit
             if (!Physics.Raycast(
                 new Ray(cam.transform.position, cam.transform.forward),
@@ -179,9 +177,11 @@ namespace Major {
                 return;
             }
 
-            // func: check if object is interactble besides layer/tag
+            if (!hit.transform.TryGetComponent(out Interactable interactable)) {
+                return;
+            }
 
-            // func: pickup object
+            interactable.Interact(gameObject);
         }
     }
 }
