@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: 1f55889ceb175cb498af9f80135a73e5
   m_SerializeEntries:
   - m_GUID: 2debeed2b195d1f4b8bbd6f2f256b458
-    m_Address: Assets/Scenes/Levels/intro.unity
+    m_Address: Assets/Scenes/Levels/intro1.unity
     m_ReadOnly: 0
     m_SerializedLabels:
     - lbl_scene

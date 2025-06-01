@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: test load
       objectReference: {fileID: 0}
+    - target: {fileID: 6459007583272411451, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.714
@@ -174,8 +178,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6459007583272411451, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5140990639914575146}
   m_SourcePrefab: {fileID: 100100000, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+--- !u!1 &5140990639914575145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6459007583272411451, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+  m_PrefabInstance: {fileID: 5140990639914575144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5140990639914575146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5140990639914575145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe59f66c93d3f14983d4680752f247f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openAngle: 90
+  closeAngle: 0
+  handle: {fileID: 0}
+  doorOpenSpeed: 15
+  openState: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
