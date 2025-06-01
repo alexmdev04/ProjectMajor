@@ -4,9 +4,8 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using Unity.Logging;
 using UnityEngine.SceneManagement;
-using Unity.Android.Types;
 using UnityEngine.ResourceManagement.ResourceLocations;
-using System.Threading.Tasks;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Major.Levels {
     public class Level : MonoBehaviour {
@@ -72,6 +71,7 @@ namespace Major.Levels {
         public async void LoadSceneAsync(string key) {
             // Check if this level has this scene
             if (!sceneAddresses.TryGetValue(key, out var sceneAddress)) {
+                Log.Error("[Level] Load Scene failed: scene key '" + key + "' not found in this level.");
                 return;
             }
 
@@ -95,14 +95,21 @@ namespace Major.Levels {
 
         // Unloads a scene via its key
         public void UnloadScene(string key) {
-            if (sceneInstances.TryGetValue(key, out var sceneInstance)) {
-                UnloadScene(sceneInstance);
+            if (!sceneInstances.TryGetValue(key, out var sceneInstance)) {
+                Log.Error("[Level] Unload Scene failed: scene key '" + key + "' not found in scene instances.");
+                return;
             }
+            UnloadScene(sceneInstance);
         }
 
         // Unloads a spawned scene, however it will remain cached
         public async void UnloadScene(SceneInstance sceneInstance) {
-            await Addressables.UnloadSceneAsync(sceneInstance, UnloadSceneOptions.None).Task;
+            var handle = Addressables.UnloadSceneAsync(sceneInstance, UnloadSceneOptions.None);
+            await handle.Task;
+            if (handle.Status == AsyncOperationStatus.Failed) {
+                Log.Error("[Level] Unload Scene failed.");
+                Log.Error(handle.OperationException.ToString());
+            }
             sceneInstances.Remove(key);
         }
 
