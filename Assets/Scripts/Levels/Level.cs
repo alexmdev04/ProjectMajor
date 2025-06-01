@@ -78,6 +78,7 @@ namespace Major.Levels {
             // Check if the scene is already loaded
             if (sceneInstances.TryGetValue(key, out var sceneInstance)) {
                 await sceneInstance.ActivateAsync();
+                Log.Debug("[Level] Attempted to load a scene that is already loaded");
                 return;
             }
 
@@ -93,24 +94,26 @@ namespace Major.Levels {
             sceneInstances.Add(loadSceneHandle.Result.Scene.name, loadSceneHandle.Result);
         }
 
-        // Unloads a scene via its key
+        // Unloads a scene via its key, however it will remain cached (by design)
         public void UnloadScene(string key) {
             if (!sceneInstances.TryGetValue(key, out var sceneInstance)) {
                 Log.Error("[Level] Unload Scene failed: scene key '" + key + "' not found in scene instances.");
                 return;
             }
-            UnloadScene(sceneInstance);
-        }
 
-        // Unloads a spawned scene, however it will remain cached
-        public async void UnloadScene(SceneInstance sceneInstance) {
-            var handle = Addressables.UnloadSceneAsync(sceneInstance, UnloadSceneOptions.None);
-            await handle.Task;
-            if (handle.Status == AsyncOperationStatus.Failed) {
-                Log.Error("[Level] Unload Scene failed.");
-                Log.Error(handle.OperationException.ToString());
+            if (!sceneInstance.Scene.isLoaded) {
+                return;
             }
-            sceneInstances.Remove(key);
+
+            Addressables.UnloadSceneAsync(sceneInstance, UnloadSceneOptions.None).Completed += handle => {
+                if (handle.Status == AsyncOperationStatus.Failed) {
+                    Log.Error("[Level] Unload Scene failed.");
+                    Log.Error(handle.OperationException.ToString());
+                }
+                else {
+                    sceneInstances.Remove(key);
+                }
+            };
         }
 
         public struct ConstructData {
