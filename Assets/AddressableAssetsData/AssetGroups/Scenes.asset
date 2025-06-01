@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Address: Assets/Scenes/Levels/intro.unity
     m_ReadOnly: 0
     m_SerializedLabels:
-    - scene
+    - lbl_scene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 34bfd74d5ca57fc44b5cf2621f6a8b9b, type: 2}

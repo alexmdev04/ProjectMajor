@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 97f9d81c98c37584eb4ecd2d43530229
   m_currentHash:
     serializedVersion: 2
-    Hash: c1b4fa687b26d0bea32e08eb552c5f91
+    Hash: a62721a7c820666759173de34a0b8b8b
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -101,10 +101,9 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
-    - default
-    - scene
-    - level
-    - prefab
+    - lbl_scene
+    - lbl_level
+    - lbl_prefab
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: c9932952e7e11514ea7eef7d63e4a8b6, type: 2}

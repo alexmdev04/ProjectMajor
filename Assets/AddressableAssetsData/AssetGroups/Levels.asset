@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Address: intro
     m_ReadOnly: 0
     m_SerializedLabels:
-    - level
+    - lbl_level
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 34bfd74d5ca57fc44b5cf2621f6a8b9b, type: 2}
