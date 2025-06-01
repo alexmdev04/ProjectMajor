@@ -1,8 +1,11 @@
 using System;
+using Major.Interact;
 using UnityEngine;
 
 namespace Major {
     public class Player : MonoBehaviour {
+        public static Player instance { get; private set; }
+
         public bool
             frictionType;
         public float
@@ -50,6 +53,7 @@ namespace Major {
         private Camera
             cam;
         public Vector2 playerEulerAngles { get; private set; } = Vector2.zero;
+        public Vector3 combinedFacingEulerAngles { get; private set; }
 
         [Header("Interaction")]
         [SerializeField] private float interactDistance = 100.0f;
@@ -102,6 +106,9 @@ namespace Major {
 
             body.transform.localEulerAngles = new Vector3(0f, playerEulerAngles.y, 0f);
             cam.transform.localEulerAngles = new Vector3(playerEulerAngles.x, 0f, 0f);
+
+            // Combines rotation data so that it can be used in external calculations
+            combinedFacingEulerAngles = new Vector3(cam.transform.localEulerAngles.x, body.transform.localEulerAngles.y, 0.0f);
         }
 
         private void Move() {
