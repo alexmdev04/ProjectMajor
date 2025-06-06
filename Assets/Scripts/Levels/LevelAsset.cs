@@ -14,33 +14,30 @@ namespace Major.Levels {
     public class LevelAsset : ScriptableObject {
         // Scenes that are referenced within this level
         [field: SerializeField]
-        [field: AssetReferenceUILabelRestriction("scene")]
+        [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.scene)]
         public List<AssetReference> sceneReferences { get; private set; }
 
         // Individual assets referenced 
         [field: SerializeField]
-        [field: AssetReferenceUILabelRestriction("asset")]
+        [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.asset)]
         public List<AssetReference> assetReferences { get; private set; }
 
         // Prefabs referenced within this level
         [field: SerializeField]
-        [field: AssetReferenceUILabelRestriction("prefab")]
+        [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.prefab)]
         public List<AssetReference> prefabReferences { get; private set; }
 
-
         public async Task<Level.ConstructData> LoadAsync(string key = "", bool logTasks = false, bool timeTasks = false) {
-            Log.Debug("Loading level " + key + "...");
-
-            // Loads all prefabs and assets in this level
-            var assetLoadResults = await WrapTask(Task.WhenAll(
-                CacheAssetsFromReferences<GameObject>(assetReferences),
-                CacheAssetsFromReferences<GameObject>(prefabReferences)
-            ), name: "Asset & Prefab Caching", logged: logTasks, timed: timeTasks);
+            // Loads all prefabs in this level
+            var prefabs = await WrapTask(
+                CacheAssetsFromReferences<GameObject>(prefabReferences),
+                caller: "LevelAsset", name: "Prefab Caching", logged: logTasks, timed: timeTasks
+            );
 
             // Loads the scenes in this level, it is done after to prevent the game needing to load assets within the scene as well
             var scenes = await WrapTask(
                 CacheScenesFromReferences(sceneReferences),
-                name: "Scene Caching", logged: logTasks, timed: timeTasks
+                caller: "LevelAsset", name: "Scene Caching", logged: logTasks, timed: timeTasks
             );
 
             // Typically levels will have at least 1 scene
@@ -54,7 +51,7 @@ namespace Major.Levels {
                 key = key,
                 sceneInstances = scenes.Item1,
                 sceneAddresses = scenes.Item2,
-                prefabAssets = assetLoadResults[1]
+                prefabAssets = new List<GameObject>()// assetLoadResults[1]
             };
         }
 
