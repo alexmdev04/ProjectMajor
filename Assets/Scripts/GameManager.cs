@@ -1,3 +1,5 @@
+using System;
+using Unity.Logging;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -10,6 +12,7 @@ namespace Major {
         public bool paused { get; private set; }
         public bool inGame { get; private set; }
         public string playerName { get; private set; } = "Player";
+        public event Action OnStartupComplete = () => { Log.Debug("[GameManager] Startup Complete."); };
 
         private void Awake() {
             if (instance != null) {
@@ -21,6 +24,7 @@ namespace Major {
             QualitySettings.vSyncCount = 1;
             inGame = true;
             Addressables.InitializeAsync();
+            SetCursorVisible(false);
         }
 
         private void Start() {
