@@ -18,7 +18,17 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  <assetReferences>k__BackingField: []
+  <assetReferences>k__BackingField:
+  - m_AssetGUID: 128a7ca29be9a2748bbfb7d6c6c6ba9d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: cb6fd9a18766aa8408a12b4bd84f740e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 1
   <prefabReferences>k__BackingField:
   - m_AssetGUID: b8f7c6e9d1353a043be1f23037ec944c
     m_SubObjectName: 
