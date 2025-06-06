@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Unity.Logging;
 using UnityEngine;
@@ -29,16 +28,10 @@ namespace Major.Levels {
 
         public async Task<Level.ConstructData> LoadAsync(string key = "", bool logTasks = false, bool timeTasks = false) {
             // Loads all prefabs in this level
-            var prefabs = await WrapTask(
-                CacheAssetsFromReferences<GameObject>(prefabReferences),
-                caller: "LevelAsset", name: "Prefab Caching", logged: logTasks, timed: timeTasks
-            );
+            var prefabs = await CacheAssetsFromReferences<GameObject>(prefabReferences).Debug(GetType(), "Prefab Caching", logTasks, timeTasks);
 
             // Loads the scenes in this level, it is done after to prevent the game needing to load assets within the scene as well
-            var scenes = await WrapTask(
-                CacheScenesFromReferences(sceneReferences),
-                caller: "LevelAsset", name: "Scene Caching", logged: logTasks, timed: timeTasks
-            );
+            var scenes = await CacheScenesFromReferences(sceneReferences).Debug(GetType(), "Scene Caching", logTasks, timeTasks);
 
             // Typically levels will have at least 1 scene
             if (scenes.Item1.Length <= 0) {
@@ -85,42 +78,6 @@ namespace Major.Levels {
 
             var sceneInstances = await Task.WhenAll(sceneLoadHandles);
             return (sceneInstances, sceneAddresses);
-        }
-
-        public static async Task WrapTask(Task task, bool logged = false, string name = "Unnamed Task", Action onTaskComplete = null, bool timed = false) {
-            if (timed) {
-                Stopwatch timer = Stopwatch.StartNew();
-                onTaskComplete += () => {
-                    timer.Stop();
-                    Log.Debug(name + " took " + timer.Elapsed.ToString());
-                };
-            }
-
-            if (logged) {
-                Log.Debug("Beginning " + name + "...");
-                onTaskComplete += () => { Log.Debug("Finished " + name + "."); };
-            }
-
-            await task;
-            onTaskComplete?.Invoke();
-        }
-        public static async Task<T> WrapTask<T>(Task<T> task, bool logged = false, string name = "Unnamed Task", Action<T> onTaskComplete = null, bool timed = false) {
-            if (timed) {
-                Stopwatch timer = Stopwatch.StartNew();
-                onTaskComplete += (t) => {
-                    timer.Stop();
-                    Log.Debug(name + " took " + timer.Elapsed.ToString());
-                };
-            }
-
-            if (logged) {
-                Log.Debug("Beginning " + name + "...");
-                onTaskComplete += (t) => { Log.Debug("Finished " + name + "."); };
-            }
-
-            var result = await task;
-            onTaskComplete?.Invoke(task.Result);
-            return result;
         }
     }
 }
