@@ -36,6 +36,12 @@ namespace Major.Levels {
             if (Keyboard.current.f3Key.wasPressedThisFrame) {
                 levelCurrent.LoadSceneAsync(AssetKeys.Scenes.intro.home);
             }
+
+            if (Keyboard.current.f4Key.wasPressedThisFrame) {
+                var foo = Addressables.BuildPath;
+                var bar = Addressables.ResourceLocators;
+                var baz = Addressables.ResourceManager;
+            }
         }
 
         public async void LoadLevel(string key) {
