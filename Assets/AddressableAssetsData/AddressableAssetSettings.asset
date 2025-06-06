@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 97f9d81c98c37584eb4ecd2d43530229
   m_currentHash:
     serializedVersion: 2
-    Hash: a62721a7c820666759173de34a0b8b8b
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -62,6 +62,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9b6e2313d96add44adf3aaaad8e2790, type: 2}
   - {fileID: 11400000, guid: a599990e644eb394e8e44af844398956, type: 2}
   - {fileID: 11400000, guid: 30348a43383123840b4ce6ade91cb82d, type: 2}
+  - {fileID: 11400000, guid: 3e0825ccbc2d6374bb3a16c8fdc60e62, type: 2}
   - {fileID: 11400000, guid: 2b852e0ae3dafb44dbd9892746378020, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
@@ -104,6 +105,7 @@ MonoBehaviour:
     - lbl_scene
     - lbl_level
     - lbl_prefab
+    - lbl_asset
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: c9932952e7e11514ea7eef7d63e4a8b6, type: 2}
