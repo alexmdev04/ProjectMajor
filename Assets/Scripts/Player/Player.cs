@@ -1,6 +1,9 @@
 using System;
-using Major.Interact;
 using UnityEngine;
+using Unity.Logging;
+using System.Threading;
+using UnityEngine.UIElements;
+using System.Runtime.InteropServices;
 
 namespace Major {
     public class Player : MonoBehaviour {
@@ -39,38 +42,41 @@ namespace Major {
             movementAcceleration = 0.1f,
             movementDecceleration = 0.05f,
             jumpForce = 5f,
-            playerHeight = 180f, // in cm
-            playerCrouchHeight = 100f, // in cm
             groundedRayDistance = 1f,
             movementRampTime,
             heldObjectDistance = 6.0f,
-            crouchLerpSpeed = 15.0f;
-        [SerializeField]
-        private GameObject
-            body,
-            heldObject;
-        [SerializeField]
-        private Camera
-            cam;
+            crouchSpeed = 3.6576f;
+        [SerializeField] private GameObject _body;
+        public GameObject body => _body;
+        [SerializeField] private CapsuleCollider _capsuleCollider;
+        public CapsuleCollider capsuleCollider => _capsuleCollider;
+        [SerializeField] private Interact.Item _carriedItem;
+        public Interact.Item carriedItem => _carriedItem;
+        [SerializeField] private Camera _cam;
+        public Camera cam => _cam;
         public Vector2 playerEulerAngles { get; private set; } = Vector2.zero;
         public Vector3 combinedFacingEulerAngles { get; private set; }
+        public float playerHeightCm = 185.42f; // in cm
+        public float playerCrouchHeightCm = 93.98f; // in cm
+        private float playerHeight;
+        private float playerCrouchHeight;
+
 
         [Header("Interaction")]
         [SerializeField] private float interactDistance = 100.0f;
         [SerializeField] private LayerMask interactLayerMask = int.MaxValue;
-
         private bool grounded => MathF.Round(rb.linearVelocity.y, 3) == 0;
 
         private void Awake() {
             rb = GetComponent<Rigidbody>();
+            playerHeight = playerHeightCm / 200.0f;
+            playerCrouchHeight = playerCrouchHeightCm / 200.0f;
         }
 
         private void Start() {
             Input.Handler.instance.OnJump += Jump;
             Input.Handler.instance.OnInteract += Interact;
-            cam = Camera.main;
-            cam!.transform.SetParent(body.transform);
-            cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
+            _cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
         }
 
         private void OnDisable() {
@@ -79,13 +85,14 @@ namespace Major {
         }
 
         private void Update() {
-            if (moveActive && !moveFixedUpdate) { Move(); }
+            if (moveActive && !moveFixedUpdate) { UpdateMove(); }
             heldObjectDistance = Math.Clamp(heldObjectDistance + Input.Handler.instance.scrollDelta.y, 1.0f, 15.0f);
-            Crouch();
+            UpdateCrouch();
+            UpdateCarriedItem();
         }
 
         private void FixedUpdate() {
-            if (moveActive && moveFixedUpdate) { Move(); }
+            if (moveActive && moveFixedUpdate) { UpdateMove(); }
         }
 
         private void LateUpdate() {
@@ -104,16 +111,16 @@ namespace Major {
                 playerEulerAngles.y + mouseDeltaMult.x
             );
 
-            body.transform.localEulerAngles = new Vector3(0f, playerEulerAngles.y, 0f);
-            cam.transform.localEulerAngles = new Vector3(playerEulerAngles.x, 0f, 0f);
+            _capsuleCollider.transform.localEulerAngles = new Vector3(0f, playerEulerAngles.y, 0f);
+            _cam.transform.localEulerAngles = new Vector3(playerEulerAngles.x, 0f, 0f);
 
             // Combines rotation data so that it can be used in external calculations
-            combinedFacingEulerAngles = new Vector3(cam.transform.localEulerAngles.x, body.transform.localEulerAngles.y, 0.0f);
+            combinedFacingEulerAngles = new Vector3(_cam.transform.localEulerAngles.x, _capsuleCollider.transform.localEulerAngles.y, 0.0f);
         }
 
-        private void Move() {
+        private void UpdateMove() {
             float maxVelocity = Input.Handler.instance.sprinting ? sprintSpeed : walkSpeed;
-            Vector3 movementDirectionGlobal = body.transform.TransformDirection(Input.Handler.instance.movementDirection);
+            Vector3 movementDirectionGlobal = _capsuleCollider.transform.TransformDirection(Input.Handler.instance.movementDirection);
 
             if (grounded) {
                 // apply friction
@@ -155,33 +162,79 @@ namespace Major {
             rb.AddForce(jumpForce * Vector3.up, ForceMode.VelocityChange);
         }
 
-        private void Crouch() {
-            transform.localScale = Vector3.Lerp(
-                transform.localScale,
-                new Vector3(
-                    transform.localScale.x,
-                    (Input.Handler.instance.crouched ? playerCrouchHeight : playerHeight) / 200,
-                    transform.localScale.z
-                ),
-                crouchLerpSpeed * Time.deltaTime
+        private void UpdateCrouch() {
+            // overkill early exit
+            // if (!crouched && currentHeight >= playerHeight) {
+            //     return;
+            // }
+
+            var bodyTransform = _body.transform;
+
+            // depending on input move between playerHeight and crouchHeight by crouchSpeed
+            var height = Mathf.Clamp(
+                bodyTransform.localPosition.y + (crouchSpeed * Time.deltaTime * (Input.Handler.instance.crouched ? -1.0f : 1.0f)),
+                playerCrouchHeight,
+                playerHeight
             );
+
+            // == Vector3(0,h,0)
+            var offset = Vector3.up * height;
+
+            // edit the mesh as a child of the collider
+            bodyTransform.localPosition = offset;
+
+            var bodyScale = bodyTransform.localScale;
+            bodyScale.y = height;
+            bodyTransform.localScale = bodyScale;
+
+            // edit the collider
+            _capsuleCollider.center = offset;
+            _capsuleCollider.height = height * 2.0f;
         }
 
         private void Interact() {
+            if (_carriedItem) {
+                _carriedItem.SetCarriedState(false);
+                _carriedItem = null;
+                return;
+            }
+
             // get the hit
             if (!Physics.Raycast(
-                new Ray(cam.transform.position, cam.transform.forward),
+                new Ray(_cam.transform.position, _cam.transform.forward),
                 out var hit,
                 interactDistance,
                 interactLayerMask)) {
                 return;
             }
 
-            if (!hit.transform.TryGetComponent(out Interactable interactable)) {
+            if (!hit.transform.TryGetComponent(out Interact.Interactable interactable)) {
                 return;
             }
 
-            interactable.Interact(gameObject);
+            interactable.Interact(this);
+        }
+
+        private void UpdateCarriedItem() {
+            if (!_carriedItem) {
+                return;
+            }
+
+            _carriedItem.position = Vector3.Lerp(
+                _carriedItem.position,
+                _cam.transform.position + Quaternion.Euler(combinedFacingEulerAngles) * Vector3.forward * 2.5f, // distance
+                15.0f * Time.deltaTime // lerp speed
+            );
+        }
+
+        public void SetCarriedItem(Interact.Item item) {
+            if (_carriedItem) {
+                _carriedItem.SetCarriedState(false);
+                _carriedItem = null;
+            }
+
+            item.SetCarriedState(true);
+            _carriedItem = item;
         }
     }
 }
