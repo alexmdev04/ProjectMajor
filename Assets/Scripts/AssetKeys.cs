@@ -5,12 +5,13 @@ namespace Major.AssetKeys {
     // Contains keys to addressable LevelAsset data
     public static class Levels {
         public const string intro = "intro";
+        public const string level1 = "level1";
     }
 
     // Contains keys to addressable scenes filtered by level
     namespace Scenes {
         public static class intro {
-            public const string intro1 = "intro1";
+            public const string home = "intro_home";
         }
     }
 
@@ -24,5 +25,6 @@ namespace Major.AssetKeys {
         public const string level = "lbl_level";
         public const string prefab = "lbl_prefab";
         public const string scene = "lbl_scene";
+        public const string asset = "lbl_asset";
     }
 }
