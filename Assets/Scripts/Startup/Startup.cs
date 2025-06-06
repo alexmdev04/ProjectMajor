@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Major.Startup {
     public class Startup : MonoBehaviour {
-#if UNITY_EDITOR
         public LevelAsset testLevel;
-#endif
         private void Awake() {
             Log.Debug("[Startup] Starting up...");
             string testLevelName = testLevel.name;
@@ -15,7 +13,6 @@ namespace Major.Startup {
             LoadScene("Persistence").completed += operation1 => {
                 LoadScene("Game", LoadSceneMode.Additive, true).completed += operation2 => {
                     ClearStartupChecks();
-
                     if (LevelManager.instance) {
                         LevelManager.instance.LoadLevel(testLevelName);
                     }
