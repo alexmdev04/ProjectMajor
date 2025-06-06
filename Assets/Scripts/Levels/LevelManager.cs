@@ -30,15 +30,17 @@ namespace Major.Levels {
             }
 
             if (Keyboard.current.f2Key.wasPressedThisFrame) {
-                levelCurrent.UnloadScene(AssetKeys.Scenes.intro.intro1);
+                levelCurrent.UnloadScene(AssetKeys.Scenes.intro.home);
             }
 
             if (Keyboard.current.f3Key.wasPressedThisFrame) {
-                levelCurrent.LoadSceneAsync(AssetKeys.Scenes.intro.intro1);
+                levelCurrent.LoadSceneAsync(AssetKeys.Scenes.intro.home);
             }
         }
 
         public async void LoadLevel(string key) {
+            Log.Debug("[LevelManager] Loading level: " + key);
+
             // Loads a new level via its name/key and attaches it to an empty game object
             var levelAssetLoadHandle = Addressables.LoadAssetAsync<LevelAsset>(key);
             var levelAsset = await levelAssetLoadHandle.Task;
@@ -51,6 +53,7 @@ namespace Major.Levels {
             var newLevel = newObj.AddComponent<Level>();
             newLevel.Construct(await levelAsset.LoadAsync(key, true, true));
             levelCurrent = newLevel;
+            Log.Debug("[LevelManager] Loading level " + key + " completed.");
         }
     }
 }
