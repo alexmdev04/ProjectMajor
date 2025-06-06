@@ -1,5 +1,6 @@
 using Major.Levels;
 using UnityEngine;
+using Unity.Logging;
 using UnityEngine.SceneManagement;
 
 namespace Major.Startup {
@@ -8,7 +9,7 @@ namespace Major.Startup {
         public LevelAsset testLevel;
 #endif
         private void Awake() {
-            UnityEngine.Debug.Log("[Startup] Starting up...");
+            Log.Debug("[Startup] Starting up...");
             string testLevelName = testLevel.name;
 
             LoadScene("Persistence").completed += operation1 => {
@@ -23,12 +24,12 @@ namespace Major.Startup {
         }
 
         private AsyncOperation LoadScene(string scene, LoadSceneMode loadSceneMode = LoadSceneMode.Single, bool setActive = false) {
-            UnityEngine.Debug.Log($"[Startup] Loading '{scene}' scene...");
+            Log.Debug($"[Startup] Loading '{scene}' scene...");
 
             var returnOperation = SceneManager.LoadSceneAsync(scene, loadSceneMode)!;
 
             returnOperation.completed += operation => {
-                UnityEngine.Debug.Log($"[Startup] Loading '{scene}' scene completed.");
+                Log.Debug($"[Startup] Loading '{scene}' scene completed.");
                 if (setActive) { SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene)); }
             };
 
