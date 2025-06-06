@@ -8,6 +8,10 @@ namespace Major.Startup {
             LoadScene("Persistence").completed += operation1 => {
                 LoadScene("Game", LoadSceneMode.Additive, true).completed += operation2 => {
                     ClearStartupChecks();
+
+                    if (LevelManager.instance) {
+                        LevelManager.instance.LoadLevel(testScene);
+                    }
                 };
             };
         }
