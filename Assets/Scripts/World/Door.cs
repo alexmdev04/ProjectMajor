@@ -6,11 +6,19 @@ namespace Major.Interact {
     public class Door : Interactable {
         public float openAngle = 90.0f;
         public float closeAngle = 0.0f;
-        public GameObject handle;
+        public Transform parent;
         public float doorOpenSpeed = 150.0f;
         public bool openState;
-        public override void Interact(GameObject sender) {
+
+        public void Awake() {
+            if (parent == null) {
+                parent = transform.parent;
+            }
+        }
+
+        public override void Interact(Player sender, Action callback = null) {
             SetState(!openState);
+            callback?.Invoke();
         }
 
         public void SetState(bool state) {
@@ -22,20 +30,20 @@ namespace Major.Interact {
         IEnumerator DoorMoveCoroutine(bool state) {
             var targetAngle = state ? openAngle : closeAngle;
             var targetEuler = new Vector3(
-                transform.localEulerAngles.x,
+                parent.localEulerAngles.x,
                 targetAngle,
-                transform.localEulerAngles.z
+                parent.localEulerAngles.z
             );
             var targetRotation = Quaternion.Euler(targetEuler);
 
             do {
-                transform.localRotation = Quaternion.RotateTowards(
-                    transform.localRotation,
+                parent.localRotation = Quaternion.RotateTowards(
+                    parent.localRotation,
                     targetRotation,
                     Time.deltaTime * doorOpenSpeed
                 );
                 yield return new WaitForEndOfFrame();
-            } while (MathF.Round(transform.localEulerAngles.y, 3) != targetAngle);
+            } while (MathF.Round(parent.localEulerAngles.y, 3) != targetAngle);
 
             yield break;
         }
