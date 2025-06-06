@@ -1,16 +1,22 @@
+using Major.Levels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Major.Startup {
     public class Startup : MonoBehaviour {
+#if UNITY_EDITOR
+        public LevelAsset testLevel;
+#endif
         private void Awake() {
             UnityEngine.Debug.Log("[Startup] Starting up...");
+            string testLevelName = testLevel.name;
+
             LoadScene("Persistence").completed += operation1 => {
                 LoadScene("Game", LoadSceneMode.Additive, true).completed += operation2 => {
                     ClearStartupChecks();
 
                     if (LevelManager.instance) {
-                        LevelManager.instance.LoadLevel(testScene);
+                        LevelManager.instance.LoadLevel(testLevelName);
                     }
                 };
             };
