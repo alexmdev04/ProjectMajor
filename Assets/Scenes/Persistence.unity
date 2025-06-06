@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000004, guid: 8e54af4e5d288fa4ba1365345103fdff, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -338,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &585500336
 Transform:
   m_ObjectHideFlags: 0
@@ -526,12 +526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f622be267850d4bbec2067eec47bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testLevel:
-    m_AssetGUID: 4d37604691e04c14293d65da6ad92ad8
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
 --- !u!1 &1088129306
 GameObject:
   m_ObjectHideFlags: 0
