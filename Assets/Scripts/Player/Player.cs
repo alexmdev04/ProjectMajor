@@ -50,8 +50,8 @@ namespace Major {
         public GameObject body => _body;
         [SerializeField] private CapsuleCollider _capsuleCollider;
         public CapsuleCollider capsuleCollider => _capsuleCollider;
-        [SerializeField] private Interact.Item _carriedItem;
-        public Interact.Item carriedItem => _carriedItem;
+        [SerializeField] private World.Item _carriedItem;
+        public World.Item carriedItem => _carriedItem;
         [SerializeField] private Camera _cam;
         public Camera cam => _cam;
         public Vector2 playerEulerAngles { get; private set; } = Vector2.zero;
@@ -208,7 +208,7 @@ namespace Major {
                 return;
             }
 
-            if (!hit.transform.TryGetComponent(out Interact.Interactable interactable)) {
+            if (!hit.transform.TryGetComponent(out World.Interactable interactable)) {
                 return;
             }
 
@@ -227,7 +227,7 @@ namespace Major {
             );
         }
 
-        public void SetCarriedItem(Interact.Item item) {
+        public void SetCarriedItem(World.Item item) {
             if (_carriedItem) {
                 _carriedItem.SetCarriedState(false);
                 _carriedItem = null;
