@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Major.Interact {
+namespace Major.World {
     public class Door : Interactable {
         public float openAngle = 90.0f;
         public float closeAngle = 0.0f;
@@ -23,11 +23,11 @@ namespace Major.Interact {
 
         public void SetState(bool state) {
             StopAllCoroutines();
-            StartCoroutine(DoorMoveCoroutine(state));
+            StartCoroutine(Animate(state));
             openState = state;
         }
 
-        IEnumerator DoorMoveCoroutine(bool state) {
+        IEnumerator Animate(bool state) {
             var targetAngle = state ? openAngle : closeAngle;
             var targetEuler = new Vector3(
                 parent.localEulerAngles.x,
