@@ -40,7 +40,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581390327488026922}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 57680cfa08441e442bcbf52afcdf26c7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -348,7 +348,7 @@ MonoBehaviour:
   crouchSpeed: 3.5
   _body: {fileID: 1763937116390237451}
   _capsuleCollider: {fileID: 6592911673010266241}
-  _heldObject: {fileID: 0}
+  _carriedItem: {fileID: 0}
   _cam: {fileID: 421404078658582717}
   playerHeightCm: 200
   playerCrouchHeightCm: 100
@@ -364,7 +364,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6132541723238227052}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
