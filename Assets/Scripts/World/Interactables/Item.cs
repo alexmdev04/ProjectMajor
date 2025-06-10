@@ -1,9 +1,8 @@
 using UnityEngine;
 using Unity.Logging;
-using System.Globalization;
 using System;
 
-namespace Major.Interact {
+namespace Major.World {
     [RequireComponent(typeof(Rigidbody))]
     public class Item : Interactable {
         public enum PickupType {
@@ -18,6 +17,8 @@ namespace Major.Interact {
         }
 
         private Rigidbody rb;
+        private ItemSlot itemSlot;
+
 
         public Vector3 position {
             get { return rb.position; }
@@ -42,6 +43,11 @@ namespace Major.Interact {
                         break;
                     }
                 case PickupType.Carry: {
+                        if (isCarried) { return; }
+                        if (itemSlot) {
+                            itemSlot.Release();
+                            itemSlot = null;
+                        }
                         sender.SetCarriedItem(this);
                         break;
                     }
@@ -57,6 +63,13 @@ namespace Major.Interact {
             rb.constraints = state ? RigidbodyConstraints.FreezeAll : RigidbodyConstraints.None;
             rb.isKinematic = state;
             rb.detectCollisions = !state;
+        }
+
+        public void SetSlotted(ItemSlot slottedInto, Vector3 position, Quaternion rotation) {
+            rb.isKinematic = true;
+            itemSlot = slottedInto;
+            rb.position = position;
+            rb.rotation = rotation;
         }
         
         // Test whether the object can move towards the target, e.g. prevents objects going through walls.
