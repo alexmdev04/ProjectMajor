@@ -9,11 +9,11 @@ public static class Extensions {
     // https://github.com/UnioGame/UniModules/blob/20da8c139f1b2d63ecc98bfcf8368e0aea6d2b55/UniGame.AddressableTools/Editor/Extensions/AddressableHelper.cs
 
     public static Task Debug(this Task task, Type callerType, string taskName = "Unnamed Task", bool logged = false, bool timed = false, Action onTaskComplete = null) {
-        return Debug(task, nameof(callerType), taskName, logged, timed, onTaskComplete);
+        return Debug(task, callerType.Name, taskName, logged, timed, onTaskComplete);
     }
 
     public static Task<T> Debug<T>(this Task<T> task, Type callerType, string taskName = "Unnamed Task", bool logged = false, bool timed = false, Action<T> onTaskComplete = null) {
-        return Debug<T>(task, nameof(callerType), taskName, logged, timed, onTaskComplete);
+        return Debug<T>(task, callerType.FullName, taskName, logged, timed, onTaskComplete);
     }
 
     public static async Task Debug(this Task task, string caller, string taskName = "Unnamed Task", bool logged = false, bool timed = false, Action onTaskComplete = null) {
@@ -64,6 +64,14 @@ public static class MathExt {
     /// <returns></returns>
     public static bool Within(this float a, float b, float range) {
         return Mathf.Abs(b - a) < range;
+    }
+
+    public static Vector3 Clamp(Vector3 value, Vector3 min, Vector3 max) {
+        return new Vector3(
+            Mathf.Clamp(value.x, min.x, max.x),
+            Mathf.Clamp(value.y, min.y, max.y),
+            Mathf.Clamp(value.z, min.z, max.z)
+        );
     }
 }
 
