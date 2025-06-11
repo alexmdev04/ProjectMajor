@@ -6,6 +6,7 @@ using Unity.Logging;
 using UnityEngine.SceneManagement;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using System;
 
 namespace Major.Levels {
     public class Level : MonoBehaviour {
@@ -66,7 +67,16 @@ namespace Major.Levels {
         }
 
         public void Unload() {
+            foreach (var prefab in prefabInstances) {
+                Addressables.Release(prefab);
+            }
 
+            foreach (var sceneInstance in sceneInstances.Keys) {
+                UnloadScene(sceneInstance);
+            }
+
+            sceneInstances.Clear();
+            sceneAddresses.Clear();
         }
 
         // Loads a scene into the world via its key
@@ -104,6 +114,10 @@ namespace Major.Levels {
                 return;
             }
 
+            UnloadSceneInstance(key, sceneInstance);
+        }
+
+        public void UnloadSceneInstance(string key, SceneInstance sceneInstance) {
             if (!sceneInstance.Scene.isLoaded) {
                 return;
             }
