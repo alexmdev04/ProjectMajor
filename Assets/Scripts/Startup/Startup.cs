@@ -2,22 +2,21 @@ using Major.Levels;
 using UnityEngine;
 using Unity.Logging;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+using System.Threading.Tasks;
 
 namespace Major.Startup {
     public class Startup : MonoBehaviour {
-        public LevelAsset testLevel;
-        private void Awake() {
+        [field: SerializeField]
+        [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.level)]
+        public AssetReference startupLevel;
+        private async void Awake() {
             Log.Debug("[Startup] Starting up...");
-            string testLevelName = testLevel.name;
 
-            LoadScene("Persistence").completed += operation1 => {
-                LoadScene("Game", LoadSceneMode.Additive, true).completed += operation2 => {
-                    ClearStartupChecks();
-                    if (LevelManager.instance) {
-                        LevelManager.instance.LoadLevel(testLevelName);
-                    }
-                };
-            };
+            await LoadScene("Persistence");
+            await LoadScene("Game", LoadSceneMode.Additive, true);
+            ClearStartupChecks();
+            LevelManager.instance.SetStartupLevel(startupLevel);
         }
 
         private AsyncOperation LoadScene(string scene, LoadSceneMode loadSceneMode = LoadSceneMode.Single, bool setActive = false) {
