@@ -13,16 +13,16 @@ namespace Major.Levels {
         public string key { get; private set; }
 
         // Database of loaded prefabs that can be spawned by name
-        public Dictionary<string, GameObject> prefabs { get; private set; }
+        public Dictionary<string, GameObject> prefabs { get; private set; } = new();
 
         // List of all spawned prefabs
-        public List<GameObject> prefabInstances;
+        public List<GameObject> prefabInstances = new();
 
         // Database of scene addresses for loading during gameplay
-        public Dictionary<string, IResourceLocation> sceneAddresses { get; private set; }
+        public Dictionary<string, IResourceLocation> sceneAddresses { get; private set; } = new();
 
         // Database of currently spawned scenes
-        public Dictionary<string, SceneInstance> sceneInstances { get; private set; }
+        public Dictionary<string, SceneInstance> sceneInstances { get; private set; } = new();
 
         // Reference to the level asset that created this level
         public LevelAsset levelAsset { get; private set; }
