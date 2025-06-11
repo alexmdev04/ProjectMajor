@@ -26,7 +26,10 @@ namespace Major.Levels {
         [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.prefab)]
         public List<AssetReference> prefabReferences { get; private set; }
 
-        public async Task<Level.ConstructData> LoadAsync(string key = "", bool logTasks = false, bool timeTasks = false) {
+        [field: SerializeField]
+        public Vector3 startingPosition { get; private set; }
+
+        public async Task<Level.ConstructData> LoadAsync(bool logTasks = false, bool timeTasks = false) {
             // Loads all prefabs in this level
             var prefabs = await CacheAssetsFromReferences<GameObject>(prefabReferences).Debug(GetType(), "Prefab Caching", logTasks, timeTasks);
 
@@ -35,13 +38,13 @@ namespace Major.Levels {
 
             // Typically levels will have at least 1 scene
             if (scenes.Item1.Length <= 0) {
-                Log.Warning("Level '" + key + "' contains no scenes");
+                Log.Warning("Level '" + name + "' contains no scenes");
             }
 
             // Returns the construction data for levels
             return new() {
                 levelAsset = this,
-                key = key,
+                key = name,
                 sceneInstances = scenes.Item1,
                 sceneAddresses = scenes.Item2,
                 prefabAssets = new List<GameObject>()// assetLoadResults[1]
