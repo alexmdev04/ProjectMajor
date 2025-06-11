@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85a549c1bf7218a4db440b8ee8b74c41, type: 3}
-  m_Name: level1
+  m_Name: dev
   m_EditorClassIdentifier: 
   <sceneReferences>k__BackingField:
   - m_AssetGUID: 2cab5d75d7eedcb48a12b9c1400ba85c
@@ -18,5 +18,15 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  <assetReferences>k__BackingField: []
+  <assetReferences>k__BackingField:
+  - m_AssetGUID: 128a7ca29be9a2748bbfb7d6c6c6ba9d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: cb6fd9a18766aa8408a12b4bd84f740e
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 1
   <prefabReferences>k__BackingField: []
