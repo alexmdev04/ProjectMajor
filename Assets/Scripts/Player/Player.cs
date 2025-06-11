@@ -68,6 +68,7 @@ namespace Major {
         private bool grounded => MathF.Round(rb.linearVelocity.y, 3) == 0;
 
         private void Awake() {
+            instance = this;
             rb = GetComponent<Rigidbody>();
             playerHeight = playerHeightCm / 200.0f;
             playerCrouchHeight = playerCrouchHeightCm / 200.0f;
