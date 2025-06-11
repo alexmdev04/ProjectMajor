@@ -30,6 +30,8 @@ namespace Major.Levels {
         // Indicates successful construction
         public bool isConstructed;
 
+        public event Action<Level> onLevelLoaded = (level) => { Player.instance.transform.position = level.levelAsset.startingPosition; };
+
         private void Update() {
             if (!isConstructed) {
                 return;
@@ -60,6 +62,7 @@ namespace Major.Levels {
             }
 
             isConstructed = true;
+            onLevelLoaded(this);
         }
 
         public void Unload() {
