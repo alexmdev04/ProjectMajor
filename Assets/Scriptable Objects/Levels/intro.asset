@@ -35,3 +35,5 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  <startingPosition>k__BackingField: {x: -0.5, y: 10, z: 0.5}
+  <startingPositionAsOffset>k__BackingField: 0

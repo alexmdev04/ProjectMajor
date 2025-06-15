@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81569cc39ee18a544acc794b915aa9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerCount: 1
   level:
-    m_AssetGUID: 887221ff854b7c14f83c895c09037fa3
+    m_AssetGUID: 7ea8f74b45d8ec74ba2a8cfe71f7ae82
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
