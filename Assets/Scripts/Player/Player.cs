@@ -1,49 +1,31 @@
 using System;
 using UnityEngine;
-using Unity.Logging;
-using System.Threading;
-using UnityEngine.UIElements;
-using System.Runtime.InteropServices;
 
 namespace Major {
     public class Player : MonoBehaviour {
         public static Player instance { get; private set; }
+        public Rigidbody rb { get; private set; }
 
-        public bool
-            frictionType;
         public float
-            // groundedAccelerate = 15f,
-            // airAccelerate = 15f,
-            // maxVelocityGrounded = 6.5f,
-            // maxVelocityAir = 6.5f,
-            acceleration = 15f;
+            acceleration = 15f,
+            accelerationAir = 15f;
 
-        [Range(0.01f, 1f)] public float friction1 = 0.7f;
-        [Range(1f, 5f)] public float friction2 = 1f;
-
-        [Space] public bool moveFixedUpdate;
         public bool
             lookActive = true,
             moveActive = true;
-        public Rigidbody rb { get; private set; }
 
-        [SerializeField, Range(0f, 0.99f)]
-        private float
-            friction = 0.85f;
-        [SerializeField, Range(0f, 0.1f)]
-        private float
-            forceToApplyFriction = 0.1f,
-            flatvelMin = 0.1f;
+        [SerializeField, Range(0f, 0.99f)] private float friction = 0.85f;
+        [SerializeField, Range(0f, 0.1f)] private float flatvelMin = 0.1f;
+
         [SerializeField]
         private float
-            walkSpeed = 4f,
-            sprintSpeed = 6.5f,
+            walkVelocity = 4f,
+            sprintVelocity = 6.5f,
+            maxVelocityAir = 10000.0f, 
             cameraHeight = 0.825f,
-            movementAcceleration = 0.1f,
-            movementDecceleration = 0.05f,
+            // movementAcceleration = 0.1f,
+            // movementDecceleration = 0.05f,
             jumpForce = 5f,
-            groundedRayDistance = 1f,
-            movementRampTime,
             heldObjectDistance = 6.0f,
             crouchSpeed = 3.6576f;
         [SerializeField] private GameObject _body;
@@ -61,11 +43,10 @@ namespace Major {
         private float playerHeight;
         private float playerCrouchHeight;
 
-
         [Header("Interaction")]
         [SerializeField] private float interactDistance = 100.0f;
         [SerializeField] private LayerMask interactLayerMask = int.MaxValue;
-        private bool grounded => MathF.Round(rb.linearVelocity.y, 3) == 0;
+        public bool grounded => MathF.Round(rb.linearVelocity.y, 3) == 0.0f;
 
         private void Awake() {
             instance = this;
@@ -86,14 +67,13 @@ namespace Major {
         }
 
         private void Update() {
-            if (moveActive && !moveFixedUpdate) { UpdateMove(); }
             heldObjectDistance = Math.Clamp(heldObjectDistance + Input.Handler.instance.scrollDelta.y, 1.0f, 15.0f);
             UpdateCrouch();
             UpdateCarriedItem();
         }
 
         private void FixedUpdate() {
-            if (moveActive && moveFixedUpdate) { UpdateMove(); }
+            if (moveActive) { UpdateMove(); }
         }
 
         private void LateUpdate() {
@@ -120,37 +100,26 @@ namespace Major {
         }
 
         private void UpdateMove() {
-            float maxVelocity = Input.Handler.instance.sprinting ? sprintSpeed : walkSpeed;
+            float accel = acceleration;
+            float maxVelocity = Input.Handler.instance.sprinting ? sprintVelocity : walkVelocity;
             Vector3 movementDirectionGlobal = _capsuleCollider.transform.TransformDirection(Input.Handler.instance.movementDirection);
 
             if (grounded) {
                 // apply friction
                 float speed = rb.linearVelocity.magnitude;
-
-                if (speed <= flatvelMin) {
-                    rb.linearVelocity = Vector3.zero;
-                }
-
-                if (frictionType) {
-                    if (speed > 0) // Scale the velocity based on friction.
-                    {
-                        rb.linearVelocity *= (speed - (speed * friction2 * Time.fixedDeltaTime)) / speed;
-                    }
-
-                }
-                else {
-                    rb.linearVelocity *= friction1;
-                }
+                rb.linearVelocity = speed > flatvelMin ?
+                    rb.linearVelocity * ((speed - (speed * friction * Time.fixedDeltaTime)) / speed) :
+                    Vector3.zero;
             }
             else {
-                //maxVelocity = maxVelocityAir;
-                //acceleration = airAccelerate;
+                maxVelocity = maxVelocityAir;
+                accel = accelerationAir;
             }
 
-            float projVel = Vector3.Dot(rb.linearVelocity, movementDirectionGlobal); // Vector projection of Current velocity onto accelDir.
-            float accelVel = acceleration * Time.fixedDeltaTime; // Accelerated velocity in direction of movment
+            float projVel = Vector3.Dot(rb.linearVelocity, movementDirectionGlobal); // Projection of current velocity onto movement dir
+            float accelVel = accel * Time.fixedDeltaTime;
 
-            // If necessary, truncate the accelerated velocity so the vector projection does not exceed max_velocity
+            // Clamp acceleration
             if (projVel + accelVel > maxVelocity) {
                 accelVel = maxVelocity - projVel;
             }
