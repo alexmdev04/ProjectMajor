@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 namespace Major {
-    public class Debug {
+    public class DebugFoo {
 
         [Command("foo")]
         public void foo() {
