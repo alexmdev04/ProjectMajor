@@ -29,26 +29,15 @@ namespace Major.Levels {
         [field: SerializeField]
         public Vector3 startingPosition { get; private set; }
 
+        [field: SerializeField]
+        public bool startingPositionAsOffset { get; private set; }
+
         public async Task<Level.ConstructData> LoadAsync(bool logTasks = false, bool timeTasks = false) {
-            // Loads all prefabs in this level
-            var prefabs = await CacheAssetsFromReferences<GameObject>(prefabReferences).Debug(GetType(), "Prefab Caching", logTasks, timeTasks);
-
-            // Loads the scenes in this level, it is done after to prevent the game needing to load assets within the scene as well
-            var scenes = await CacheScenesFromReferences(sceneReferences).Debug(GetType(), "Scene Caching", logTasks, timeTasks);
-
-            // Typically levels will have at least 1 scene
-            if (scenes.Item1.Length <= 0) {
-                Log.Warning("Level '" + name + "' contains no scenes");
-            }
-
-            // Returns the construction data for levels
-            return new() {
-                levelAsset = this,
-                key = name,
-                sceneInstances = scenes.Item1,
-                sceneAddresses = scenes.Item2,
-                prefabAssets = new List<GameObject>()// assetLoadResults[1]
-            };
+            return new(
+                this,
+                await CachePrefabsFromReferences(prefabReferences).Debug(GetType(), "Prefab Caching", logTasks, timeTasks),
+                await CacheScenesFromReferences(sceneReferences).Debug(GetType(), "Scene Caching", logTasks, timeTasks)
+            );
         }
 
         // Loads a list of assets from an AssetReference list
@@ -62,10 +51,32 @@ namespace Major.Levels {
 
         // Similar to CacheAssetsFromReferences but for scenes
         // Loads all scenes in the level and stores a database of their names to addresses to be used later
-        private static async Task<(SceneInstance[], Dictionary<string, IResourceLocation>)> CacheScenesFromReferences(
+        private static async Task<CachedPrefabs> CachePrefabsFromReferences(
             IList<AssetReference> refs,
             Addressables.MergeMode mergeMode = Addressables.MergeMode.None
         ) {
+            Dictionary<IResourceLocation, GameObject> prefabs = new();
+            Dictionary<string, IResourceLocation> prefabAddresses = new();
+            List<Task<GameObject>> prefabLoadHandles = new();
+            foreach (var prefabResourceLocation in await Addressables.LoadResourceLocationsAsync(keys: refs, mode: mergeMode).Task) {
+                var handle = Addressables.LoadAssetAsync<GameObject>(prefabResourceLocation);
+                handle.Completed += (handle) => {
+                    prefabs.Add(prefabResourceLocation, handle.Result);
+                    prefabAddresses.Add(handle.Result.name, prefabResourceLocation);
+                };
+                prefabLoadHandles.Add(handle.Task);
+            }
+            await Task.WhenAll(prefabLoadHandles);
+            return new(prefabs, prefabAddresses, prefabLoadHandles.Count);
+        }
+
+        // Similar to CacheAssetsFromReferences but for scenes
+        // Loads all scenes in the level and stores a database of their names to addresses to be used later
+        private static async Task<CachedScenes> CacheScenesFromReferences(
+            IList<AssetReference> refs,
+            Addressables.MergeMode mergeMode = Addressables.MergeMode.None
+        ) {
+            Dictionary<IResourceLocation, SceneInstance> scenes = new();
             Dictionary<string, IResourceLocation> sceneAddresses = new();
             List<Task<SceneInstance>> sceneLoadHandles = new();
             foreach (var sceneResourceLocation in await Addressables.LoadResourceLocationsAsync(keys: refs, mode: mergeMode).Task) {
@@ -75,12 +86,45 @@ namespace Major.Levels {
                     releaseMode: SceneReleaseMode.OnlyReleaseSceneOnHandleRelease,
                     activateOnLoad: false
                 );
-                handle.Completed += (handle) => { sceneAddresses.Add(handle.Result.Scene.name, sceneResourceLocation); };
+                handle.Completed += (handle) => {
+                    scenes.Add(sceneResourceLocation, handle.Result);
+                    sceneAddresses.Add(handle.Result.Scene.name, sceneResourceLocation);
+                };
                 sceneLoadHandles.Add(handle.Task);
             }
 
-            var sceneInstances = await Task.WhenAll(sceneLoadHandles);
-            return (sceneInstances, sceneAddresses);
+            await Task.WhenAll(sceneLoadHandles);
+            return new(scenes, sceneAddresses, sceneLoadHandles.Count);
+        }
+    }
+
+    public struct CachedPrefabs {
+        public Dictionary<IResourceLocation, GameObject> prefabs;
+        public Dictionary<string, IResourceLocation> addresses;
+        public int count;
+        public CachedPrefabs(
+            Dictionary<IResourceLocation, GameObject> prefabs,
+            Dictionary<string, IResourceLocation> addresses,
+            int count
+        ) {
+            this.prefabs = prefabs;
+            this.addresses = addresses;
+            this.count = count;
+        }
+    }
+
+    public struct CachedScenes {
+        public Dictionary<IResourceLocation, SceneInstance> scenes;
+        public Dictionary<string, IResourceLocation> sceneAddresses;
+        public int count;
+        public CachedScenes(
+            Dictionary<IResourceLocation, SceneInstance> scenes,
+            Dictionary<string, IResourceLocation> sceneAddresses,
+            int count
+        ) {
+            this.scenes = scenes;
+            this.sceneAddresses = sceneAddresses;
+            this.count = count;
         }
     }
 }

@@ -33,11 +33,11 @@ namespace Major.Levels {
             }
 
             if (Keyboard.current.f2Key.wasPressedThisFrame) {
-                levelCurrent.UnloadScene(AssetKeys.Scenes.intro.home);
+                levelCurrent.DespawnSceneAsync(AssetKeys.Scenes.intro.home);
             }
 
             if (Keyboard.current.f3Key.wasPressedThisFrame) {
-                levelCurrent.LoadSceneAsync(AssetKeys.Scenes.intro.home);
+                levelCurrent.SpawnSceneAsync(AssetKeys.Scenes.intro.home);
             }
 
             if (Keyboard.current.f4Key.wasPressedThisFrame) {

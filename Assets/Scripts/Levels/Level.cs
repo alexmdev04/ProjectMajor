@@ -7,23 +7,29 @@ using UnityEngine.SceneManagement;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System;
+using System.Threading.Tasks;
 
 namespace Major.Levels {
     public class Level : MonoBehaviour {
         // The key used to load this level
         public string key { get; private set; }
 
-        // Database of loaded prefabs that can be spawned by name
-        public Dictionary<string, GameObject> prefabs { get; private set; } = new();
 
-        // List of all spawned prefabs
-        public List<GameObject> prefabInstances = new();
+        // Database of loaded prefabs that can be spawned by resource location
+        public Dictionary<IResourceLocation, GameObject> prefabs { get; private set; }
 
-        // Database of scene addresses for loading during gameplay
-        public Dictionary<string, IResourceLocation> sceneAddresses { get; private set; } = new();
+        // Database of prefab addresses
+        public Dictionary<string, IResourceLocation> prefabAddresses { get; private set; }
+
 
         // Database of currently spawned scenes
-        public Dictionary<string, SceneInstance> sceneInstances { get; private set; } = new();
+        public Dictionary<IResourceLocation, SceneInstance> scenes { get; private set; }
+
+        // Database of scene addresses for loading during gameplay
+        public Dictionary<string, IResourceLocation> sceneAddresses { get; private set; }
+
+        //
+        public List<SceneInstance> loadedScenes { get; private set; }
 
         // Reference to the level asset that created this level
         public LevelAsset levelAsset { get; private set; }
@@ -31,7 +37,9 @@ namespace Major.Levels {
         // Indicates successful construction
         public bool isConstructed;
 
-        public event Action<Level> onLevelLoaded = (level) => { Player.instance.transform.position = level.levelAsset.startingPosition; };
+        public event Action<Level> onLevelLoaded = (level) => {
+            level.StartupTeleport();
+        };
 
         private void Update() {
             if (!isConstructed) {
@@ -43,102 +51,115 @@ namespace Major.Levels {
         public void Construct(ConstructData constructData) {
             levelAsset = constructData.levelAsset;
             key = constructData.key;
-            sceneAddresses = constructData.sceneAddresses;
-            sceneInstances = new();
+            sceneAddresses = constructData.cachedScenes.sceneAddresses;
+            scenes = constructData.cachedScenes.scenes;
 
-            for (int i = 0; i < constructData.sceneInstances.Count; i++) {
-                var sceneInstance = constructData.sceneInstances[i];
-                if (i == 0) {
-                    sceneInstance.ActivateAsync();
-                    sceneInstances.Add(sceneInstance.Scene.name, sceneInstance);
-                    continue;
-                }
-                Addressables.UnloadSceneAsync(sceneInstance);
+            foreach (var sceneInstance in constructData.cachedScenes.scenes.Values) {
+                sceneInstance.ActivateAsync();
+                DespawnSceneAsync(sceneInstance);
             }
 
-            prefabs = new();
-            foreach (var prefab in constructData.prefabAssets) {
-                prefabs.Add(prefab.name, prefab);
-                //Log.Debug("Registered prefab to " + key + " level data: " + prefab.name);
-            }
-
+            prefabs = constructData.cachedPrefabs.prefabs;
+            prefabAddresses = constructData.cachedPrefabs.addresses;
             isConstructed = true;
             onLevelLoaded(this);
         }
 
         public void Unload() {
-            foreach (var prefab in prefabInstances) {
+            foreach (var prefab in prefabs.Values) { // todo  prefabs isnt instances
                 Addressables.Release(prefab);
             }
 
-            foreach (var sceneInstance in sceneInstances.Keys) {
-                UnloadScene(sceneInstance);
+            foreach (var scene in scenes.Values) {
+                Addressables.UnloadSceneAsync(scene, UnloadSceneOptions.None).Completed += handle => {
+                    if (handle.Status == AsyncOperationStatus.Failed) {
+                        Log.Error("[Level] Unload Scene failed.");
+                        Log.Error(handle.OperationException.ToString());
+                    }
+                };
             }
 
-            sceneInstances.Clear();
+            scenes.Clear();
             sceneAddresses.Clear();
         }
 
-        // Loads a scene into the world via its key
-        // Only pre-loaded scenes will work
-        public async void LoadSceneAsync(string key) {
+        // 
+        public async void SpawnSceneAsync(string key) {
             // Check if this level has this scene
-            if (!sceneAddresses.TryGetValue(key, out var sceneAddress)) {
-                Log.Error("[Level] Load Scene failed: scene key '" + key + "' not found in this level.");
+
+            if (!TryGetSceneInstance(key, out var sceneInstance)) {
+                Log.Error("[Level] Load Scene failed.");
                 return;
             }
 
-            // Check if the scene is already loaded
-            if (sceneInstances.TryGetValue(key, out var sceneInstance)) {
-                await sceneInstance.ActivateAsync();
-                Log.Debug("[Level] Attempted to load a scene that is already loaded");
-                return;
-            }
+            await SpawnSceneAsync(sceneInstance);
+        }
 
+        // 
+        public async Task SpawnSceneAsync(SceneInstance sceneInstance) {
             // Loads the scene additively and activates it
-            var loadSceneHandle = Addressables.LoadSceneAsync(
-                location: sceneAddress,
-                loadMode: LoadSceneMode.Additive,
-                releaseMode: SceneReleaseMode.OnlyReleaseSceneOnHandleRelease,
-                activateOnLoad: true
-            );
-            await loadSceneHandle.Task;
-
-            sceneInstances.Add(loadSceneHandle.Result.Scene.name, loadSceneHandle.Result);
+            await SceneManager.LoadSceneAsync(sceneInstance.Scene.name);
         }
 
-        // Unloads a scene via its key, however it will remain cached (by design)
-        public void UnloadScene(string key) {
-            if (!sceneInstances.TryGetValue(key, out var sceneInstance)) {
-                Log.Error("[Level] Unload Scene failed: scene key '" + key + "' not found in scene instances.");
+        // 
+        public async void DespawnSceneAsync(string key) {
+            if (!TryGetSceneInstance(key, out var sceneInstance)) {
+                Log.Error("[Level] Unload Scene failed.");
                 return;
             }
 
-            UnloadSceneInstance(key, sceneInstance);
+            await DespawnSceneAsync(sceneInstance);
         }
 
-        public void UnloadSceneInstance(string key, SceneInstance sceneInstance) {
+        public async Task DespawnSceneAsync(SceneInstance sceneInstance) {
             if (!sceneInstance.Scene.isLoaded) {
                 return;
             }
-
-            Addressables.UnloadSceneAsync(sceneInstance, UnloadSceneOptions.None).Completed += handle => {
-                if (handle.Status == AsyncOperationStatus.Failed) {
-                    Log.Error("[Level] Unload Scene failed.");
-                    Log.Error(handle.OperationException.ToString());
-                }
-                else {
-                    sceneInstances.Remove(key);
-                }
-            };
+            foreach (var root in sceneInstance.Scene.GetRootGameObjects()) {
+                
+            }
+            await SceneManager.UnloadSceneAsync(sceneInstance.Scene);
         }
 
+        public void StartupTeleport() {
+            Player.instance.rb.position = levelAsset.startingPositionAsOffset ?
+                Player.instance.rb.position + levelAsset.startingPosition :
+                levelAsset.startingPosition;
+        }
+
+        public bool TryGetSceneInstance(string key, out SceneInstance sceneInstance) {
+            if (!sceneAddresses.TryGetValue(key, out var sceneAddress)) {
+                Log.Error("[Level] '" + key + "' is not a valid scene address key.");
+                sceneInstance = default;
+                return false;
+            }
+
+            if (!scenes.TryGetValue(sceneAddress, out sceneInstance)) {
+                Log.Error("[Level] '" + sceneAddress.PrimaryKey + "' is not a valid scene address.");
+                return false;
+            }
+
+            return true;
+        }
         public struct ConstructData {
             public LevelAsset levelAsset;
             public string key;
-            public IList<SceneInstance> sceneInstances;
-            public Dictionary<string, IResourceLocation> sceneAddresses;
-            public IList<GameObject> prefabAssets;
+            public CachedPrefabs cachedPrefabs;
+            public CachedScenes cachedScenes;
+
+            public ConstructData(
+                LevelAsset levelAsset,
+                CachedPrefabs cachedPrefabs,
+                CachedScenes cachedScenes
+            ) {
+                this.levelAsset = levelAsset;
+                this.key = levelAsset.name;
+                this.cachedPrefabs = cachedPrefabs;
+                if (cachedScenes.count <= 0) {
+                    Log.Warning("Level '" + key + "' contains no scenes");
+                }
+                this.cachedScenes = cachedScenes;
+            }
         }
     }
 }
