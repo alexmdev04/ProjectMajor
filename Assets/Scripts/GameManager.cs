@@ -7,8 +7,6 @@ using UnityEngine.AddressableAssets;
 namespace Major {
     public class GameManager : MonoBehaviour {
         public static GameManager instance { get; private set; }
-        [SerializeField] public GameObject ctsRoot;
-        [SerializeField] public GameObject testCube;
         public bool paused { get; private set; }
         public bool inGame { get; private set; }
         public string playerName { get; private set; } = "Player";

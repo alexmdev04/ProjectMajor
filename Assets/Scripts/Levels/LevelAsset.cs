@@ -14,12 +14,12 @@ namespace Major.Levels {
         // Scenes that are referenced within this level
         [field: SerializeField]
         [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.scene)]
-        public List<AssetReference> sceneReferences { get; private set; }
+        public AssetReference sceneReference { get; private set; }
 
-        // Individual assets referenced 
-        [field: SerializeField]
-        [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.asset)]
-        public List<AssetReference> assetReferences { get; private set; }
+        // // Individual assets referenced 
+        // [field: SerializeField]
+        // [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.asset)]
+        // public List<AssetReference> assetReferences { get; private set; }
 
         // Prefabs referenced within this level
         [field: SerializeField]
@@ -27,16 +27,16 @@ namespace Major.Levels {
         public List<AssetReference> prefabReferences { get; private set; }
 
         [field: SerializeField]
-        public Vector3 startingPosition { get; private set; }
+        public StartingPosition playerStartingPosition { get; private set; }
 
         [field: SerializeField]
-        public bool startingPositionAsOffset { get; private set; }
+        public StartingPosition kevinStartingPosition { get; private set; }
 
         public async Task<Level.ConstructData> LoadAsync(bool logTasks = false, bool timeTasks = false) {
             return new(
                 this,
                 await CachePrefabsFromReferences(prefabReferences).Debug(GetType(), "Prefab Caching", logTasks, timeTasks),
-                await CacheScenesFromReferences(sceneReferences).Debug(GetType(), "Scene Caching", logTasks, timeTasks)
+                await Addressables.LoadSceneAsync(sceneReference, LoadSceneMode.Additive, true).Task.Debug(GetType(), "Loading Scene", logTasks, timeTasks)
             );
         }
 
@@ -69,33 +69,6 @@ namespace Major.Levels {
             await Task.WhenAll(prefabLoadHandles);
             return new(prefabs, prefabAddresses, prefabLoadHandles.Count);
         }
-
-        // Similar to CacheAssetsFromReferences but for scenes
-        // Loads all scenes in the level and stores a database of their names to addresses to be used later
-        private static async Task<CachedScenes> CacheScenesFromReferences(
-            IList<AssetReference> refs,
-            Addressables.MergeMode mergeMode = Addressables.MergeMode.None
-        ) {
-            Dictionary<IResourceLocation, SceneInstance> scenes = new();
-            Dictionary<string, IResourceLocation> sceneAddresses = new();
-            List<Task<SceneInstance>> sceneLoadHandles = new();
-            foreach (var sceneResourceLocation in await Addressables.LoadResourceLocationsAsync(keys: refs, mode: mergeMode).Task) {
-                var handle = Addressables.LoadSceneAsync(
-                    location: sceneResourceLocation,
-                    loadMode: LoadSceneMode.Additive,
-                    releaseMode: SceneReleaseMode.OnlyReleaseSceneOnHandleRelease,
-                    activateOnLoad: false
-                );
-                handle.Completed += (handle) => {
-                    scenes.Add(sceneResourceLocation, handle.Result);
-                    sceneAddresses.Add(handle.Result.Scene.name, sceneResourceLocation);
-                };
-                sceneLoadHandles.Add(handle.Task);
-            }
-
-            await Task.WhenAll(sceneLoadHandles);
-            return new(scenes, sceneAddresses, sceneLoadHandles.Count);
-        }
     }
 
     public struct CachedPrefabs {
@@ -113,18 +86,9 @@ namespace Major.Levels {
         }
     }
 
-    public struct CachedScenes {
-        public Dictionary<IResourceLocation, SceneInstance> scenes;
-        public Dictionary<string, IResourceLocation> sceneAddresses;
-        public int count;
-        public CachedScenes(
-            Dictionary<IResourceLocation, SceneInstance> scenes,
-            Dictionary<string, IResourceLocation> sceneAddresses,
-            int count
-        ) {
-            this.scenes = scenes;
-            this.sceneAddresses = sceneAddresses;
-            this.count = count;
-        }
+    [Serializable]
+    public struct StartingPosition {
+        public Vector3 pos;
+        public bool isOffset;
     }
 }

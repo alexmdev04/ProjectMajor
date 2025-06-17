@@ -32,13 +32,13 @@ namespace Major.Levels {
                 LoadLevel(AssetKeys.Levels.intro);
             }
 
-            if (Keyboard.current.f2Key.wasPressedThisFrame) {
-                levelCurrent.DespawnSceneAsync(AssetKeys.Scenes.intro.home);
-            }
+            // if (Keyboard.current.f2Key.wasPressedThisFrame) {
+            //     levelCurrent.DespawnSceneAsync(AssetKeys.Scenes.intro.home);
+            // }
 
-            if (Keyboard.current.f3Key.wasPressedThisFrame) {
-                levelCurrent.SpawnSceneAsync(AssetKeys.Scenes.intro.home);
-            }
+            // if (Keyboard.current.f3Key.wasPressedThisFrame) {
+            //     levelCurrent.SpawnSceneAsync(AssetKeys.Scenes.intro.home);
+            // }
 
             if (Keyboard.current.f4Key.wasPressedThisFrame) {
                 var foo = Addressables.BuildPath;

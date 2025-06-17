@@ -12,28 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a549c1bf7218a4db440b8ee8b74c41, type: 3}
   m_Name: intro
   m_EditorClassIdentifier: 
-  <sceneReferences>k__BackingField:
-  - m_AssetGUID: 2debeed2b195d1f4b8bbd6f2f256b458
+  <sceneReference>k__BackingField:
+    m_AssetGUID: 2debeed2b195d1f4b8bbd6f2f256b458
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  <assetReferences>k__BackingField:
-  - m_AssetGUID: 128a7ca29be9a2748bbfb7d6c6c6ba9d
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: cb6fd9a18766aa8408a12b4bd84f740e
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 1
   <prefabReferences>k__BackingField:
   - m_AssetGUID: b8f7c6e9d1353a043be1f23037ec944c
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  <startingPosition>k__BackingField: {x: -0.5, y: 10, z: 0.5}
-  <startingPositionAsOffset>k__BackingField: 0
+  <playerStartingPosition>k__BackingField:
+    pos: {x: -0.5, y: 10, z: 0.5}
+    isOffset: 0
+  <kevinStartingPosition>k__BackingField:
+    pos: {x: -0.5, y: 3, z: 0.5}
+    isOffset: 0

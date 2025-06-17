@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a549c1bf7218a4db440b8ee8b74c41, type: 3}
   m_Name: level1
   m_EditorClassIdentifier: 
-  <sceneReferences>k__BackingField:
-  - m_AssetGUID: f07d85f93445a2f49826918ef4eb3516
+  <sceneReference>k__BackingField:
+    m_AssetGUID: f07d85f93445a2f49826918ef4eb3516
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  <assetReferences>k__BackingField: []
   <prefabReferences>k__BackingField: []
-  <startingPosition>k__BackingField: {x: 0, y: 0, z: 0}
-  <startingPositionAsOffset>k__BackingField: 1
+  <playerStartingPosition>k__BackingField:
+    pos: {x: 0, y: 0, z: 0}
+    isOffset: 1
+  <kevinStartingPosition>k__BackingField:
+    pos: {x: 0, y: 0, z: 0}
+    isOffset: 1
