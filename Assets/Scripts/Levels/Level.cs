@@ -32,7 +32,10 @@ namespace Major.Levels {
 
         public event Action<Level> onLevelLoaded = (level) => {
             Player.instance.rb.StartupTeleport(level.levelAsset.playerStartingPosition);
-            Kevin.instance.rb.StartupTeleport(level.levelAsset.kevinStartingPosition);
+            World.Kevin.instance.rb.StartupTeleport(level.levelAsset.kevinStartingPosition);
+            if (!Player.instance.carriedItem) {
+                World.Kevin.instance.item.SetCarriedState(false);
+            }
         };
 
         private void Update() {
@@ -58,6 +61,17 @@ namespace Major.Levels {
             foreach (var prefab in prefabs.Values) {
                 Addressables.Release(prefab);
             }
+        }
+
+        public bool SpawnPrefab(IResourceLocation prefabAssetLocation, Vector3 position, Quaternion rotation, out GameObject newObj) {
+            if (!prefabs.TryGetValue(prefabAssetLocation, out var prefab)) {
+                Log.Error("[Level] Prefab spawn failed: '" + prefabAssetLocation.PrimaryKey + "' is not part of this level or doesn't exist.");
+                newObj = null;
+                return false;
+            }
+            newObj = Instantiate(prefab, position, rotation);
+            SceneManager.MoveGameObjectToScene(newObj, sceneInstance.Scene);
+            return true;
         }
 
         public struct ConstructData {

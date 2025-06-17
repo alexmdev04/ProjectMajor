@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: 37b3fd91f8f49b74abfe3b7e0326d37a
   m_SerializeEntries:
   - m_GUID: b8f7c6e9d1353a043be1f23037ec944c
-    m_Address: Assets/Prefabs/testCube.prefab
+    m_Address: Assets/Prefabs/CCube.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - lbl_prefab
