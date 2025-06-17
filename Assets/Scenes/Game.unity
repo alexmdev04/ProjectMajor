@@ -525,41 +525,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1754290680 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6132541723238227052, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-  m_PrefabInstance: {fileID: 1772647108}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1754290684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754290680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afe4177d1b4fe7b41802ce9e81c1f454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundedCastOffset: {x: 0, y: 0.005, z: 0}
-  groundedCastDistance: 0.01
-  groundObject: {fileID: 0}
-  groundNormal: {x: 0, y: 1, z: 0}
-  jumping: 0
-  crouching: 0
-  sprinting: 0
-  speed: 0
-  maxVelocity: 50
-  frictionMult: 1
-  gravity: 20
-  surfaceFriction: 0
-  gravityFactor: 1
-  groundedlayerMask:
-    serializedVersion: 2
-    m_Bits: 243
-  velocity: {x: 0, y: 0, z: 0}
-  grounded: 0
 --- !u!1001 &1772647108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -568,17 +533,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 773336461374269899, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 773336461374269899, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
+    - target: {fileID: 3524394927746000960, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
+      propertyPath: groundedCheckBoxSize.x
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3524394927746000960, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-      propertyPath: moveActive
-      value: 0
+      propertyPath: groundedCheckBoxSize.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524394927746000960, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
+      propertyPath: groundedCheckBoxSize.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3524394927746000960, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
+      propertyPath: groundedCheckLayer.m_Bits
+      value: 193
       objectReference: {fileID: 0}
     - target: {fileID: 6132541723238227052, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
       propertyPath: m_Name
@@ -627,10 +596,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6132541723238227052, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1754290684}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
 --- !u!1001 &1388589884359358672
 PrefabInstance:

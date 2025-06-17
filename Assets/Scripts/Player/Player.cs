@@ -1,4 +1,5 @@
 using System;
+using Unity.Logging;
 using UnityEngine;
 
 namespace Major {
@@ -14,7 +15,7 @@ namespace Major {
             lookActive = true,
             moveActive = true;
 
-        [SerializeField, Range(0f, 0.99f)] private float friction = 0.85f;
+        [SerializeField] private float friction = 0.85f;
         [SerializeField, Range(0f, 0.1f)] private float flatvelMin = 0.1f;
 
         [SerializeField]
@@ -28,6 +29,8 @@ namespace Major {
             jumpForce = 5f,
             heldObjectDistance = 6.0f,
             crouchSpeed = 3.6576f;
+        [SerializeField] private Vector3 groundedCheckBoxSize = Vector3.one;
+        [SerializeField] private LayerMask groundedCheckLayer;
         [SerializeField] private GameObject _body;
         public GameObject body => _body;
         [SerializeField] private CapsuleCollider _capsuleCollider;
@@ -46,7 +49,8 @@ namespace Major {
         [Header("Interaction")]
         [SerializeField] private float interactDistance = 100.0f;
         [SerializeField] private LayerMask interactLayerMask = int.MaxValue;
-        public bool grounded => MathF.Round(rb.linearVelocity.y, 3) == 0.0f;
+        public bool grounded { get; private set; }
+        // => MathF.Round(rb.linearVelocity.y, 3) == 0.0f;
 
         private void Awake() {
             instance = this;
@@ -73,6 +77,7 @@ namespace Major {
         }
 
         private void FixedUpdate() {
+            GroundedCheck();
             if (moveActive) { UpdateMove(); }
         }
 
@@ -125,6 +130,10 @@ namespace Major {
             }
 
             rb.linearVelocity += movementDirectionGlobal * accelVel;
+        }
+
+        private void GroundedCheck() {
+            grounded = Physics.OverlapBox(center: rb.position, halfExtents: groundedCheckBoxSize, orientation: Quaternion.identity, layerMask: groundedCheckLayer).Length > 1;
         }
 
         private void Jump() {

@@ -730,8 +730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 096dfefa798a14a4da18b3f2b121164f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ctsRoot: {fileID: 0}
-  testCube: {fileID: 0}
 --- !u!4 &947500652
 Transform:
   m_ObjectHideFlags: 0
