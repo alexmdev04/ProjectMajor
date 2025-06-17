@@ -15,7 +15,9 @@ namespace Major.World {
         [AssetReferenceUILabelRestriction(AssetKeys.Labels.prefab)]
         private AssetReferenceGameObject prefabAsset;
         private IResourceLocation prefabAddress;
-        [SerializeField] private int maxInstances = 1;
+        [SerializeField] private uint maxInstances = 1;
+        [SerializeField] private uint uses;
+        private uint used;
         public Queue<GameObject> instances { get; private set; } = new();
 
         [SerializeField] private Transform spawnLocation;
@@ -25,8 +27,12 @@ namespace Major.World {
         }
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
+            if (used >= uses && uses > 0) {
+                return;
+            }
+
             var validInstances = new Queue<GameObject>();
-            var validInstancesCount = 0;
+            uint validInstancesCount = 0U;
             while (instances.TryDequeue(out var instance)) {
                 if (instance) {
                     validInstances.Enqueue(instance);
@@ -44,6 +50,7 @@ namespace Major.World {
 
             if (LevelManager.levelCurrent.SpawnPrefab(prefabAddress, spawnLocation.position, spawnLocation.rotation, out var prefabInstance)) {
                 instances.Enqueue(prefabInstance);
+                used++;
             }
         }
 
