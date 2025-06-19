@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Major.World {
-    public class TriggerDoor : Triggerable {
+    public class TriggerableDoor : Triggerable {
         [SerializeField] private SlideAnimation leftDoorAnim;
         [SerializeField] private SlideAnimation rightDoorAnim;
 
