@@ -534,19 +534,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3524394927746000960, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-      propertyPath: groundedCheckBoxSize.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3524394927746000960, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-      propertyPath: groundedCheckBoxSize.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 3524394927746000960, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-      propertyPath: groundedCheckBoxSize.z
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3524394927746000960, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
-      propertyPath: groundedCheckLayer.m_Bits
+      propertyPath: carriedItemLayerMask.m_Bits
       value: 193
       objectReference: {fileID: 0}
     - target: {fileID: 6132541723238227052, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}

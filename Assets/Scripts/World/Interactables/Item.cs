@@ -16,7 +16,7 @@ namespace Major.World {
             None,
         }
 
-        private Rigidbody rb;
+        public Rigidbody rb { get; private set; }
         private ItemSlot itemSlot;
 
 
@@ -60,9 +60,7 @@ namespace Major.World {
             }
 
             isCarried = state;
-            rb.constraints = state ? RigidbodyConstraints.FreezeAll : RigidbodyConstraints.None;
-            rb.isKinematic = state;
-            rb.detectCollisions = !state;
+            rb.useGravity = !state;
         }
 
         public void SetSlotted(ItemSlot slottedInto, Vector3 position, Quaternion rotation) {

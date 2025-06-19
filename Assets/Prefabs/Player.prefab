@@ -361,20 +361,22 @@ MonoBehaviour:
   jumpForce: 5
   heldObjectDistance: 6
   crouchSpeed: 3.5
-  groundedCheckBoxSize: {x: 1, y: 1, z: 1}
+  groundedCheckBoxSize: {x: 0.1, y: 0.01, z: 0.1}
   groundedCheckLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 193
   _body: {fileID: 1763937116390237451}
   _capsuleCollider: {fileID: 6592911673010266241}
   _carriedItem: {fileID: 0}
   _cam: {fileID: 421404078658582717}
   playerHeightCm: 200
   playerCrouchHeightCm: 100
-  interactDistance: 100
+  interactDistance: 3
   interactLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 193
+  maxDistance: 10
+  travelSpeed: 100
 --- !u!54 &773336461374269899
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using Unity.Logging;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Major {
@@ -49,6 +50,9 @@ namespace Major {
         [Header("Interaction")]
         [SerializeField] private float interactDistance = 100.0f;
         [SerializeField] private LayerMask interactLayerMask = int.MaxValue;
+        [SerializeField] private float maxDistance = 10.0f;
+        [SerializeField] private float travelSpeed = 15.0f;
+
         public bool grounded { get; private set; }
         // => MathF.Round(rb.linearVelocity.y, 3) == 0.0f;
 
@@ -86,6 +90,11 @@ namespace Major {
         }
 
         private void Look() {
+            int foo = 0;
+
+            float bar = (float)foo;
+
+
             Vector2 mouseDeltaMult = Input.Handler.instance.mouseDelta * Input.Handler.instance.sensitivity;
 
             playerEulerAngles = new Vector2(
@@ -199,11 +208,14 @@ namespace Major {
                 return;
             }
 
-            _carriedItem.position = Vector3.Lerp(
-                _carriedItem.position,
-                _cam.transform.position + Quaternion.Euler(combinedFacingEulerAngles) * Vector3.forward * 2.5f, // distance
-                15.0f * Time.deltaTime // lerp speed
-            );
+            var objPos = _carriedItem.rb.position;
+            var target = _cam.transform.position + (_cam.transform.forward * 2.5f);
+            var distance = Vector3.Distance(objPos, target);
+
+            _carriedItem.rb.linearVelocity =
+                (target - objPos).normalized * // direction
+                Mathf.Min(Mathf.InverseLerp(0.0f, maxDistance, distance), 1.0f) * // speed
+                travelSpeed;
         }
 
         public void SetCarriedItem(World.Item item) {
