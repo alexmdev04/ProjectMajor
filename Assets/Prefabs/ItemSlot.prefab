@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 4681521435094215460}
   - component: {fileID: 1684169543805680988}
   - component: {fileID: 7547502174366443717}
+  - component: {fileID: 3315855491759224014}
   m_Layer: 0
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -272,7 +273,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1, y: 1.1, z: 1}
+  m_Size: {x: 1.1, y: 1.1, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7547502174366443717
 MonoBehaviour:
@@ -286,7 +287,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03022a101ee3c74ebcb31bbbe268451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerable: {fileID: 0}
+  triggerables: []
+--- !u!114 &3315855491759224014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5389618338231501104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <obj>k__BackingField: {fileID: 0}
+  <animDirection>k__BackingField: {x: 0, y: 0, z: 0}
+  <animDistance>k__BackingField: 1
+  <animSpeed>k__BackingField: 10
 --- !u!1 &5859576187207010644
 GameObject:
   m_ObjectHideFlags: 0

@@ -122,7 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74608699eeaf5a8498208cea525de908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerable: {fileID: 0}
+  triggerables: []
+  minimumEntities: 1
   anim: {fileID: 4681358735415051358}
 --- !u!114 &4681358735415051358
 MonoBehaviour:
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 4297651216335079113}
-  animDirection: {x: 0, y: -1, z: 0}
-  animDistance: 0.2
-  animSpeed: 2
+  <obj>k__BackingField: {fileID: 4297651216335079113}
+  <animDirection>k__BackingField: {x: 0, y: -1, z: 0}
+  <animDistance>k__BackingField: 1.6
+  <animSpeed>k__BackingField: 5
