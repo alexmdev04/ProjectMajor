@@ -181,9 +181,8 @@ namespace Major {
         }
 
         private void Interact() {
-            if (_carriedItem) {
-                _carriedItem.SetCarriedState(false);
-                _carriedItem = null;
+            // Check if the player has an item and drop it
+            if (DropCarriedItem()) {
                 return;
             }
 
@@ -208,6 +207,10 @@ namespace Major {
                 return;
             }
 
+            if (_carriedItem.rb.isKinematic) {
+                return;
+            }
+
             var objPos = _carriedItem.rb.position;
             var target = _cam.transform.position + (_cam.transform.forward * 2.5f);
             var distance = Vector3.Distance(objPos, target);
@@ -219,13 +222,18 @@ namespace Major {
         }
 
         public void SetCarriedItem(World.Item item) {
+            DropCarriedItem();
+            item.SetCarriedState(true);
+            _carriedItem = item;
+        }
+
+        public bool DropCarriedItem() {
             if (_carriedItem) {
                 _carriedItem.SetCarriedState(false);
                 _carriedItem = null;
+                return true;
             }
-
-            item.SetCarriedState(true);
-            _carriedItem = item;
+            return false;
         }
     }
 }
