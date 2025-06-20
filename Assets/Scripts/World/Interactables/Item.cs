@@ -18,7 +18,7 @@ namespace Major.World {
 
         public Rigidbody rb { get; private set; }
         private ItemSlot itemSlot;
-
+        public bool recentlySlotted;
 
         public Vector3 position {
             get { return rb.position; }
@@ -43,10 +43,13 @@ namespace Major.World {
                         break;
                     }
                 case PickupType.Carry: {
-                        if (isCarried) { return; }
+                        if (isCarried) {
+                            break;
+                        }
                         if (itemSlot) {
                             itemSlot.Release();
                             itemSlot = null;
+                            break;
                         }
                         sender.SetCarriedItem(this);
                         break;
@@ -63,17 +66,21 @@ namespace Major.World {
             rb.useGravity = !state;
         }
 
-        public void SetSlotted(ItemSlot slottedInto, Vector3 position, Quaternion rotation) {
-            rb.isKinematic = true;
+        public void OnSlotted(ItemSlot slottedInto) {
             itemSlot = slottedInto;
-            rb.position = position;
-            rb.rotation = rotation;
+            Player.instance.DropCarriedItem();
+            SetSlottedState(true);
         }
-        
-        // Test whether the object can move towards the target, e.g. prevents objects going through walls.
-        // Get the point on the object's collider faces, from the direction of the movement from the center of the object to the target position
-        // public bool TryMoveTowards(Vector3 target) {
 
-        // }
+        public void OnUnslotted() {
+            itemSlot = null;
+            // Player.instance.SetCarriedItem(item);
+            SetSlottedState(false);
+        }
+
+        private void SetSlottedState(bool state) {
+            rb.isKinematic = state;
+            recentlySlotted = state;
+        }
     }
 }

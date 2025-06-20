@@ -755,6 +755,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4857990856547437418, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
+      propertyPath: <obj>k__BackingField
+      value: 
+      objectReference: {fileID: 434333299}
     - target: {fileID: 5286347124850518176, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: m_Name
       value: Cube Spawner Button
@@ -2453,6 +2457,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3315855491759224014, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
+      propertyPath: animSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315855491759224014, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
+      propertyPath: animDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4026301294658512998, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.1
@@ -2975,7 +2987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8116174653599639225, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
       propertyPath: m_Name
-      value: Room Exit Doot
+      value: Room Exit Door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
