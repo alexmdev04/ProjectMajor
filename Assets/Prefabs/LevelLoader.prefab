@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggersRequired: 1
   level:
-    m_AssetGUID: 7ea8f74b45d8ec74ba2a8cfe71f7ae82
+    m_AssetGUID: 887221ff854b7c14f83c895c09037fa3
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
@@ -65,7 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26c69c86652fa3419cb45e65e04e8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerables: []
+  triggerables:
+  - {fileID: 7587022367113372929}
   minimumEntities: 1
 --- !u!65 &6618420930064988370
 BoxCollider:

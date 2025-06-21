@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 9187290705672911081}
     - target: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: m_Name
-      value: BouncePadd
+      value: BouncePad
       objectReference: {fileID: 0}
     - target: {fileID: 7555203849176766517, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -82,5 +82,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersRequired: 1
-  strength: 100
+  strength: 1000
   direction: {x: 0, y: 1, z: 0}

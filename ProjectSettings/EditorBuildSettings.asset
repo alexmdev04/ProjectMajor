@@ -15,17 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Persistence.unity
     guid: b2718d1a659791144b5ada5dd8ecce0c
   - enabled: 1
-    path: Assets/Scenes/Levels/intro_home.unity
+    path: Assets/Scenes/Levels/dev.unity
+    guid: 2cab5d75d7eedcb48a12b9c1400ba85c
+  - enabled: 1
+    path: Assets/Scenes/Levels/home.unity
     guid: 2debeed2b195d1f4b8bbd6f2f256b458
   - enabled: 1
-    path: Assets/Scenes/Levels/intro_hall.unity
-    guid: 6369fc03403401b4eac80019eac9e0a3
-  - enabled: 1
-    path: Assets/Scenes/Levels/level1_0.unity
+    path: Assets/Scenes/Levels/tutorial.unity
     guid: f07d85f93445a2f49826918ef4eb3516
-  - enabled: 1
-    path: Assets/Scenes/Levels/dev_triggers.unity
-    guid: 2cab5d75d7eedcb48a12b9c1400ba85c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 2a810c979a74299458cbadc10ff0e191, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 6e2fc35157c32b442a1a5bbde72d7968, type: 2}

@@ -1,23 +1,14 @@
-using Major.Levels;
-using UnityEngine.Android;
-
 namespace Major.AssetKeys {
     // Contains keys to addressable LevelAsset data
     public static class Levels {
-        public const string intro = "intro";
-        public const string level1 = "level1";
-    }
-
-    // Contains keys to addressable scenes filtered by level
-    namespace Scenes {
-        public static class intro {
-            public const string home = "intro_home";
-        }
+        public const string home = "home";
+        public const string tutorial = "tutorial";
+        public const string dev = "dev";
     }
 
     // Contains keys to addressable prefabs
     public static class Prefabs {
-        public const string testCube = "testCube";
+        public const string cCube = "CCube";
     }
 
     // Contains the labels used to filter addressable assets
