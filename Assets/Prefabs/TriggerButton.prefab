@@ -139,5 +139,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <obj>k__BackingField: {fileID: 4297651216335079113}
   <animDirection>k__BackingField: {x: 0, y: -1, z: 0}
-  <animDistance>k__BackingField: 1.6
+  <animDistance>k__BackingField: 0.175
   <animSpeed>k__BackingField: 5
