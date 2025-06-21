@@ -10,11 +10,10 @@ namespace Major.World {
             slideAnimation = GetComponent<Animations.SlideAnimation>();
             slideAnimation.onAnimEnd += (state) => {
                 if (!state) {
-                    item.OnUnslotted();
-                    item = null;
+                    OnRelease();
                 }
             };
-        }   
+        }
 
         private void OnTriggerEnter(Collider collider) {
             if (item) {
@@ -35,9 +34,18 @@ namespace Major.World {
             Begin(item.gameObject);
         }
 
-        public void Release() {
+        public void Release(bool animate = true) {
             End(item.gameObject);
+            if (!animate) {
+                OnRelease();
+                return;
+            }
             Animate(false);
+        }
+
+        private void OnRelease() {
+            item.OnUnslotted();
+            item = null;
         }
 
         private void Animate(bool takeIn) {
@@ -50,7 +58,7 @@ namespace Major.World {
                 item.transform.position = animStartPos;
                 item.rb.MoveRotation(Quaternion.identity);
                 item.transform.rotation = Quaternion.identity;
-            } 
+            }
 
             slideAnimation.OverrideValues(
                 obj: item.gameObject,
@@ -70,7 +78,7 @@ namespace Major.World {
         }
 
         protected override void OnTriggerEnd(GameObject sender) {
-            
+
         }
     }
 }

@@ -35,6 +35,7 @@ namespace Major.Levels {
             World.Kevin.instance.rb.StartupTeleport(level.levelAsset.kevinStartingPosition);
             if (!Player.instance.carriedItem) {
                 World.Kevin.instance.item.SetCarriedState(false);
+                World.Kevin.instance.item.OnUnslotted();
             }
         };
 

@@ -83,5 +83,11 @@ namespace Major.World {
             rb.isKinematic = state;
             recentlySlotted = state;
         }
+
+        private void OnDestroy() {
+            if (itemSlot) {
+                itemSlot.Release(false);
+            }
+        }
     }
 }
