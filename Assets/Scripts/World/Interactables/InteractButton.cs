@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Major.World {
     [RequireComponent(typeof(CustomTrigger))]
     public class InteractButton : Interactable {
-        [SerializeField] private SlideAnimation anim;
+        [SerializeField] private Animations.ScriptedAnimation anim;
         [SerializeField] private float buttonTimer = 1.0f;
         private CustomTrigger customTrigger;
         private bool pressed;

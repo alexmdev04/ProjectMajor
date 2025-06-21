@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Major.World {
     public class TriggerableDoor : Triggerable {
-        [SerializeField] private SlideAnimation leftDoorAnim;
-        [SerializeField] private SlideAnimation rightDoorAnim;
+        [SerializeField] private Animations.ScriptedAnimation leftDoorAnim;
+        [SerializeField] private Animations.ScriptedAnimation rightDoorAnim;
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
             leftDoorAnim.SetAnimationState(true);

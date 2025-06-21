@@ -4,10 +4,10 @@ using UnityEngine;
 namespace Major.World {
     public class ItemSlot : Trigger {
         private Item item;
-        private SlideAnimation slideAnimation;
+        private Animations.SlideAnimation slideAnimation;
 
         private void Awake() {
-            slideAnimation = GetComponent<SlideAnimation>(); 
+            slideAnimation = GetComponent<Animations.SlideAnimation>();
             slideAnimation.onAnimEnd += (state) => {
                 if (!state) {
                     item.OnUnslotted();
