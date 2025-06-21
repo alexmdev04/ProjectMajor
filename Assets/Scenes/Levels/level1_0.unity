@@ -329,11 +329,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &106021717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+  m_PrefabInstance: {fileID: 769274216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &124327905 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7555203849176766517, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
   m_PrefabInstance: {fileID: 769274216}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &124327911
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106021717}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.9, z: 1}
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!1 &142989154
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,10 +781,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4857990856547437418, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: <obj>k__BackingField
-      value: 
-      objectReference: {fileID: 434333299}
     - target: {fileID: 5286347124850518176, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: m_Name
       value: Cube Spawner Button
@@ -767,10 +789,6 @@ PrefabInstance:
       propertyPath: triggerable
       value: 
       objectReference: {fileID: 434333300}
-    - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: triggerables.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: 'triggerables.Array.data[0]'
       value: 
@@ -1565,7 +1583,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 124327911}
   m_SourcePrefab: {fileID: 100100000, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
 --- !u!1 &771894933
 GameObject:

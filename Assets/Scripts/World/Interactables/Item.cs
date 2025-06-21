@@ -20,13 +20,13 @@ namespace Major.World {
         private ItemSlot itemSlot;
         public bool recentlySlotted;
 
-        public Vector3 position {
-            get { return rb.position; }
-            set { rb.position = value; }
-        }
+        [SerializeField] private GameObject triggerObject;
+        private LayerMask triggerLayer;
 
         private void Awake() {
             rb = GetComponent<Rigidbody>();
+            triggerLayer = LayerMask.NameToLayer("Trigger");
+            if (!triggerObject) { Log.Warning("[Item] " + name + " has no trigger object assigned."); }
         }
 
         public bool isCarried { get; private set; }
@@ -62,6 +62,7 @@ namespace Major.World {
                 return;
             }
 
+            if (triggerObject) { triggerObject.layer = state ? 0 : triggerLayer; }
             isCarried = state;
             rb.useGravity = !state;
         }

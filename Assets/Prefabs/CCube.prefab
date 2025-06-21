@@ -204,3 +204,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupType: 2
+  recentlySlotted: 0
+  triggerObject: {fileID: 2378351621010240178}
