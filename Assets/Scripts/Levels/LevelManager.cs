@@ -29,34 +29,23 @@ namespace Major.Levels {
         private void Update() {
             // Debug Keys
             if (Keyboard.current.f1Key.wasPressedThisFrame) {
-                LoadLevel(AssetKeys.Levels.intro);
+                LoadLevel(AssetKeys.Levels.home);
             }
 
-            // if (Keyboard.current.f2Key.wasPressedThisFrame) {
-            //     levelCurrent.DespawnSceneAsync(AssetKeys.Scenes.intro.home);
-            // }
+            if (Keyboard.current.f2Key.wasPressedThisFrame) {
+                LoadLevel(AssetKeys.Levels.tutorial);
+            }
 
-            // if (Keyboard.current.f3Key.wasPressedThisFrame) {
-            //     levelCurrent.SpawnSceneAsync(AssetKeys.Scenes.intro.home);
-            // }
-
-            if (Keyboard.current.f4Key.wasPressedThisFrame) {
-                var foo = Addressables.BuildPath;
-                var bar = Addressables.ResourceLocators;
-                var baz = Addressables.ResourceManager;
+            if (Keyboard.current.f5Key.wasPressedThisFrame) {
+                LoadLevel(levelCurrent.levelAsset);
             }
         }
 
         public static async void LoadLevel(string key) {
             Log.Debug("[LevelManager] Loading level: " + key);
 
-            // Loads a new level via its name/key and attaches it to an empty game object
-            var levelAssetLoadHandle = Addressables.LoadAssetAsync<LevelAsset>(key);
-            var levelAsset = await levelAssetLoadHandle.Task;
-            if (levelAssetLoadHandle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed) {
-                Log.Error("[LevelManager] Load Level failed");
-                Log.Error(levelAssetLoadHandle.OperationException.ToString());
-                return;
+            if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
+                Log.Error("[LevelManager] Load Level failed: Key " + key + " does not exist.");
             }
 
             await LoadLevelAssetAsync(levelAsset);
