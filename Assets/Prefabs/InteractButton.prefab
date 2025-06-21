@@ -260,10 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <obj>k__BackingField: {fileID: 3642590847451240563}
+  obj: {fileID: 3642590847451240563}
+  animSpeed: 1
   <animDirection>k__BackingField: {x: 0, y: 0, z: -1}
-  <animDistance>k__BackingField: 1.6
-  <animSpeed>k__BackingField: 5
+  <animDistance>k__BackingField: 0.2
 --- !u!114 &5828851588702836805
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4253265293847255133}
   - component: {fileID: 8341035131473975362}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Right Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,6 +120,8 @@ GameObject:
   - component: {fileID: 7087023879331781786}
   - component: {fileID: 5992950057817651776}
   - component: {fileID: 7736283134770721208}
+  - component: {fileID: 2347701147194855160}
+  - component: {fileID: 7114366531894046300}
   m_Layer: 0
   m_Name: RightDoor
   m_TagString: Untagged
@@ -216,6 +218,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2347701147194855160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2817072888335102042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbee2be69f256143af802554422d2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersRequired: 1
+  scriptedAnimation: {fileID: 7114366531894046300}
+  waitForFixedUpdate: 0
+--- !u!114 &7114366531894046300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2817072888335102042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 2817072888335102042}
+  animSpeed: 10
+  <animDirection>k__BackingField: {x: 1, y: 0, z: 0}
+  <animDistance>k__BackingField: 1.3
 --- !u!1 &5411572432281949677
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +262,7 @@ GameObject:
   - component: {fileID: 3016307383839348731}
   - component: {fileID: 6224975195119797641}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Left Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -336,6 +369,8 @@ GameObject:
   - component: {fileID: 1454717820820149888}
   - component: {fileID: 7432392420388047912}
   - component: {fileID: 3836410602545161580}
+  - component: {fileID: 807045617957741209}
+  - component: {fileID: 6899761073829922903}
   m_Layer: 0
   m_Name: LeftDoor
   m_TagString: Untagged
@@ -432,6 +467,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &807045617957741209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493829849418860054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbee2be69f256143af802554422d2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersRequired: 1
+  scriptedAnimation: {fileID: 6899761073829922903}
+  waitForFixedUpdate: 0
+--- !u!114 &6899761073829922903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493829849418860054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 6493829849418860054}
+  animSpeed: 10
+  <animDirection>k__BackingField: {x: -1, y: 0, z: 0}
+  <animDistance>k__BackingField: 1.3
 --- !u!1 &7500210774010377497
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +511,7 @@ GameObject:
   - component: {fileID: 6836788810274013106}
   - component: {fileID: 997870430358032791}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Top Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -549,11 +615,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1627791594493681189}
-  - component: {fileID: 5613198765246894498}
-  - component: {fileID: 6238722173380202626}
-  - component: {fileID: 5296544051650718867}
+  - component: {fileID: 6615819744714408821}
   m_Layer: 0
-  m_Name: TriggerDoor
+  m_Name: TriggerableDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +643,7 @@ Transform:
   - {fileID: 8408449934623365942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5613198765246894498
+--- !u!114 &6615819744714408821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -588,41 +652,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8116174653599639225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef9c648bd73766f4f91101890f623277, type: 3}
+  m_Script: {fileID: 11500000, guid: 4df341d3ef843714fb4ed23acbd17d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggersRequired: 1
-  leftDoorAnim: {fileID: 6238722173380202626}
-  rightDoorAnim: {fileID: 5296544051650718867}
---- !u!114 &6238722173380202626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8116174653599639225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <obj>k__BackingField: {fileID: 6493829849418860054}
-  <animDirection>k__BackingField: {x: -1, y: 0, z: 0}
-  <animDistance>k__BackingField: 1.3
-  <animSpeed>k__BackingField: 5
---- !u!114 &5296544051650718867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8116174653599639225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <obj>k__BackingField: {fileID: 2817072888335102042}
-  <animDirection>k__BackingField: {x: 1, y: 0, z: 0}
-  <animDistance>k__BackingField: 1.3
-  <animSpeed>k__BackingField: 5
+  triggerables:
+  - {fileID: 807045617957741209}
+  - {fileID: 2347701147194855160}

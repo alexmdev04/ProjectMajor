@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81569cc39ee18a544acc794b915aa9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerCount: 1
+  triggersRequired: 1
   level:
     m_AssetGUID: 7ea8f74b45d8ec74ba2a8cfe71f7ae82
     m_SubObjectName: 
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26c69c86652fa3419cb45e65e04e8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerable: {fileID: 7587022367113372929}
+  triggerables: []
   minimumEntities: 1
 --- !u!65 &6618420930064988370
 BoxCollider:
@@ -77,10 +77,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 127
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
