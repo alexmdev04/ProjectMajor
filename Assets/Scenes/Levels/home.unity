@@ -2731,6 +2731,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6057481602077336461, guid: c78da2a316cf39744b670a186eb6d5ec, type: 3}
+      propertyPath: level.m_AssetGUID
+      value: 7ea8f74b45d8ec74ba2a8cfe71f7ae82
+      objectReference: {fileID: 0}
     - target: {fileID: 7386924888566300254, guid: c78da2a316cf39744b670a186eb6d5ec, type: 3}
       propertyPath: m_Size.z
       value: 8
