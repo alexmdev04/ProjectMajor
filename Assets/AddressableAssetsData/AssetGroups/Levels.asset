@@ -22,7 +22,7 @@ MonoBehaviour:
     - lbl_level
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7ea8f74b45d8ec74ba2a8cfe71f7ae82
-    m_Address: Assets/Scriptable Objects/Levels/level1.asset
+    m_Address: Assets/Scriptable Objects/Levels/tutorial.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - lbl_level
