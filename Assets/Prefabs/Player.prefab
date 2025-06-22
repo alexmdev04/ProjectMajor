@@ -370,13 +370,14 @@ MonoBehaviour:
   _carriedItem: {fileID: 0}
   _cam: {fileID: 421404078658582717}
   playerHeightCm: 200
-  playerCrouchHeightCm: 100
+  playerCrouchHeightCm: 120
   interactDistance: 3
   interactLayerMask:
     serializedVersion: 2
     m_Bits: 193
   maxDistance: 10
   travelSpeed: 100
+  maxItemHoldDistance: 5
 --- !u!54 &773336461374269899
 Rigidbody:
   m_ObjectHideFlags: 0
