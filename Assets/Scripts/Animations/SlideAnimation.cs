@@ -15,7 +15,7 @@ namespace Major.Animations {
             if (!obj) {
                 return;
             }
-            animStartPos = obj.transform.position;
+            animStartPos = obj.transform.localPosition;
             animEndPos = animStartPos + (animDirection * animDistance);
         }
 
@@ -45,8 +45,8 @@ namespace Major.Animations {
         }
 
         protected override bool AnimationTick(bool state) {
-            obj.transform.position = Vector3.MoveTowards(obj.transform.position, targetPos, animSpeed * Time.deltaTime);
-            return obj.transform.position != targetPos;
+            obj.transform.localPosition = Vector3.MoveTowards(obj.transform.localPosition, targetPos, animSpeed * Time.deltaTime);
+            return obj.transform.localPosition != targetPos;
         }
 
         protected override void AnimationEnd(bool state) {

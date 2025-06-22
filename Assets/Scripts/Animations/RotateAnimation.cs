@@ -15,7 +15,7 @@ namespace Major.Animations {
             if (!obj) {
                 return;
             }
-            animStartRot = obj.transform.rotation;
+            animStartRot = obj.transform.localRotation;
             animEndRot = animStartRot * Quaternion.Euler(animRotation);
         }
 
@@ -32,8 +32,8 @@ namespace Major.Animations {
         }
         
         protected override bool AnimationTick(bool state) {
-            obj.transform.rotation = Quaternion.RotateTowards(obj.transform.rotation, targetRot, animSpeed * Time.deltaTime);
-            return obj.transform.rotation != targetRot;
+            obj.transform.localRotation = Quaternion.RotateTowards(obj.transform.localRotation, targetRot, animSpeed * Time.deltaTime);
+            return obj.transform.localRotation != targetRot;
         }
 
         protected override void AnimationEnd(bool state) {

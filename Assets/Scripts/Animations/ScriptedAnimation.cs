@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.Logging;
 using UnityEngine;
 
 namespace Major.Animations {
