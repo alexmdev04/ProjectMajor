@@ -5,12 +5,18 @@ namespace Major.World {
     public class ItemSlot : Trigger {
         private Item item;
         private Animations.SlideAnimation slideAnimation;
+        [SerializeField] private bool passthrough;
 
         private void Awake() {
             slideAnimation = GetComponent<Animations.SlideAnimation>();
             slideAnimation.onAnimEnd += (state) => {
                 if (!state) {
                     OnRelease();
+                }
+                else {
+                    if (passthrough) {
+                        Release();
+                    }
                 }
             };
         }
@@ -51,7 +57,7 @@ namespace Major.World {
         private void Animate(bool takeIn) {
             // is the direction to the player positve or negative on the local forward axis
             float isPlayerForward = Mathf.Sign(transform.TransformDirection((Player.instance.transform.position - transform.position).normalized).z);
-            var direction = transform.forward * isPlayerForward;
+            var direction = transform.forward * isPlayerForward * (passthrough && !takeIn ? -1.0f : 1.0f);
             var animStartPos = transform.position + (direction * slideAnimation.animDistance);
             if (takeIn) {
                 item.rb.MovePosition(animStartPos);
