@@ -82,5 +82,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersRequired: 1
-  strength: 1000
+  strength: 10
   direction: {x: 0, y: 1, z: 0}

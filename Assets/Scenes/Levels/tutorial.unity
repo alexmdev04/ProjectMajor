@@ -971,7 +971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9187290705672911081, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: strength
-      value: 1100
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 9187290705672911081, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: direction.y

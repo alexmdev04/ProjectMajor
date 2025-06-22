@@ -8,7 +8,7 @@ namespace Major.World {
             if (sender.TryGetComponent<Collider>(out var senderCollider)) {
                 var senderRb = senderCollider.attachedRigidbody;
                 if (senderRb) {
-                    senderRb.AddForceAtPosition(strength * direction, transform.position, ForceMode.Impulse);
+                    senderRb.linearVelocity += strength * direction;
                 }
             }
         }
