@@ -7,9 +7,13 @@ namespace Major.World {
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
             if (sender.TryGetComponent<Collider>(out var senderCollider)) {
                 var senderRb = senderCollider.attachedRigidbody;
-                if (senderRb) {
-                    senderRb.linearVelocity += strength * direction;
+                if (!senderRb) {
+                    return;
                 }
+                if (senderRb == Player.instance.rb) {
+                    Player.instance.DropCarriedItem();
+                }
+                senderRb.linearVelocity += strength * direction;
             }
         }
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {
