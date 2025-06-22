@@ -22,8 +22,9 @@ namespace Major {
         [SerializeField]
         private float
             walkVelocity = 4f,
+            crouchVelocity = 2f,
             sprintVelocity = 6.5f,
-            maxVelocityAir = 10000.0f, 
+            //maxVelocityAir = 6.5f, 
             cameraHeight = 0.825f,
             // movementAcceleration = 0.1f,
             // movementDecceleration = 0.05f,
@@ -46,6 +47,7 @@ namespace Major {
         public float playerCrouchHeightCm = 93.98f; // in cm
         private float playerHeight;
         private float playerCrouchHeight;
+        private float maxVelocity;
 
         [Header("Interaction")]
         [SerializeField] private float interactDistance = 100.0f;
@@ -116,10 +118,11 @@ namespace Major {
 
         private void UpdateMove() {
             float accel = acceleration;
-            float maxVelocity = Input.Handler.instance.sprinting ? sprintVelocity : walkVelocity;
             Vector3 movementDirectionGlobal = _capsuleCollider.transform.TransformDirection(Input.Handler.instance.movementDirection);
 
             if (grounded) {
+                maxVelocity = Input.Handler.instance.crouched ? crouchVelocity : Input.Handler.instance.sprinting ? sprintVelocity : walkVelocity;
+
                 // apply friction
                 float speed = rb.linearVelocity.magnitude;
                 rb.linearVelocity = speed > flatvelMin ?
@@ -127,7 +130,7 @@ namespace Major {
                     Vector3.zero;
             }
             else {
-                maxVelocity = maxVelocityAir;
+                //maxVelocity = maxVelocityAir;
                 accel = accelerationAir;
             }
 

@@ -355,8 +355,8 @@ MonoBehaviour:
   friction: 5
   flatvelMin: 0.1
   walkVelocity: 4
-  sprintVelocity: 6.5
-  maxVelocityAir: 6.5
+  crouchVelocity: 2
+  sprintVelocity: 5
   cameraHeight: 0.85
   jumpForce: 5
   heldObjectDistance: 6
