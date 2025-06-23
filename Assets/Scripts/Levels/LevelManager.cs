@@ -28,11 +28,11 @@ namespace Major.Levels {
 
         private void Update() {
             // Debug Keys
-            if (Keyboard.current.f1Key.wasPressedThisFrame) {
+            if (Keyboard.current.f3Key.wasPressedThisFrame) {
                 LoadLevel(AssetKeys.Levels.home);
             }
 
-            if (Keyboard.current.f2Key.wasPressedThisFrame) {
+            if (Keyboard.current.f4Key.wasPressedThisFrame) {
                 LoadLevel(AssetKeys.Levels.tutorial);
             }
 

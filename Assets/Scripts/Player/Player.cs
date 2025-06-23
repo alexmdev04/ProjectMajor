@@ -55,6 +55,7 @@ namespace Major {
         [SerializeField] private float maxDistance = 10.0f;
         [SerializeField] private float travelSpeed = 15.0f;
         [SerializeField] private float maxItemHoldDistance = 5.0f;
+        public bool autoDropFarItems = true;
 
         public bool grounded { get; private set; }
         // => MathF.Round(rb.linearVelocity.y, 3) == 0.0f;
@@ -219,7 +220,7 @@ namespace Major {
             var target = _cam.transform.position + (_cam.transform.forward * 2.5f);
             var distance = Vector3.Distance(objPos, target);
             UnityEngine.Debug.DrawLine(start: objPos, end: target, color: Color.Lerp(Color.green, Color.red, Mathf.InverseLerp(0.0f, maxItemHoldDistance, distance)), depthTest: false, duration: 0.0f);
-            if (distance > maxItemHoldDistance) {
+            if (autoDropFarItems && distance > maxItemHoldDistance) {
                 DropCarriedItem();
                 return;
             }

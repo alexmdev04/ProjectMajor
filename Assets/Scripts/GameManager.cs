@@ -2,6 +2,7 @@ using System;
 using Unity.Logging;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
 
 // Per client manager for general Game and UI management
 namespace Major {
@@ -11,6 +12,10 @@ namespace Major {
         public bool inGame { get; private set; }
         public string playerName { get; private set; } = "Player";
         public event Action OnStartupComplete = () => { Log.Debug("[GameManager] Startup Complete."); };
+
+        // Debug
+        private bool dbg_noclipEnabled;
+        private float dbg_noclipSpeed = 10.0f;
 
         private void Awake() {
             if (instance != null) {
@@ -27,6 +32,23 @@ namespace Major {
 
         private void Start() {
             Input.Handler.instance.OnPause += SetPause;
+        }
+
+        private void Update() {
+            if (Keyboard.current.f1Key.wasPressedThisFrame) {
+                bool state = !dbg_noclipEnabled;
+                bool nState = !state;
+                dbg_noclipEnabled = state;
+                Player.instance.moveActive = nState;
+                Player.instance.rb.detectCollisions = nState;
+                Player.instance.rb.useGravity = nState;
+                Player.instance.rb.isKinematic = state;
+                Player.instance.autoDropFarItems = nState;
+            }
+            if (dbg_noclipEnabled) {
+                Player.instance.transform.position += Player.instance.cam.transform.TransformDirection(Input.Handler.instance.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
+                dbg_noclipSpeed = Mathf.Clamp(dbg_noclipSpeed + Mouse.current.scroll.value.y, 0.0f, 100.0f);
+            }
         }
 
         private void OnDisable() {
