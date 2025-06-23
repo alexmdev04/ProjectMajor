@@ -56,9 +56,9 @@ namespace Major.World {
 
         private void Animate(bool takeIn) {
             // is the direction to the player positve or negative on the local forward axis
-            float isPlayerForward = Mathf.Sign((Player.instance.transform.position - transform.position).normalized.z);
-            var direction = transform.forward * isPlayerForward * (passthrough && !takeIn ? -1.0f : 1.0f);
-            var animStartPos = transform.position + (direction * slideAnimation.animDistance);
+            var dirToPlayer = (Player.instance.transform.position - transform.position).normalized;
+            var direction = Vector3.Project(dirToPlayer, transform.forward).normalized;
+            var animStartPos = transform.position + (direction * (slideAnimation.animDistance * (passthrough && !takeIn ? -1.0f : 1.0f)));
             if (takeIn) {
                 item.rb.MovePosition(animStartPos);
                 item.transform.position = animStartPos;
