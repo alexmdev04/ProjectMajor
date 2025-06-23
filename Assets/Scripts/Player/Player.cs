@@ -94,11 +94,6 @@ namespace Major {
         }
 
         private void Look() {
-            int foo = 0;
-
-            float bar = (float)foo;
-
-
             Vector2 mouseDeltaMult = Input.Handler.instance.mouseDelta * Input.Handler.instance.sensitivity;
 
             playerEulerAngles = new Vector2(
