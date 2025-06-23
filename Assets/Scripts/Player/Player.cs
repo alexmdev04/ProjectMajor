@@ -61,6 +61,9 @@ namespace Major {
         // => MathF.Round(rb.linearVelocity.y, 3) == 0.0f;
 
         private void Awake() {
+            if (!GameManager.startupComplete) {
+                return;
+            }
             instance = this;
             rb = GetComponent<Rigidbody>();
             playerHeight = playerHeightCm / 200.0f;
@@ -68,14 +71,11 @@ namespace Major {
         }
 
         private void Start() {
-            Input.Handler.instance.OnJump += Jump;
-            Input.Handler.instance.OnInteract += Interact;
-            _cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
-        }
-
-        private void OnDisable() {
-            Input.Handler.instance.OnJump -= Jump;
-            Input.Handler.instance.OnInteract -= Interact;
+            GameManager.onStartupComplete += () => {
+                Input.Handler.instance.OnJump += Jump;
+                Input.Handler.instance.OnInteract += Interact;
+                _cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
+            };
         }
 
         private void Update() {

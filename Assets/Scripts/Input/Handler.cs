@@ -25,6 +25,9 @@ namespace Major.Input {
         private const string sensPrefKey = "sensitivity";
 
         private void Awake() {
+            if (!GameManager.startupComplete) {
+                return;
+            }
             instance = this;
             input = new();
             input.Player.Enable();
@@ -70,6 +73,9 @@ namespace Major.Input {
         }
 
         private void OnDisable() {
+            if (!GameManager.startupComplete) {
+                return;
+            }
             input.Player.Disable();
         }
     }

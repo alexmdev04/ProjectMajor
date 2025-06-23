@@ -1,15 +1,18 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace Major.Startup {
-    public class Settings : MonoBehaviour {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start() {
-
-        }
-
-        // Update is called once per frame
-        void Update() {
-
-        }
+    [CreateAssetMenu(fileName = "New Startup Settings", menuName = "Scriptable Objects/Startup Settings")]
+    public class Settings : ScriptableObject {
+        public string levelKey = "dev";
+        // public SettingsData Export() {
+        //     return new() {
+        //         levelKey = levelKey
+        //     };
+        // }
     }
+
+    // public struct SettingsData {
+    //     public string levelKey;
+    // }
 }

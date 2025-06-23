@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
+using Major.Levels;
 using Unity.Logging;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // Per client manager for general Game and UI management
 namespace Major {
@@ -11,7 +14,10 @@ namespace Major {
         public bool paused { get; private set; }
         public bool inGame { get; private set; }
         public string playerName { get; private set; } = "Player";
-        public event Action OnStartupComplete = () => { Log.Debug("[GameManager] Startup Complete."); };
+
+        public static bool startupComplete { get; private set; }
+        public static Startup.Settings startupSettings { get; private set; }
+        public static event Action onStartupComplete;
 
         // Debug
         private bool dbg_noclipEnabled;
@@ -22,16 +28,37 @@ namespace Major {
                 UnityEngine.Debug.LogError("[GameManager] There is already an instance of this singleton");
                 return;
             }
+            if (!startupComplete) {
+                return;
+            }
             instance = this;
+        }
+
+        public void Start() {
+            if (!startupComplete) {
+                return;
+            }
             Application.targetFrameRate = 165;
             QualitySettings.vSyncCount = 1;
             inGame = true;
             Addressables.InitializeAsync();
             SetCursorVisible(false);
+            Input.Handler.instance.OnPause += SetPause;
+            StartCoroutine(Startup());
         }
 
-        private void Start() {
-            Input.Handler.instance.OnPause += SetPause;
+        public static void OnStartupComplete(Startup.Settings newStartupSettings) {
+            startupSettings = newStartupSettings;
+            startupComplete = true;
+            onStartupComplete = () => {
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
+                Log.Debug("[GameManager] Startup Complete.");
+            };
+        }
+
+        private IEnumerator Startup() {
+            yield return new WaitForEndOfFrame();
+            onStartupComplete();
         }
 
         private void Update() {
@@ -52,6 +79,9 @@ namespace Major {
         }
 
         private void OnDisable() {
+            if (!startupComplete) {
+                return;
+            }
             Input.Handler.instance.OnPause -= SetPause;
             PlayerPrefs.Save();
         }

@@ -14,7 +14,6 @@ namespace Major.Levels {
         // The key used to load this level
         public string key { get; private set; }
 
-
         // Database of loaded prefabs that can be spawned by resource location
         public Dictionary<IResourceLocation, GameObject> prefabs { get; private set; }
 
@@ -31,13 +30,17 @@ namespace Major.Levels {
         public bool isConstructed;
 
         public event Action<Level> onLevelLoaded = (level) => {
-            Player.instance.rb.StartupTeleport(level.levelAsset.playerStartingPosition);
-            World.Kevin.instance.rb.StartupTeleport(level.levelAsset.kevinStartingPosition);
-            if (!Player.instance.carriedItem) {
-                World.Kevin.instance.item.SetCarriedState(false);
-                World.Kevin.instance.item.OnUnslotted();
-            }
+            level.OnLevelLoaded();
         };
+
+        public void OnLevelLoaded() {
+            Player.instance.rb.StartupTeleport(levelAsset.playerStartingPosition);
+            Kevin.instance.rb.StartupTeleport(levelAsset.kevinStartingPosition);
+            if (!Player.instance.carriedItem) {
+                Kevin.instance.item.SetCarriedState(false);
+                Kevin.instance.item.OnUnslotted();
+            }
+        }
 
         private void Update() {
             if (!isConstructed) {

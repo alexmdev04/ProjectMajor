@@ -16,14 +16,18 @@ namespace Major.Levels {
         public void SetStartupLevel(AssetReference levelAsset) => startupLevel = levelAsset;
 
         private void Awake() {
+            if (!GameManager.startupComplete) {
+                return;
+            }
             instance = this;
+            levelDatabase = new();
         }
 
-        private async void Start() {
-            // Cache all level data so it can be used to load levels later
-            levelDatabase = new();
-            Addressables.LoadAssetsAsync<LevelAsset>(AssetKeys.Labels.level, levelAsset => { levelDatabase.Add(levelAsset.name, levelAsset); }).WaitForCompletion();
-            LoadLevel(await Addressables.LoadAssetAsync<LevelAsset>(startupLevel).Task);
+        private void Start() {
+            GameManager.onStartupComplete += () => {
+                Addressables.LoadAssetsAsync<LevelAsset>(AssetKeys.Labels.level, levelAsset => { levelDatabase.Add(levelAsset.name, levelAsset); }).WaitForCompletion();
+                LoadLevel(GameManager.startupSettings.levelKey);
+            };
         }
 
         private void Update() {
