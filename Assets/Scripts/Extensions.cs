@@ -80,5 +80,37 @@ namespace Major {
                 Mathf.Clamp(value.z, min.z, max.z)
             );
         }
+
+        public static Vector3 Sign(this Vector3 value) {
+            return new Vector3(
+                Mathf.Sign(value.x),
+                Mathf.Sign(value.y),
+                Mathf.Sign(value.z)
+            );
+        }
+
+        public static float RoundToVal(float val1, float val2) {
+            float midWay = val2 / 2;
+            float remainder = val1 % val2;
+            float lowerBound = val1 - remainder;
+            float upperBound = lowerBound + val2;
+            return remainder >= midWay ? upperBound : lowerBound;
+        }
+
+        public static Vector3 RoundToVal(Vector3 val1, float val2) {
+            return new Vector3(
+                RoundToVal(val1.x, val2),
+                RoundToVal(val1.y, val2),
+                RoundToVal(val1.z, val2)
+            );
+        }
+
+        public static Vector3 RoundToVal(Vector3 val1, Vector3 val2) {
+            return new Vector3(
+                RoundToVal(val1.x, val2.x),
+                RoundToVal(val1.y, val2.y),
+                RoundToVal(val1.z, val2.z)
+            );
+        }
     }
 }

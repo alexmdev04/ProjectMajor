@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 1684169543805680988}
   - component: {fileID: 7547502174366443717}
   - component: {fileID: 3315855491759224014}
+  - component: {fileID: 3436202254359013725}
   m_Layer: 0
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -386,10 +387,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 65
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 190
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -411,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerables: []
   passthrough: 0
+  requireKevin: 1
 --- !u!114 &3315855491759224014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,8 +427,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obj: {fileID: 0}
   animSpeed: 15
-  <animDirection>k__BackingField: {x: 0, y: 0, z: 0}
-  <animDistance>k__BackingField: 1
+  <animDirection>k__BackingField: {x: 1, y: 1, z: 0}
+  <animDistance>k__BackingField: 1.1
+--- !u!114 &3436202254359013725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5389618338231501104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4119d265ff37c2940894e29a30da5014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 0}
+  animSpeed: 300
+  <animRotation>k__BackingField: {x: 0, y: 90, z: 0}
 --- !u!1 &5859576187207010644
 GameObject:
   m_ObjectHideFlags: 0

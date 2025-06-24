@@ -2,15 +2,21 @@ using Unity.Logging;
 using UnityEngine;
 
 namespace Major.World {
+    [RequireComponent(typeof(Animations.SlideAnimation))]
+    [RequireComponent(typeof(Animations.RotateAnimation))]
     public class ItemSlot : Trigger {
         private Item item;
         private Animations.SlideAnimation slideAnimation;
+        private Animations.RotateAnimation rotateAnimation;
         [SerializeField] private bool passthrough;
         [SerializeField] private bool requireKevin = true;
 
         private void Awake() {
+            rotateAnimation = GetComponent<Animations.RotateAnimation>();
             slideAnimation = GetComponent<Animations.SlideAnimation>();
             slideAnimation.onAnimEnd += (state) => {
+                item.rb.MovePosition(transform.position);
+                item.transform.position = transform.position;
                 if (!state) {
                     OnRelease();
                 }
@@ -19,6 +25,10 @@ namespace Major.World {
                         Release();
                     }
                 }
+            };
+            rotateAnimation.onAnimEnd += (state) => {
+                item.rb.MoveRotation(Quaternion.identity);
+                item.transform.rotation = Quaternion.identity;
             };
         }
 
@@ -56,21 +66,15 @@ namespace Major.World {
             if (takeIn) {
                 item.rb.MovePosition(animStartPos);
                 item.transform.position = animStartPos;
-                item.rb.MoveRotation(Quaternion.identity);
-                item.transform.rotation = Quaternion.identity;
             }
 
-            slideAnimation.OverrideValues(
-                obj: item.gameObject,
-                direction: Vector3.one
-            );
-
-            slideAnimation.OverrideAnimPos(
-                start: animStartPos,
-                end: transform.position
-            );
-
+            slideAnimation.OverrideObject(item.gameObject);
+            slideAnimation.OverrideAnimPos(animStartPos, transform.position);
             slideAnimation.SetAnimationState(takeIn, takeIn);
+
+            rotateAnimation.OverrideObject(item.gameObject);
+            rotateAnimation.OverrideAnimRot(item.transform.eulerAngles, MathExt.RoundToVal(item.transform.eulerAngles, 90.0f));
+            rotateAnimation.SetAnimationState(true);
         }
     }
 }

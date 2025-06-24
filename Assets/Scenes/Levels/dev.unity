@@ -1867,10 +1867,6 @@ PrefabInstance:
       value: ItemSlot
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: triggerable
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: triggerables.Array.size
       value: 1
       objectReference: {fileID: 0}

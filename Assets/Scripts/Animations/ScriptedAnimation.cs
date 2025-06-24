@@ -31,6 +31,8 @@ namespace Major.Animations {
             onAnimEnd(state);
         }
 
+        public void OverrideObject(GameObject obj) => this.obj = obj;
+
         protected abstract void AnimationStart(bool state);
 
         /// <returns>Should return true while the animation should be playing</returns>

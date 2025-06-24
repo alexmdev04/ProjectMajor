@@ -41,5 +41,17 @@ namespace Major.Animations {
         protected override void AnimationEnd(bool state) {
 
         }
+
+        public void OverrideAnimRot(Vector3 start, Vector3 end) {
+            OverrideAnimRot(
+                Quaternion.Euler(start),
+                Quaternion.Euler(end)
+            );
+        }
+
+        public void OverrideAnimRot(Quaternion start, Quaternion end) {
+            animStartRot = start;
+            animEndRot = end;
+        }
     }
 }
