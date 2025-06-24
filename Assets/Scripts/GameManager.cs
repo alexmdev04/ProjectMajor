@@ -16,12 +16,15 @@ namespace Major {
         public string playerName { get; private set; } = "Player";
 
         public static bool startupComplete { get; private set; }
+        public static bool quitting { get; private set; }
         public static Startup.Settings startupSettings { get; private set; }
         public static event Action onStartupComplete;
 
         // Debug
         private bool dbg_noclipEnabled;
         private float dbg_noclipSpeed = 10.0f;
+        [SerializeField] private GameObject playerPrefab;
+        [SerializeField] private GameObject kevinPrefab;
 
         private void Awake() {
             if (instance != null) {
@@ -72,6 +75,10 @@ namespace Major {
                 Player.instance.rb.isKinematic = state;
                 Player.instance.autoDropFarItems = nState;
             }
+            if (Keyboard.current.f2Key.wasPressedThisFrame) {
+                Destroy(Player.instance.gameObject);
+            }
+
             if (dbg_noclipEnabled) {
                 Player.instance.transform.position += Player.instance.cam.transform.TransformDirection(Input.Handler.instance.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
                 dbg_noclipSpeed = Mathf.Clamp(dbg_noclipSpeed + Mouse.current.scroll.value.y, 0.0f, 100.0f);
@@ -111,5 +118,39 @@ namespace Major {
         }
 
         public void SetPlayerName(string input) => playerName = input;
+
+        public void OnPlayerKilled() {
+            LevelManager.levelCurrent.OnLevelLoaded();
+        }
+
+        public void OnKevinKilled() {
+            OnPlayerKilled();
+        }
+
+        public void OnPlayerDestroyed() {
+            Log.Error("[GameManager] Player object was destroyed, do not do this. Respawning and restarting level.");
+            var newPlayer = Instantiate(playerPrefab).GetComponent<Player>();
+            Player.OverrideInstance(newPlayer);
+            LevelManager.instance.RestartHard();
+        }
+
+        public void OnKevinDestroyed() {
+            Log.Error("[GameManager] Kevin object was destroyed, do not do this. Respawning and restarting level.");
+            var newKevin = Instantiate(kevinPrefab).GetComponent<Kevin>();
+            Kevin.OverrideInstance(newKevin);
+            LevelManager.instance.RestartHard();
+        }
+
+        private void OnDestroy() {
+            if (!startupComplete || quitting) {
+                return;
+            }
+            Log.Error("[GameManager] Destroyed.");
+        }
+
+        private void OnApplicationQuit() {
+            quitting = true;
+            Log.Debug("[GameManager] Quitting.");
+        }
     }
 }

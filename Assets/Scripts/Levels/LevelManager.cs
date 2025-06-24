@@ -78,5 +78,20 @@ namespace Major.Levels {
             levelCurrent.Unload();
             levelCurrent = null;
         }
+
+        public void RestartSoft() {
+            levelCurrent.OnLevelLoaded();
+        }
+
+        public void RestartHard() {
+            LoadLevel(levelCurrent.levelAsset);
+        }
+
+        private void OnDestroy() {
+            if (!GameManager.startupComplete && !GameManager.quitting) {
+                return;
+            }
+            Log.Error("[GameManager] Destroyed.");
+        } 
     }
 }

@@ -93,6 +93,15 @@ namespace Major {
             if (lookActive) { Look(); }
         }
 
+        private void OnDestroy() {
+            if (!GameManager.startupComplete || GameManager.quitting) {
+                return;
+            }
+            GameManager.instance.OnPlayerDestroyed();
+        }
+
+        public static void OverrideInstance(Player newInstance) => instance = newInstance;
+
         private void Look() {
             Vector2 mouseDeltaMult = Input.Handler.instance.mouseDelta * Input.Handler.instance.sensitivity;
 

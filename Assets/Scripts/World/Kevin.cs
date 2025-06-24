@@ -13,5 +13,14 @@ namespace Major {
             rb = GetComponent<Rigidbody>();
             item = GetComponent<World.Item>();
         }
+
+        private void OnDestroy() {
+            if (!GameManager.startupComplete || GameManager.quitting) {
+                return;
+            }
+            GameManager.instance.OnKevinDestroyed();
+        }
+
+        public static void OverrideInstance(Kevin newInstance) => instance = newInstance;
     }
 }
