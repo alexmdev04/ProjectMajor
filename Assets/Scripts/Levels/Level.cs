@@ -61,12 +61,6 @@ namespace Major.Levels {
             }
         }
 
-        private void Update() {
-            if (!isConstructed) {
-                return;
-            }
-        }
-
         // Constructs and loads a level, loads the first scene present and fills the asset databases
         public void Construct(ConstructData constructData) {
             levelAsset = constructData.levelAsset;
