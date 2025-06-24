@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace Major.World {
-    public class PrefabSpawner : Triggerable {
+    public class TriggerableSpawner : Triggerable {
 
         [SerializeField]
         [AssetReferenceUILabelRestriction(AssetKeys.Labels.prefab)]
