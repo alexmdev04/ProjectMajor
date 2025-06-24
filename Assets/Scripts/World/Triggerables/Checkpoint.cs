@@ -1,4 +1,4 @@
-using Major.Levels;
+using Unity.Logging;
 using UnityEngine;
 
 namespace Major.World {
@@ -18,6 +18,7 @@ namespace Major.World {
             var targetPlayerPosition = useObjectTransformAsSpawn ? transform.position : playerSpawnLocation;
 
             if (spawnPlayer) {
+                Log.Debug("[Checkpoint] Teleporting Player...");
                 var targetPlayerEulerAngles = useObjectTransformAsSpawn ? transform.eulerAngles : playerSpawnRotation;
 
                 if (killVelocity) {
@@ -37,6 +38,7 @@ namespace Major.World {
 
 
             if (spawnKevin) {
+                Log.Debug("[Checkpoint] Teleporting Kevin...");
                 var targetKevinPosition = useObjectTransformAsSpawn ? targetPlayerPosition + (transform.forward * 1.5f) : kevinSpawnPosition;
                 var targetKevinEulerAngles = useObjectTransformAsSpawn ? Vector3.zero : kevinSpawnRotation;
 
@@ -54,7 +56,7 @@ namespace Major.World {
         }
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
-            LevelManager.levelCurrent.ActivateCheckpoint(this, teleportOnActivation);
+            Levels.LevelManager.levelCurrent.ActivateCheckpoint(this, teleportOnActivation);
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {
