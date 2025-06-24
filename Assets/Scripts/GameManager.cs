@@ -130,14 +130,14 @@ namespace Major {
         public void OnPlayerDestroyed() {
             Log.Error("[GameManager] Player object was destroyed, do not do this. Respawning and restarting level.");
             var newPlayer = Instantiate(playerPrefab).GetComponent<Player>();
-            Player.OverrideInstance(newPlayer);
+            newPlayer.OnRespawn();
             LevelManager.instance.RestartHard();
         }
 
         public void OnKevinDestroyed() {
             Log.Error("[GameManager] Kevin object was destroyed, do not do this. Respawning and restarting level.");
             var newKevin = Instantiate(kevinPrefab).GetComponent<Kevin>();
-            Kevin.OverrideInstance(newKevin);
+            newKevin.OnRespawn();
             LevelManager.instance.RestartHard();
         }
 

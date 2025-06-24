@@ -35,7 +35,7 @@ namespace Major {
         [SerializeField] private LayerMask groundedCheckLayer;
         [SerializeField] private World.Item _carriedItem;
         public World.Item carriedItem => _carriedItem;
-        public Camera cam { get; private set; }
+        [field: SerializeField] public Camera cam { get; private set; }
         public Vector3 eulerAngles;
         public float playerHeightCm = 185.42f; // in cm
         public float playerCrouchHeightCm = 93.98f; // in cm
@@ -54,6 +54,8 @@ namespace Major {
         public bool grounded { get; private set; }
         // => MathF.Round(rb.linearVelocity.y, 3) == 0.0f;
 
+        private bool respawning = false;
+
         private void Awake() {
             if (!GameManager.startupComplete) {
                 return;
@@ -62,16 +64,30 @@ namespace Major {
             body = transform.GetChild(0).gameObject;
             rb = GetComponent<Rigidbody>();
             cam = Camera.main;
+            cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
             playerHeight = playerHeightCm / 200.0f;
             playerCrouchHeight = playerCrouchHeightCm / 200.0f;
         }
 
+        public void OnRespawn() {
+            respawning = true;
+        }
+
         private void Start() {
+            if (respawning) {
+                OnStartupComplete();
+                respawning = false;
+                return;
+            }
+
             GameManager.onStartupComplete += () => {
-                Input.Handler.instance.OnJump += Jump;
-                Input.Handler.instance.OnInteract += Interact;
-                cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
+                OnStartupComplete();
             };
+        }
+
+        private void OnStartupComplete() {
+            Input.Handler.instance.OnJump += Jump;
+            Input.Handler.instance.OnInteract += Interact;
         }
 
         private void Update() {
@@ -92,6 +108,8 @@ namespace Major {
             if (!GameManager.startupComplete || GameManager.quitting) {
                 return;
             }
+            Input.Handler.instance.OnJump -= Jump;
+            Input.Handler.instance.OnInteract -= Interact;
             GameManager.instance.OnPlayerDestroyed();
         }
 

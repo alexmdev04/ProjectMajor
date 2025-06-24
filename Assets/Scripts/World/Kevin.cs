@@ -5,6 +5,7 @@ namespace Major {
         public static Kevin instance { get; private set; }
         public Rigidbody rb { get; private set; }
         public World.Item item { get; private set; }
+        private bool respawning = false;
         private void Awake() {
             if (!GameManager.startupComplete) {
                 return;
@@ -12,6 +13,14 @@ namespace Major {
             instance = this;
             rb = GetComponent<Rigidbody>();
             item = GetComponent<World.Item>();
+        }
+
+        public void OnRespawn() {
+            respawning = true;
+        }
+
+        private void Start() {
+            respawning = false;
         }
 
         private void OnDestroy() {
