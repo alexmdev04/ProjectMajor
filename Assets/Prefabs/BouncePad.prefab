@@ -8,10 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2785351058768278819, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
-      propertyPath: 'triggerables.Array.data[0]'
+    - target: {fileID: 629041712922050895, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: triggerables.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 629041712922050895, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: 'triggerables.Array.data[1]'
       value: 
-      objectReference: {fileID: 9187290705672911081}
+      objectReference: {fileID: 4379307540986129573}
+    - target: {fileID: 2785351058768278819, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: 'triggerables.Array.data[1]'
+      value: 
+      objectReference: {fileID: 4379307540986129573}
     - target: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: m_Name
       value: BouncePad
@@ -61,15 +69,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9187290705672911081}
+      insertIndex: 4
+      addedObject: {fileID: 4379307540986129573}
   m_SourcePrefab: {fileID: 100100000, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
 --- !u!1 &5832192364250559344 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
   m_PrefabInstance: {fileID: 7733893377133639097}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9187290705672911081
+--- !u!114 &4379307540986129573
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,9 +86,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5832192364250559344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d54077baeef87c143adc4144fe18e4f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b6b37c3c20b5ef4fa75211b61a5fd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggersRequired: 1
-  strength: 10
+  target: {fileID: 0}
+  targetIsSender: 1
+  position: {x: 0, y: 0, z: 0}
+  positionIsOffset: 1
   direction: {x: 0, y: 1, z: 0}
+  force: 10
+  forceMode: 2
