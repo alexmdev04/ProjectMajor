@@ -120,7 +120,7 @@ namespace Major {
         public void SetPlayerName(string input) => playerName = input;
 
         public void OnPlayerKilled() {
-            LevelManager.levelCurrent.OnLevelLoaded();
+            LevelManager.levelCurrent.GoToCheckpoint();
         }
 
         public void OnKevinKilled() {

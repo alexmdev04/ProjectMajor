@@ -62,10 +62,9 @@ namespace Major.Levels {
 
         private static async Task LoadLevelAssetAsync(LevelAsset levelAsset) {
             var key = levelAsset.name;
-            var newObj = new GameObject(key);
-            var newLevel = newObj.AddComponent<Level>();
-
-            newLevel.Construct(await levelAsset.LoadAsync(true, true));
+            var loadedLevelAsset = await levelAsset.LoadAsync(true, true);
+            var newLevel = loadedLevelAsset.sceneInstance.Scene.GetRootGameObjects()[0].AddComponent<Level>();
+            newLevel.Construct(loadedLevelAsset);
             UnloadLevelCurrent();
             levelCurrent = newLevel;
             Log.Debug("[LevelManager] Loading level " + key + " completed.");

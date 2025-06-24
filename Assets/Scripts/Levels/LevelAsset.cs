@@ -26,12 +26,6 @@ namespace Major.Levels {
         [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.prefab)]
         public List<AssetReference> prefabReferences { get; private set; }
 
-        [field: SerializeField]
-        public StartingPosition playerStartingPosition { get; private set; }
-
-        [field: SerializeField]
-        public StartingPosition kevinStartingPosition { get; private set; }
-
         public async Task<Level.ConstructData> LoadAsync(bool logTasks = false, bool timeTasks = false) {
             return new(
                 this,

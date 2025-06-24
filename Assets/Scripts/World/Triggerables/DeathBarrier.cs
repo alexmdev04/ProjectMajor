@@ -5,6 +5,7 @@ namespace Major.World {
     [RequireComponent(typeof(TriggerableObjectKiller))]
     public class DeathBarrier : TriggerArea {
         private TriggerableObjectKiller objectKiller;
+
         private void Awake() {
             objectKiller = GetComponent<TriggerableObjectKiller>();
         }

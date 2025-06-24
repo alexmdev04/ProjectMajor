@@ -5,9 +5,7 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 using Unity.Logging;
 using UnityEngine.SceneManagement;
 using UnityEngine.ResourceManagement.ResourceLocations;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using System;
-using System.Threading.Tasks;
 
 namespace Major.Levels {
     public class Level : MonoBehaviour {
@@ -29,13 +27,34 @@ namespace Major.Levels {
         // Indicates successful construction
         public bool isConstructed;
 
+        public World.Checkpoint checkpointCurrent { get; private set; }
+
         public event Action<Level> onLevelLoaded = (level) => {
             level.OnLevelLoaded();
         };
 
         public void OnLevelLoaded() {
-            Player.instance.rb.StartupTeleport(levelAsset.playerStartingPosition);
-            Kevin.instance.rb.StartupTeleport(levelAsset.kevinStartingPosition);
+            var checkpoints = GetComponentsInChildren<World.Checkpoint>();
+            foreach (var checkpoint in checkpoints) {
+                if (checkpoint.firstCheckpointInLevel) {
+                    checkpointCurrent = checkpoint;
+                }
+            }
+
+            if (checkpointCurrent) {
+                GoToCheckpoint();
+            }
+            else {
+                if (checkpoints.Length > 0) {
+                    checkpointCurrent = checkpoints[0];
+                    GoToCheckpoint();
+                    Log.Warning("[Level] '" + key + "' has no first checkpoint, assumed " + checkpointCurrent.gameObject.name + " is the first.");
+                }
+                else {
+                    Log.Warning("[Level] '" + key + "' has no checkpoints.");
+                }
+            }
+
             if (!Player.instance.carriedItem) {
                 Kevin.instance.item.SetCarriedState(false);
                 Kevin.instance.item.OnUnslotted();
@@ -76,6 +95,21 @@ namespace Major.Levels {
             newObj = Instantiate(prefab, position, rotation);
             SceneManager.MoveGameObjectToScene(newObj, sceneInstance.Scene);
             return true;
+        }
+
+        public void GoToCheckpoint() {
+            GoToCheckpoint(checkpointCurrent);
+        }
+
+        public void GoToCheckpoint(World.Checkpoint checkpoint) {
+            ActivateCheckpoint(checkpoint, true);
+        }
+
+        public void ActivateCheckpoint(World.Checkpoint checkpoint, bool teleport) {
+            checkpointCurrent = checkpoint;
+            if (teleport) {
+                checkpointCurrent.Teleport();
+            }
         }
 
         public struct ConstructData {
