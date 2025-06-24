@@ -34,7 +34,7 @@ namespace Major.World {
                     triggerables = triggerables.Where(t => t).ToList();
                 }
             }
-            
+
             var output = log.ToString();
             if (logCreate != output) {
                 Log.Warning(output);

@@ -50,7 +50,7 @@ namespace Major.Animations {
         }
 
         protected override void AnimationEnd(bool state) {
-            
+
         }
     }
 }

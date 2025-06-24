@@ -7,7 +7,7 @@ namespace Major.World {
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
             if (obj == Player.instance.gameObject) {
                 GameManager.instance.OnPlayerKilled();
-                return;                
+                return;
             }
             if (obj == Kevin.instance.gameObject) {
                 GameManager.instance.OnKevinKilled();
@@ -17,7 +17,7 @@ namespace Major.World {
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {
-            
+
         }
     }
 }

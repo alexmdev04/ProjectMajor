@@ -20,7 +20,7 @@ namespace Major.World {
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {
-            
+
         }
     }
 }

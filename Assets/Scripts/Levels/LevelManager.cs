@@ -92,6 +92,6 @@ namespace Major.Levels {
                 return;
             }
             Log.Error("[GameManager] Destroyed.");
-        } 
+        }
     }
 }

@@ -30,14 +30,14 @@ namespace Major.Animations {
         protected override void AnimationStart(bool state) {
             targetRot = state ? animEndRot : animStartRot;
         }
-        
+
         protected override bool AnimationTick(bool state) {
             obj.transform.localRotation = Quaternion.RotateTowards(obj.transform.localRotation, targetRot, animSpeed * Time.deltaTime);
             return obj.transform.localRotation != targetRot;
         }
 
         protected override void AnimationEnd(bool state) {
-            
+
         }
     }
 }
