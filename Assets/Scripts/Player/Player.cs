@@ -41,8 +41,7 @@ namespace Major {
         public World.Item carriedItem => _carriedItem;
         [SerializeField] private Camera _cam;
         public Camera cam => _cam;
-        public Vector2 playerEulerAngles { get; private set; } = Vector2.zero;
-        public Vector3 combinedFacingEulerAngles { get; private set; }
+        public Vector3 eulerAngles;
         public float playerHeightCm = 185.42f; // in cm
         public float playerCrouchHeightCm = 93.98f; // in cm
         private float playerHeight;
@@ -105,20 +104,17 @@ namespace Major {
         private void Look() {
             Vector2 mouseDeltaMult = Input.Handler.instance.mouseDelta * Input.Handler.instance.sensitivity;
 
-            playerEulerAngles = new Vector2(
+            eulerAngles = new Vector2(
                 Math.Clamp(
-                    playerEulerAngles.x - mouseDeltaMult.y,
+                    eulerAngles.x - mouseDeltaMult.y,
                     -90f,
                     90f
                 ),
-                playerEulerAngles.y + mouseDeltaMult.x
+                eulerAngles.y + mouseDeltaMult.x
             );
 
-            _capsuleCollider.transform.localEulerAngles = new Vector3(0f, playerEulerAngles.y, 0f);
-            _cam.transform.localEulerAngles = new Vector3(playerEulerAngles.x, 0f, 0f);
-
-            // Combines rotation data so that it can be used in external calculations
-            combinedFacingEulerAngles = new Vector3(_cam.transform.localEulerAngles.x, _capsuleCollider.transform.localEulerAngles.y, 0.0f);
+            _capsuleCollider.transform.localEulerAngles = new Vector3(0f, eulerAngles.y, 0f);
+            _cam.transform.localEulerAngles = new Vector3(eulerAngles.x, 0f, 0f);
         }
 
         private void UpdateMove() {
