@@ -14,7 +14,7 @@ namespace Major {
         }
 
         public static Task<T> Debug<T>(this Task<T> task, Type callerType, string taskName = "Unnamed Task", bool logged = false, bool timed = false, Action<T> onTaskComplete = null) {
-            return Debug<T>(task, callerType.FullName, taskName, logged, timed, onTaskComplete);
+            return Debug<T>(task, callerType.Name, taskName, logged, timed, onTaskComplete);
         }
 
         public static async Task Debug(this Task task, string caller, string taskName = "Unnamed Task", bool logged = false, bool timed = false, Action onTaskComplete = null) {
