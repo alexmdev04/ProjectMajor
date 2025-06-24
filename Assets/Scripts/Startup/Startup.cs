@@ -21,9 +21,8 @@ namespace Major.Startup {
             Log.Debug("[Startup] Starting up...");
             SceneManager.LoadScene("Persistence", LoadSceneMode.Additive);
             SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-            GameManager.OnStartupComplete(startupSettings);
-            Log.Debug("[Startup] Start up complete");
             SceneManager.UnloadSceneAsync(gameObject.scene);
+            GameManager.OnStartupComplete(startupSettings);
         }
     }
 }
