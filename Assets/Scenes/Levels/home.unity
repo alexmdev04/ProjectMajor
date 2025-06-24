@@ -2817,6 +2817,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1365056539}
     m_Modifications:
+    - target: {fileID: 629041712922050895, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: triggerables.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 629041712922050895, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: 'triggerables.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1300490969}
     - target: {fileID: 2785351058768278819, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: 'triggerables.Array.data[0]'
       value: 
