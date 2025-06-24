@@ -1051,8 +1051,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersRequired: 1
-  obj: {fileID: 0}
-  killSender: 1
+  target: {fileID: 0}
+  targetIsSender: 1
 --- !u!1001 &1715333675
 PrefabInstance:
   m_ObjectHideFlags: 0

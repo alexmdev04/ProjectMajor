@@ -1,24 +1,30 @@
+using Unity.Logging;
 using UnityEngine;
 
 namespace Major.World {
     public class TriggerableObjectKiller : Triggerable {
-        public GameObject obj;
-        [SerializeField] private bool killSender;
+        public GameObject target;
+        [SerializeField] private bool targetIsSender;
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
-            var target = killSender ? sender : obj;
+            var _target = targetIsSender ? sender : target;
 
-            if (target == Player.instance.gameObject) {
+            if (_target == Player.instance.gameObject) {
                 GameManager.instance.OnPlayerKilled();
                 return;
             }
 
-            if (target == Kevin.instance.gameObject) {
+            if (_target == Kevin.instance.gameObject) {
                 GameManager.instance.OnKevinKilled();
                 return;
             }
-            
-            Destroy(target);
+
+#if UNITY_EDITOR
+            if (!_target) {
+                Log.Warning("[TriggerableObjectKiller] No target.");
+            }
+#endif
+            Destroy(_target);
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {
