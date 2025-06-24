@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Major.World {
     [RequireComponent(typeof(CustomTrigger))]
     public class InteractButton : Interactable {
-        [SerializeField] private Animations.ScriptedAnimation anim;
         [SerializeField] private float buttonTimer = 1.0f;
         private CustomTrigger customTrigger;
         private bool pressed;
@@ -13,11 +12,9 @@ namespace Major.World {
         private void Awake() {
             customTrigger = GetComponent<CustomTrigger>();
             customTrigger.onBegin += (s) => {
-                anim.SetAnimationState(true);
                 pressed = true;
             };
             customTrigger.onEnd += (s) => {
-                anim.SetAnimationState(false);
                 pressed = false;
             };
         }

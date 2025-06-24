@@ -135,8 +135,9 @@ GameObject:
   - component: {fileID: 3030113883117695467}
   - component: {fileID: 4440909377848537636}
   - component: {fileID: 1843917156765513938}
-  - component: {fileID: 4857990856547437418}
   - component: {fileID: 5828851588702836805}
+  - component: {fileID: 1497384466497501526}
+  - component: {fileID: 4857990856547437418}
   m_Layer: 6
   m_Name: InteractButton
   m_TagString: Untagged
@@ -246,8 +247,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e224e660c1c917b4ba3448ef73f02719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 4857990856547437418}
   buttonTimer: 1
+--- !u!114 &5828851588702836805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286347124850518176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35286dae2db25524786f980ac9a285ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerables:
+  - {fileID: 1497384466497501526}
+--- !u!114 &1497384466497501526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286347124850518176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbee2be69f256143af802554422d2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersRequired: 1
+  scriptedAnimation: {fileID: 4857990856547437418}
+  waitForFixedUpdate: 0
 --- !u!114 &4857990856547437418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,17 +293,3 @@ MonoBehaviour:
   animSpeed: 5
   <animDirection>k__BackingField: {x: 0, y: 0, z: -1}
   <animDistance>k__BackingField: 0.9
---- !u!114 &5828851588702836805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5286347124850518176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35286dae2db25524786f980ac9a285ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerables:
-  - {fileID: 0}
