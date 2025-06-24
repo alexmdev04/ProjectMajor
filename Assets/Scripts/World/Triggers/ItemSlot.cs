@@ -72,13 +72,5 @@ namespace Major.World {
 
             slideAnimation.SetAnimationState(takeIn, takeIn);
         }
-
-        protected override void OnTriggerBegin(GameObject sender) {
-
-        }
-
-        protected override void OnTriggerEnd(GameObject sender) {
-
-        }
     }
 }

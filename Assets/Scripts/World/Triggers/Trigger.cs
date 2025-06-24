@@ -48,7 +48,9 @@ namespace Major.World {
             }
             OnTriggerBegin(sender);
         }
-        protected abstract void OnTriggerBegin(GameObject sender);
+        protected virtual void OnTriggerBegin(GameObject sender) {
+
+        }
 
         public void End(GameObject sender) {
             foreach (var triggerable in triggerables) {
@@ -56,6 +58,8 @@ namespace Major.World {
             }
             OnTriggerEnd(sender);
         }
-        protected abstract void OnTriggerEnd(GameObject sender);
+        protected virtual void OnTriggerEnd(GameObject sender) {
+
+        }
     }
 }

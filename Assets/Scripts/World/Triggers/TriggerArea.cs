@@ -7,21 +7,20 @@ namespace Major.World {
         private void OnTriggerEnter(Collider collision) {
             if (triggerEntities < minimumEntities) {
                 Begin(collision.gameObject);
+                OnTriggerAreaBegin(collision.gameObject);
             }
             triggerEntities++;
         }
         private void OnTriggerExit(Collider collision) {
-            triggerEntities--; 
+            triggerEntities--;
             if (triggerEntities < minimumEntities) {
                 End(collision.gameObject);
+                OnTriggerAreaEnd(collision.gameObject);
             }
         }
 
-        protected override void OnTriggerBegin(GameObject sender) { OnTriggerAreaBegin(sender); }
         protected abstract void OnTriggerAreaBegin(GameObject sender);
 
-
-        protected override void OnTriggerEnd(GameObject sender) { OnTriggerAreaEnd(sender); }
         protected abstract void OnTriggerAreaEnd(GameObject sender);
     }
 }
