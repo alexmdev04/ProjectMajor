@@ -20,10 +20,12 @@ namespace Major.Animations {
         }
 
         public override void SetAnimationState(bool state, bool waitForFixedUpdate = false) {
+#if UNITY_EDITOR
             if (animDirection == Vector3.zero) {
                 Log.Warning("Animation has zero direction and will not animate.");
                 return;
             }
+#endif
             base.SetAnimationState(state, waitForFixedUpdate);
         }
 
