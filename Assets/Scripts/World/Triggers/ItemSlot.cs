@@ -6,6 +6,7 @@ namespace Major.World {
         private Item item;
         private Animations.SlideAnimation slideAnimation;
         [SerializeField] private bool passthrough;
+        [SerializeField] private bool requireKevin = true;
 
         private void Awake() {
             slideAnimation = GetComponent<Animations.SlideAnimation>();
@@ -22,17 +23,10 @@ namespace Major.World {
         }
 
         private void OnTriggerEnter(Collider collider) {
-            if (item) {
-                return;
-            }
-
-            if (!collider.TryGetComponent<Item>(out var collidedItem)) {
-                return;
-            }
-
-            if (collidedItem.recentlySlotted) {
-                return;
-            }
+            if (item) { return; }
+            if (!collider.TryGetComponent<Item>(out var collidedItem)) { return; }
+            if (requireKevin && collidedItem != Kevin.instance.item) { return; }
+            if (collidedItem.recentlySlotted) { return; }
 
             item = collidedItem;
             item.OnSlotted(this);
