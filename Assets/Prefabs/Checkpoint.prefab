@@ -45,11 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersRequired: 1
-  firstCheckpointInLevel: 1
+  firstCheckpointInLevel: 0
   useObjectTransformAsSpawn: 1
   spawnPlayer: 1
   spawnKevin: 1
   killVelocity: 1
+  teleportOnActivation: 0
   playerSpawnLocation: {x: 0, y: 0, z: 0}
   playerSpawnRotation: {x: 0, y: 0, z: 0}
   kevinSpawnPosition: {x: 0, y: 0, z: 0}
