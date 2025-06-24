@@ -333,6 +333,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 193
   _carriedItem: {fileID: 0}
+  <cam>k__BackingField: {fileID: 421404078658582717}
   eulerAngles: {x: 0, y: 0, z: 0}
   playerHeightCm: 200
   playerCrouchHeightCm: 120
