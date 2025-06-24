@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7555203849176766517}
-  - component: {fileID: 2785351058768278819}
+  - component: {fileID: 629041712922050895}
+  - component: {fileID: 4064200627086105182}
   - component: {fileID: 4681358735415051358}
   - component: {fileID: 7921535700843241064}
   m_Layer: 0
@@ -35,7 +36,7 @@ Transform:
   - {fileID: 2897261021871789400}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2785351058768278819
+--- !u!114 &629041712922050895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,13 +45,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 4297651216335079113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74608699eeaf5a8498208cea525de908, type: 3}
+  m_Script: {fileID: 11500000, guid: f26c69c86652fa3419cb45e65e04e8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggerables:
-  - {fileID: 0}
+  - {fileID: 4064200627086105182}
   minimumEntities: 1
-  anim: {fileID: 4681358735415051358}
+--- !u!114 &4064200627086105182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4297651216335079113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbee2be69f256143af802554422d2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersRequired: 1
+  scriptedAnimation: {fileID: 4681358735415051358}
+  waitForFixedUpdate: 0
 --- !u!114 &4681358735415051358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,10 +92,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 119
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
