@@ -10,7 +10,7 @@ namespace Major.World {
 
         private void Start() {
 #if UNITY_EDITOR
-            var logName = transform.parent != transform ? transform.parent.name + "." + name : name;
+            var logName = transform.parent ? transform.parent.name + "." + name : name;
             string logCreate = "[Trigger] '" + logName + "' has issues;";
             StringBuilder log = new(logCreate);
             if (triggerables.Count == 0) {

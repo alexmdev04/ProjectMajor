@@ -7,6 +7,7 @@ namespace Major {
     public class Player : MonoBehaviour {
         public static Player instance { get; private set; }
         public Rigidbody rb { get; private set; }
+        public GameObject body { get; private set; }
 
         public float
             acceleration = 15f,
@@ -29,18 +30,12 @@ namespace Major {
             // movementAcceleration = 0.1f,
             // movementDecceleration = 0.05f,
             jumpForce = 5f,
-            heldObjectDistance = 6.0f,
             crouchSpeed = 3.6576f;
         [SerializeField] private Vector3 groundedCheckBoxSize = Vector3.one;
         [SerializeField] private LayerMask groundedCheckLayer;
-        [SerializeField] private GameObject _body;
-        public GameObject body => _body;
-        [SerializeField] private CapsuleCollider _capsuleCollider;
-        public CapsuleCollider capsuleCollider => _capsuleCollider;
         [SerializeField] private World.Item _carriedItem;
         public World.Item carriedItem => _carriedItem;
-        [SerializeField] private Camera _cam;
-        public Camera cam => _cam;
+        public Camera cam { get; private set; }
         public Vector3 eulerAngles;
         public float playerHeightCm = 185.42f; // in cm
         public float playerCrouchHeightCm = 93.98f; // in cm
@@ -64,7 +59,9 @@ namespace Major {
                 return;
             }
             instance = this;
+            body = transform.GetChild(0).gameObject;
             rb = GetComponent<Rigidbody>();
+            cam = Camera.main;
             playerHeight = playerHeightCm / 200.0f;
             playerCrouchHeight = playerCrouchHeightCm / 200.0f;
         }
@@ -73,13 +70,12 @@ namespace Major {
             GameManager.onStartupComplete += () => {
                 Input.Handler.instance.OnJump += Jump;
                 Input.Handler.instance.OnInteract += Interact;
-                _cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
+                cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
             };
         }
 
         private void Update() {
-            heldObjectDistance = Math.Clamp(heldObjectDistance + Input.Handler.instance.scrollDelta.y, 1.0f, 15.0f);
-            UpdateCrouch();
+            //UpdateCrouch();
             UpdateCarriedItem();
         }
 
@@ -113,13 +109,13 @@ namespace Major {
                 eulerAngles.y + mouseDeltaMult.x
             );
 
-            _capsuleCollider.transform.localEulerAngles = new Vector3(0f, eulerAngles.y, 0f);
-            _cam.transform.localEulerAngles = new Vector3(eulerAngles.x, 0f, 0f);
+            body.transform.eulerAngles = new Vector3(0f, eulerAngles.y, 0f);
+            cam.transform.localEulerAngles = new Vector3(eulerAngles.x, 0f, 0f);
         }
 
         private void UpdateMove() {
             float accel = acceleration;
-            Vector3 movementDirectionGlobal = _capsuleCollider.transform.TransformDirection(Input.Handler.instance.movementDirection);
+            Vector3 movementDirectionGlobal = body.transform.TransformDirection(Input.Handler.instance.movementDirection);
 
             if (grounded) {
                 maxVelocity = Input.Handler.instance.crouched ? crouchVelocity : Input.Handler.instance.sprinting ? sprintVelocity : walkVelocity;
@@ -147,7 +143,7 @@ namespace Major {
         }
 
         private void GroundedCheck() {
-            grounded = Physics.OverlapBox(center: rb.position, halfExtents: groundedCheckBoxSize, orientation: Quaternion.identity, layerMask: groundedCheckLayer).Length > 1;
+            grounded = Physics.OverlapBox(center: rb.position, halfExtents: groundedCheckBoxSize, orientation: Quaternion.identity, layerMask: groundedCheckLayer).Length > 0;
         }
 
         private void Jump() {
@@ -155,35 +151,35 @@ namespace Major {
             rb.AddForce(jumpForce * Vector3.up, ForceMode.VelocityChange);
         }
 
-        private void UpdateCrouch() {
-            // overkill early exit
-            // if (!crouched && currentHeight >= playerHeight) {
-            //     return;
-            // }
+        // private void UpdateCrouch() {
+        //     // overkill early exit
+        //     // if (!crouched && currentHeight >= playerHeight) {
+        //     //     return;
+        //     // }
 
-            var bodyTransform = _body.transform;
+        //     var bodyTransform = _body.transform;
 
-            // depending on input move between playerHeight and crouchHeight by crouchSpeed
-            var height = Mathf.Clamp(
-                bodyTransform.localPosition.y + (crouchSpeed * Time.deltaTime * (Input.Handler.instance.crouched ? -1.0f : 1.0f)),
-                playerCrouchHeight,
-                playerHeight
-            );
+        //     // depending on input move between playerHeight and crouchHeight by crouchSpeed
+        //     var height = Mathf.Clamp(
+        //         bodyTransform.localPosition.y + (crouchSpeed * Time.deltaTime * (Input.Handler.instance.crouched ? -1.0f : 1.0f)),
+        //         playerCrouchHeight,
+        //         playerHeight
+        //     );
 
-            // == Vector3(0,h,0)
-            var offset = Vector3.up * height;
+        //     // == Vector3(0,h,0)
+        //     var offset = Vector3.up * height;
 
-            // edit the mesh as a child of the collider
-            bodyTransform.localPosition = offset;
+        //     // edit the mesh as a child of the collider
+        //     bodyTransform.localPosition = offset;
 
-            var bodyScale = bodyTransform.localScale;
-            bodyScale.y = height;
-            bodyTransform.localScale = bodyScale;
+        //     var bodyScale = bodyTransform.localScale;
+        //     bodyScale.y = height;
+        //     bodyTransform.localScale = bodyScale;
 
-            // edit the collider
-            _capsuleCollider.center = offset;
-            _capsuleCollider.height = height * 2.0f;
-        }
+        //     // edit the collider
+        //     _capsuleCollider.center = offset;
+        //     _capsuleCollider.height = height * 2.0f;
+        // }
 
         private void Interact() {
             // Check if the player has an item and drop it
@@ -193,7 +189,7 @@ namespace Major {
 
             // get the hit
             if (!Physics.Raycast(
-                new Ray(_cam.transform.position, _cam.transform.forward),
+                new Ray(cam.transform.position, cam.transform.forward),
                 out var hit,
                 interactDistance,
                 interactLayerMask)) {
@@ -217,7 +213,7 @@ namespace Major {
             }
 
             var objPos = _carriedItem.rb.position;
-            var target = _cam.transform.position + (_cam.transform.forward * 2.5f);
+            var target = cam.transform.position + (cam.transform.forward * 2.5f);
             var distance = Vector3.Distance(objPos, target);
             UnityEngine.Debug.DrawLine(start: objPos, end: target, color: Color.Lerp(Color.green, Color.red, Mathf.InverseLerp(0.0f, maxItemHoldDistance, distance)), depthTest: false, duration: 0.0f);
             if (autoDropFarItems && distance > maxItemHoldDistance) {
