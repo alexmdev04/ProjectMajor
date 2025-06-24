@@ -34,12 +34,22 @@ namespace Major.Animations {
         }
 
         protected override bool AnimationTick(bool state) {
-            obj.transform.localRotation = Quaternion.RotateTowards(obj.transform.localRotation, targetRot, animSpeed * Time.deltaTime);
-            return obj.transform.localRotation != targetRot;
+            if (obj.transform.localRotation != targetRot) {
+                obj.transform.localRotation = Quaternion.RotateTowards(obj.transform.localRotation, targetRot, animSpeed * Time.deltaTime);
+                return true;
+            }
+            return false;
         }
 
         protected override void AnimationEnd(bool state) {
 
+        }
+
+        public void OverrideValues(GameObject obj = null, Vector3? rotation = null, float? speed = null) {
+            if (obj) { this.obj = obj; } // shorter than ternary & GameObjects cant use coalescing
+            animRotation = rotation ?? animRotation;
+            animSpeed = speed ?? animSpeed;
+            OnEnable();
         }
 
         public void OverrideAnimRot(Vector3 start, Vector3 end) {

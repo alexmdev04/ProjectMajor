@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Logging;
 using UnityEngine;
 
@@ -15,20 +16,16 @@ namespace Major.World {
             rotateAnimation = GetComponent<Animations.RotateAnimation>();
             slideAnimation = GetComponent<Animations.SlideAnimation>();
             slideAnimation.onAnimEnd += (state) => {
-                item.rb.MovePosition(transform.position);
-                item.transform.position = transform.position;
-                if (!state) {
-                    OnRelease();
-                }
-                else {
+                if (state) {
+                    item.rb.MovePosition(transform.position);
+                    item.transform.position = transform.position;
                     if (passthrough) {
                         Release();
                     }
                 }
-            };
-            rotateAnimation.onAnimEnd += (state) => {
-                item.rb.MoveRotation(Quaternion.identity);
-                item.transform.rotation = Quaternion.identity;
+                else {
+                    OnRelease();
+                }
             };
         }
 
@@ -63,18 +60,21 @@ namespace Major.World {
             var dirToPlayer = (Player.instance.transform.position - transform.position).normalized;
             var direction = Vector3.Project(dirToPlayer, transform.forward).normalized;
             var animStartPos = transform.position + (direction * (slideAnimation.animDistance * (passthrough && !takeIn ? -1.0f : 1.0f)));
+
             if (takeIn) {
                 item.rb.MovePosition(animStartPos);
                 item.transform.position = animStartPos;
+                rotateAnimation.OverrideValues(
+                    obj: item.gameObject
+                    //speed: Quaternion.Lerp, todo; speed up depending on amount of rotation needed
+                );
+                rotateAnimation.OverrideAnimRot(item.transform.eulerAngles, MathExt.RoundToVal(item.transform.eulerAngles, 90.0f));
+                rotateAnimation.SetAnimationState(true);
             }
 
             slideAnimation.OverrideObject(item.gameObject);
             slideAnimation.OverrideAnimPos(animStartPos, transform.position);
             slideAnimation.SetAnimationState(takeIn, takeIn);
-
-            rotateAnimation.OverrideObject(item.gameObject);
-            rotateAnimation.OverrideAnimRot(item.transform.eulerAngles, MathExt.RoundToVal(item.transform.eulerAngles, 90.0f));
-            rotateAnimation.SetAnimationState(true);
         }
     }
 }

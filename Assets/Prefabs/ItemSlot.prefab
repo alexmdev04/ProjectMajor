@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 0}
-  animSpeed: 300
+  animSpeed: 400
   <animRotation>k__BackingField: {x: 0, y: 90, z: 0}
 --- !u!1 &5859576187207010644
 GameObject:

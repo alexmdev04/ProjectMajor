@@ -47,8 +47,11 @@ namespace Major.Animations {
         }
 
         protected override bool AnimationTick(bool state) {
-            obj.transform.localPosition = Vector3.MoveTowards(obj.transform.localPosition, targetPos, animSpeed * Time.deltaTime);
-            return obj.transform.localPosition != targetPos;
+            if (obj.transform.localPosition != targetPos) {
+                obj.transform.localPosition = Vector3.MoveTowards(obj.transform.localPosition, targetPos, animSpeed * Time.deltaTime);
+                return true;
+            }
+            return false;
         }
 
         protected override void AnimationEnd(bool state) {
