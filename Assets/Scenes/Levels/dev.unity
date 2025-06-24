@@ -401,10 +401,6 @@ PrefabInstance:
       value: ButtonLeft
       objectReference: {fileID: 0}
     - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: triggerable
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: triggerables.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -472,6 +468,7 @@ Transform:
   - {fileID: 7155885232938175078}
   - {fileID: 574934551}
   - {fileID: 1777570638}
+  - {fileID: 792201185}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &574934550
@@ -663,6 +660,68 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591091503}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &792201184
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 439651629}
+    m_Modifications:
+    - target: {fileID: 6459007583272411451, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_Name
+      value: CCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+--- !u!4 &792201185 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
+  m_PrefabInstance: {fileID: 792201184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &943299950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4681521435094215460, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
@@ -1009,10 +1068,6 @@ PrefabInstance:
       value: ButtonCenter
       objectReference: {fileID: 0}
     - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: triggerable
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: triggerables.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1104,10 +1159,6 @@ PrefabInstance:
     - target: {fileID: 5286347124850518176, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: m_Name
       value: ButtonRight
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: triggerable
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: triggerables.Array.size
@@ -1580,12 +1631,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 439651629}
     m_Modifications:
-    - target: {fileID: 2785351058768278819, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
-      propertyPath: triggerable
-      value: 
+    - target: {fileID: 629041712922050895, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: triggerables.Array.size
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 2785351058768278819, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
-      propertyPath: 'triggerables.Array.data[0]'
+    - target: {fileID: 629041712922050895, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: 'triggerables.Array.data[1]'
       value: 
       objectReference: {fileID: 2099416397}
     - target: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
@@ -1749,10 +1800,6 @@ PrefabInstance:
     - target: {fileID: 5286347124850518176, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: m_Name
       value: DoorButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: triggerable
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: triggerables.Array.size
