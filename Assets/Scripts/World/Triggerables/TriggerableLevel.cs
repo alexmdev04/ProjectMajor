@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Major.World {
-    public class LevelLoader : Triggerable {
+    public class TriggerableLevel : Triggerable {
         [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.level)]
         [SerializeField] private AssetReference level;
         private LevelAsset levelAsset;
