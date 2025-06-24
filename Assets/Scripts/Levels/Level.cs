@@ -26,28 +26,37 @@ namespace Major.Levels {
 
         // Indicates successful construction
         public bool isConstructed;
+        public ConstructData constructData { get; private set; }
 
         public World.Checkpoint checkpointCurrent { get; private set; }
+        private World.Checkpoint firstCheckpoint;
 
-        public event Action<Level> onLevelLoaded = (level) => {
-            level.OnLevelLoaded();
-        };
+        public event Action onLevelLoaded = () => { };
 
-        public void OnLevelLoaded() {
+        // Constructs and loads a level, loads the first scene present and fills the asset databases
+        public void Construct(ConstructData constructData) {
+            this.constructData = constructData;
+            levelAsset = constructData.levelAsset;
+            key = constructData.key;
+            sceneInstance = constructData.sceneInstance;
+            prefabs = constructData.cachedPrefabs.prefabs;
+            prefabAddresses = constructData.cachedPrefabs.addresses;
+            isConstructed = true;
+
             var checkpoints = GetComponentsInChildren<World.Checkpoint>();
             foreach (var checkpoint in checkpoints) {
                 if (checkpoint.firstCheckpointInLevel) {
-                    checkpointCurrent = checkpoint;
+                    firstCheckpoint = checkpoint;
                 }
             }
 
-            if (checkpointCurrent) {
-                GoToCheckpoint();
+            if (firstCheckpoint) {
+                ActivateCheckpoint(firstCheckpoint, constructData.teleportOnLoad);
             }
             else {
                 if (checkpoints.Length > 0) {
-                    checkpointCurrent = checkpoints[0];
-                    GoToCheckpoint();
+                    firstCheckpoint = checkpoints[0];
+                    ActivateCheckpoint(firstCheckpoint, constructData.teleportOnLoad);
                     Log.Warning("[Level] '" + key + "' has no first checkpoint, assumed " + checkpointCurrent.gameObject.name + " is the first.");
                 }
                 else {
@@ -59,17 +68,8 @@ namespace Major.Levels {
                 Kevin.instance.item.SetCarriedState(false);
                 Kevin.instance.item.OnUnslotted();
             }
-        }
 
-        // Constructs and loads a level, loads the first scene present and fills the asset databases
-        public void Construct(ConstructData constructData) {
-            levelAsset = constructData.levelAsset;
-            key = constructData.key;
-            sceneInstance = constructData.sceneInstance;
-            prefabs = constructData.cachedPrefabs.prefabs;
-            prefabAddresses = constructData.cachedPrefabs.addresses;
-            isConstructed = true;
-            onLevelLoaded(this);
+            onLevelLoaded();
         }
 
         public async void Unload() {
@@ -111,6 +111,7 @@ namespace Major.Levels {
             public string key;
             public CachedPrefabs cachedPrefabs;
             public SceneInstance sceneInstance;
+            public bool teleportOnLoad;
 
             public ConstructData(
                 LevelAsset levelAsset,
@@ -121,6 +122,7 @@ namespace Major.Levels {
                 this.key = levelAsset.name;
                 this.cachedPrefabs = cachedPrefabs;
                 this.sceneInstance = sceneInstance;
+                this.teleportOnLoad = true;
             }
         }
     }

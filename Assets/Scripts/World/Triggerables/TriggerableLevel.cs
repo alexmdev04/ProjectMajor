@@ -1,22 +1,13 @@
 using Major.Levels;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Major.World {
     public class TriggerableLevel : Triggerable {
-        [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.level)]
-        [SerializeField] private AssetReference level;
-        private LevelAsset levelAsset;
-
-        private async void Start() {
-            if (level == null) {
-                return;
-            }
-            levelAsset = await Addressables.LoadAssetAsync<LevelAsset>(level).Task;
-        }
+        [SerializeField] private string level = "dev";
+        [SerializeField] private bool teleportOnLoad = true;
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
-            LevelManager.LoadLevel(levelAsset);
+            LevelManager.LoadLevel(level, teleportOnLoad);
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {

@@ -12,8 +12,7 @@ namespace Major.Levels {
         public static LevelManager instance { get; private set; }
         public static Level levelCurrent { get; private set; }
         public static Dictionary<string, LevelAsset> levelDatabase { get; private set; }
-        private AssetReference startupLevel;
-        public void SetStartupLevel(AssetReference levelAsset) => startupLevel = levelAsset;
+        private bool teleportToFirstCheckpoint;
 
         private void Awake() {
             if (!GameManager.startupComplete) {
@@ -41,30 +40,31 @@ namespace Major.Levels {
             }
 
             if (Keyboard.current.f5Key.wasPressedThisFrame) {
-                LoadLevel(levelCurrent.levelAsset);
+                RestartHard();
             }
         }
 
-        public static async void LoadLevel(string key) {
+        public static async void LoadLevel(string key, bool teleportOnLoad = true) {
             Log.Debug("[LevelManager] Loading level: " + key);
 
             if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
                 Log.Error("[LevelManager] Load Level failed: Key " + key + " does not exist.");
             }
 
-            await LoadLevelAssetAsync(levelAsset);
+            await LoadLevelAssetAsync(levelAsset, teleportOnLoad);
         }
 
-        public static async void LoadLevel(LevelAsset levelAsset) {
+        public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true) {
             Log.Debug("[LevelManager] Loading level: " + levelAsset.name);
-            await LoadLevelAssetAsync(levelAsset);
+            await LoadLevelAssetAsync(levelAsset, teleportOnLoad);
         }
 
-        private static async Task LoadLevelAssetAsync(LevelAsset levelAsset) {
+        private static async Task LoadLevelAssetAsync(LevelAsset levelAsset, bool teleportOnLoad) {
             var key = levelAsset.name;
-            var loadedLevelAsset = await levelAsset.LoadAsync(true, true);
-            var newLevel = loadedLevelAsset.sceneInstance.Scene.GetRootGameObjects()[0].AddComponent<Level>();
-            newLevel.Construct(loadedLevelAsset);
+            var levelConstructData = await levelAsset.LoadAsync(true, true);
+            levelConstructData.teleportOnLoad = teleportOnLoad;
+            var newLevel = levelConstructData.sceneInstance.Scene.GetRootGameObjects()[0].AddComponent<Level>();
+            newLevel.Construct(levelConstructData);
             UnloadLevelCurrent();
             levelCurrent = newLevel;
             Log.Debug("[LevelManager] Loading level " + key + " completed.");
@@ -79,7 +79,7 @@ namespace Major.Levels {
         }
 
         public void RestartSoft() {
-            levelCurrent.OnLevelLoaded();
+            levelCurrent.GoToCheckpoint();
         }
 
         public void RestartHard() {
@@ -87,7 +87,7 @@ namespace Major.Levels {
         }
 
         private void OnDestroy() {
-            if (!GameManager.startupComplete && !GameManager.quitting) {
+            if (!GameManager.startupComplete || GameManager.quitting) {
                 return;
             }
             Log.Error("[GameManager] Destroyed.");

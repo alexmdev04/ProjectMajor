@@ -47,12 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersRequired: 1
-  level:
-    m_AssetGUID: 887221ff854b7c14f83c895c09037fa3
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
+  level: dev
+  teleportOnLoad: 1
 --- !u!114 &1742472307484099869
 MonoBehaviour:
   m_ObjectHideFlags: 0
