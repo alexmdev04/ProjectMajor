@@ -21,8 +21,8 @@ namespace Major {
         public static event Action onStartupComplete;
 
         // Debug
-        private bool dbg_noclipEnabled;
-        private float dbg_noclipSpeed = 10.0f;
+        [HideInInspector] public bool dbg_noclipEnabled;
+        [HideInInspector] public float dbg_noclipSpeed = 10.0f;
         [SerializeField] private GameObject playerPrefab;
         [SerializeField] private GameObject kevinPrefab;
 

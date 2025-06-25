@@ -67,6 +67,7 @@ namespace Major.Levels {
             var newLevel = levelConstructData.sceneInstance.Scene.GetRootGameObjects()[0].AddComponent<Level>();
             newLevel.Construct(levelConstructData);
             levelCurrent = newLevel;
+            GameManager.instance.dbg_noclipEnabled = false;
             Log.Debug("[LevelManager] Loading level " + key + " completed.");
         }
 
