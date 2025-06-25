@@ -23,6 +23,12 @@ namespace Major {
             respawning = false;
         }
 
+        private void Update() {
+            if (transform.position.y < -10.0f) {
+                GameManager.instance.OnKevinKilled();
+            }
+        }
+
         private void OnDestroy() {
             if (!GameManager.startupComplete || GameManager.quitting) {
                 return;
