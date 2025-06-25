@@ -75,8 +75,13 @@ namespace Major {
                 Player.instance.rb.isKinematic = state;
                 Player.instance.autoDropFarItems = nState;
             }
-            if (Keyboard.current.f2Key.wasPressedThisFrame) {
-                Destroy(Player.instance.gameObject);
+
+            if (Keyboard.current.f6Key.wasPressedThisFrame) {
+                OnPlayerKilled();
+            }
+
+            if (Keyboard.current.f7Key.wasPressedThisFrame) {
+                OnKevinKilled();
             }
 
             if (dbg_noclipEnabled) {
@@ -124,7 +129,10 @@ namespace Major {
         }
 
         public void OnKevinKilled() {
-            OnPlayerKilled();
+            LevelManager.levelCurrent.checkpointCurrent.TeleportKevin();
+            if (Player.instance.carriedItem == Kevin.instance.item) {
+                Player.instance.DropCarriedItem();
+            }
         }
 
         public void OnPlayerDestroyed() {
