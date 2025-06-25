@@ -344,6 +344,7 @@ MonoBehaviour:
   maxDistance: 10
   travelSpeed: 100
   maxItemHoldDistance: 5
+  maxItemHoldSpeed: 10
   autoDropFarItems: 1
 --- !u!54 &773336461374269899
 Rigidbody:

@@ -49,6 +49,7 @@ namespace Major {
         [SerializeField] private float maxDistance = 10.0f;
         [SerializeField] private float travelSpeed = 15.0f;
         [SerializeField] private float maxItemHoldDistance = 5.0f;
+        [SerializeField] private float maxItemHoldSpeed = 5.0f;
         public bool autoDropFarItems = true;
 
         public bool grounded { get; private set; }
@@ -227,6 +228,11 @@ namespace Major {
             }
 
             if (_carriedItem.rb.isKinematic) {
+                return;
+            }
+
+            if (rb.linearVelocity.magnitude > maxItemHoldSpeed) {
+                DropCarriedItem();
                 return;
             }
 
