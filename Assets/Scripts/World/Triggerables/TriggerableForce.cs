@@ -14,12 +14,13 @@ namespace Major.World {
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
             Rigidbody rb = target;
 
-            if (sender == Player.instance.gameObject) {
-                rb = Player.instance.rb;
-                Player.instance.DropCarriedItem();
-            }
-            else if (targetIsSender) {
-                if (!sender.TryGetComponent(out rb)) {
+            if (targetIsSender) {
+                var senderRb = sender.GetComponentInParent<Rigidbody>();
+                if (senderRb) {
+                    rb = senderRb;
+                }
+                else if (!sender.TryGetComponent(out rb)) {
+                    Log.Warning("[TriggerableForce] Sender and its parent has no rigidbody.");
                     return;
                 }
             }
