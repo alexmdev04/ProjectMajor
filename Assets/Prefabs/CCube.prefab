@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c150eebf4021d1d408ce19b9940a243e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prompt: Pickup
   pickupType: 2
   recentlySlotted: 0
   triggerObject: {fileID: 2378351621010240178}
