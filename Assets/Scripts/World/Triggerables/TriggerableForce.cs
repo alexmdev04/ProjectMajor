@@ -7,6 +7,7 @@ namespace Major.World {
         public bool targetIsSender = true;
         public Vector3 position = Vector3.zero;
         public bool positionIsOffset = true;
+        public bool positionIsTarget = true;
         public Vector3 direction = Vector3.zero;
         public float force = 10.0f;
         public ForceMode forceMode = ForceMode.VelocityChange;
@@ -25,9 +26,11 @@ namespace Major.World {
                 }
             }
 
+            var targetPos = positionIsTarget ? rb.position : position;
+
             rb.AddForceAtPosition(
                 direction * force,
-                positionIsOffset ? transform.position + position : position,
+                positionIsOffset ? transform.position + targetPos : targetPos,
                 forceMode
             );
         }
