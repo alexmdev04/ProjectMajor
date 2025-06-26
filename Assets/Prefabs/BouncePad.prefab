@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BouncePad
       objectReference: {fileID: 0}
+    - target: {fileID: 5635605157822027651, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 75c36b27c42332d4781c893dbf1e5660, type: 2}
     - target: {fileID: 7555203849176766517, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -94,6 +98,7 @@ MonoBehaviour:
   targetIsSender: 1
   position: {x: 0, y: 0, z: 0}
   positionIsOffset: 1
+  positionIsTarget: 1
   direction: {x: 0, y: 1, z: 0}
   force: 10
   forceMode: 2
