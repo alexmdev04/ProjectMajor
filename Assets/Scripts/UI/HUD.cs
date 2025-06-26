@@ -1,13 +1,12 @@
 using UnityEngine;
+using TMPro;
 
-public class HUD : MonoBehaviour {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
+namespace Major.UI {
+    public class HUD : MonoBehaviour {
+        public TextMeshProUGUI interactText;
 
-    }
-
-    // Update is called once per frame
-    void Update() {
-
+        private void Awake() {
+            UI.instance.hud = this;
+        }
     }
 }

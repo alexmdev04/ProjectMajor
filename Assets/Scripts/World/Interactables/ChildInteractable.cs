@@ -12,5 +12,10 @@ namespace Major.World {
         public override void Interact(Player sender, Action callback = null) {
             parent.Interact(sender, callback);
         }
+
+        public override string GetPrompt() {
+            return parent.GetPrompt();
+        }
+
     }
 }

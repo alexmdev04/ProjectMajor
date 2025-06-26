@@ -19,7 +19,8 @@ namespace Major.World {
         public Rigidbody rb { get; private set; }
         private ItemSlot itemSlot;
         public bool recentlySlotted;
-
+        [SerializeField] private string prompt = "Pickup";
+        [SerializeField] private string slottedPrompt = "Unslot";
         [SerializeField] private GameObject triggerObject;
         private LayerMask triggerLayer;
 
@@ -89,5 +90,10 @@ namespace Major.World {
                 itemSlot.Release(false);
             }
         }
+
+        public override string GetPrompt() {
+            return itemSlot ? slottedPrompt : prompt;
+        }
+
     }
 }

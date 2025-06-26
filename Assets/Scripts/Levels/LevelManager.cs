@@ -68,6 +68,11 @@ namespace Major.Levels {
             newLevel.Construct(levelConstructData);
             levelCurrent = newLevel;
             GameManager.instance.dbg_noclipEnabled = false;
+            Player.instance.moveActive = true;
+            Player.instance.rb.detectCollisions = true;
+            Player.instance.rb.useGravity = true;
+            Player.instance.rb.isKinematic = false;
+            Player.instance.autoDropItemsDistance = true;
             Log.Debug("[LevelManager] Loading level " + key + " completed.");
         }
 

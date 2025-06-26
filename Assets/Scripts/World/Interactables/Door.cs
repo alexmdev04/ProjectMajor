@@ -16,6 +16,11 @@ namespace Major.World {
             }
         }
 
+        public override string GetPrompt() {
+            return openState ? "Close" : "Open";
+        }
+
+
         public override void Interact(Player sender, Action callback = null) {
             SetState(!openState);
             callback?.Invoke();

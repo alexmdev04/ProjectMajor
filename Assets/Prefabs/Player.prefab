@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 421404078658582717}
   - component: {fileID: 3881084251226539944}
   - component: {fileID: 408491975565270225}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -316,36 +316,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6994d70d415d40d41a21f3243bfc8f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <cam>k__BackingField: {fileID: 421404078658582717}
+  lookActive: 1
+  groundedCheckLayer:
+    serializedVersion: 2
+    m_Bits: 193
+  groundedCheckBoxSize: {x: 0.1, y: 0.01, z: 0.1}
+  toCrouchSpeed: 3.5
+  playerHeight: 1
+  playerCrouchHeight: 0.6
+  cameraHeight: 0.85
+  eulerAngles: {x: 0, y: 0, z: 0}
+  moveActive: 1
   acceleration: 50
   accelerationAir: 20
-  lookActive: 1
-  moveActive: 1
   friction: 5
   flatvelMin: 0.1
   walkVelocity: 4
   crouchVelocity: 2
   sprintVelocity: 5
-  cameraHeight: 0.85
   jumpForce: 5
-  crouchSpeed: 3.5
-  groundedCheckBoxSize: {x: 0.1, y: 0.01, z: 0.1}
-  groundedCheckLayer:
-    serializedVersion: 2
-    m_Bits: 193
-  _carriedItem: {fileID: 0}
-  <cam>k__BackingField: {fileID: 421404078658582717}
-  eulerAngles: {x: 0, y: 0, z: 0}
-  playerHeightCm: 200
-  playerCrouchHeightCm: 120
-  interactDistance: 3
   interactLayerMask:
     serializedVersion: 2
     m_Bits: 193
-  maxDistance: 10
-  travelSpeed: 100
-  maxItemHoldDistance: 5
-  maxItemHoldSpeed: 10
-  autoDropFarItems: 1
+  interactDistance: 3
+  itemDistanceForMaxSpeed: 10
+  itemTravelSpeed: 50
+  itemMaxHeldDistance: 5
+  itemMaxHeldPlayerSpeed: 10
+  autoDropItemsDistance: 1
+  autoDropItemsPlayerSpeed: 1
 --- !u!54 &773336461374269899
 Rigidbody:
   m_ObjectHideFlags: 0

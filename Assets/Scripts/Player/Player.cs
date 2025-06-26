@@ -8,54 +8,53 @@ namespace Major {
         public static Player instance { get; private set; }
         public Rigidbody rb { get; private set; }
         public GameObject body { get; private set; }
-
-        public float
-            acceleration = 15f,
-            accelerationAir = 15f;
-
-        public bool
-            lookActive = true,
-            moveActive = true;
-
-        [SerializeField] private float friction = 0.85f;
-        [SerializeField, Range(0f, 0.1f)] private float flatvelMin = 0.1f;
-
-        [SerializeField]
-        private float
-            walkVelocity = 4f,
-            crouchVelocity = 2f,
-            sprintVelocity = 6.5f,
-            //maxVelocityAir = 6.5f, 
-            cameraHeight = 0.825f,
-            // movementAcceleration = 0.1f,
-            // movementDecceleration = 0.05f,
-            jumpForce = 5f,
-            crouchSpeed = 3.6576f;
-        [SerializeField] private Vector3 groundedCheckBoxSize = Vector3.one;
-        [SerializeField] private LayerMask groundedCheckLayer;
-        [SerializeField] private World.Item _carriedItem;
-        public World.Item carriedItem => _carriedItem;
+        public World.Item carriedItem { get; private set; }
         [field: SerializeField] public Camera cam { get; private set; }
-        public Vector3 eulerAngles;
-        public float playerHeightCm = 185.42f; // in cm
-        public float playerCrouchHeightCm = 93.98f; // in cm
-        private float playerHeight;
-        private float playerCrouchHeight;
-        private float maxVelocity;
+        public bool grounded { get; private set; }
+
+
+        [Header("General")]
+        public bool lookActive = true;
+        [SerializeField] private LayerMask groundedCheckLayer;
+        [SerializeField] private Vector3 groundedCheckBoxSize = new (0.1f, 0.01f, 0.1f);
+        [SerializeField] private float
+            toCrouchSpeed = 3.5f,
+            playerHeight = 1.0f,
+            playerCrouchHeight = 0.6f,
+            cameraHeight = 0.85f;
+        public Vector3 eulerAngles = Vector3.zero;
+
+
+        [Header("Movement")]
+        public bool moveActive = true;
+        [SerializeField] private float acceleration = 50.0f;
+        [SerializeField] private float accelerationAir = 20.0f;
+        [SerializeField] private float friction = 5.0f;
+        [SerializeField, Range(0f, 0.1f)] private float flatvelMin = 0.1f;
+        [SerializeField] private float walkVelocity = 4.0f;
+        [SerializeField] private float crouchVelocity = 2.0f;
+        [SerializeField] private float sprintVelocity = 5.0f;
+        // [SerializeField] private float maxVelocityAir = 6.5f;
+        // [SerializeField] private float movementAcceleration = 0.1f;
+        // [SerializeField] private float movementDecceleration = 0.05f;
+        [SerializeField] private float jumpForce = 5f;
+
 
         [Header("Interaction")]
-        [SerializeField] private float interactDistance = 100.0f;
         [SerializeField] private LayerMask interactLayerMask = int.MaxValue;
-        [SerializeField] private float maxDistance = 10.0f;
-        [SerializeField] private float travelSpeed = 15.0f;
-        [SerializeField] private float maxItemHoldDistance = 5.0f;
-        [SerializeField] private float maxItemHoldSpeed = 5.0f;
-        public bool autoDropFarItems = true;
+        [SerializeField] private float
+            interactDistance = 3.0f,
+            itemDistanceForMaxSpeed = 10.0f,
+            itemTravelSpeed = 50.0f,
+            itemMaxHeldDistance = 5.0f,
+            itemMaxHeldPlayerSpeed = 10.0f;
+        public bool autoDropItemsDistance = true;
+        public bool autoDropItemsPlayerSpeed = true;
 
-        public bool grounded { get; private set; }
-        // => MathF.Round(rb.linearVelocity.y, 3) == 0.0f;
-
+        // Privates
         private bool respawning = false;
+        private float maxVelocity;
+
 
         private void Awake() {
             if (!GameManager.startupComplete) {
@@ -66,8 +65,6 @@ namespace Major {
             rb = GetComponent<Rigidbody>();
             cam = Camera.main;
             cam.transform.localPosition = new Vector3(0.0f, cameraHeight, 0.0f);
-            playerHeight = playerHeightCm / 200.0f;
-            playerCrouchHeight = playerCrouchHeightCm / 200.0f;
         }
 
         public void OnRespawn() {
@@ -95,11 +92,17 @@ namespace Major {
             if (transform.position.y < -10.0f) {
                 GameManager.instance.OnPlayerKilled();
             }
-            //UpdateCrouch();
+            UpdateCrouch();
             UpdateCarriedItem();
         }
 
         private void FixedUpdate() {
+            if (carriedItem) {
+                UI.UI.instance.ShowInteractPrompt("Drop");
+            }
+            else {
+                UpdateInteractPrompt();
+            }
             GroundedCheck();
             if (moveActive) { UpdateMove(); }
         }
@@ -173,35 +176,51 @@ namespace Major {
             rb.AddForce(jumpForce * Vector3.up, ForceMode.VelocityChange);
         }
 
-        // private void UpdateCrouch() {
-        //     // overkill early exit
-        //     // if (!crouched && currentHeight >= playerHeight) {
-        //     //     return;
-        //     // }
+        private void UpdateCrouch() {
+            // overkill early exit
+            // if (!Input.Handler.instance.crouched && currentHeight >= playerHeight) {
+            //     return;
+            // }
 
-        //     var bodyTransform = _body.transform;
+            var bodyTransform = body.transform;
 
-        //     // depending on input move between playerHeight and crouchHeight by crouchSpeed
-        //     var height = Mathf.Clamp(
-        //         bodyTransform.localPosition.y + (crouchSpeed * Time.deltaTime * (Input.Handler.instance.crouched ? -1.0f : 1.0f)),
-        //         playerCrouchHeight,
-        //         playerHeight
-        //     );
+            // depending on input move between playerHeight and crouchHeight by crouchSpeed
+            var height = Mathf.Clamp(
+                bodyTransform.localPosition.y + (toCrouchSpeed * Time.deltaTime * (Input.Handler.instance.crouched ? -1.0f : 1.0f)),
+                playerCrouchHeight,
+                playerHeight
+            );
 
-        //     // == Vector3(0,h,0)
-        //     var offset = Vector3.up * height;
+            var offset = Vector3.up * height;
+            bodyTransform.localPosition = offset;
+            var bodyScale = bodyTransform.localScale;
+            bodyScale.y = height;
+            bodyTransform.localScale = bodyScale;
+        }
 
-        //     // edit the mesh as a child of the collider
-        //     bodyTransform.localPosition = offset;
+        private void UpdateInteractPrompt() {
+            if (TryGetFacingInteractable(out var interactable, out var hit)) {
+                UI.UI.instance.ShowInteractPrompt(interactable.GetPrompt());
+            }
+            else {
+                UI.UI.instance.HideInteractPrompt();
+            }
+        }
 
-        //     var bodyScale = bodyTransform.localScale;
-        //     bodyScale.y = height;
-        //     bodyTransform.localScale = bodyScale;
+        private bool TryGetFacingInteractable(out World.Interactable interactable, out RaycastHit hit) {
+            if (!Physics.Raycast(
+                new Ray(cam.transform.position, cam.transform.forward),
+                out hit,
+                interactDistance,
+                interactLayerMask
+            )) {
+                interactable = null;
+                hit = new();
+                return false;
+            }
 
-        //     // edit the collider
-        //     _capsuleCollider.center = offset;
-        //     _capsuleCollider.height = height * 2.0f;
-        // }
+            return hit.collider.TryGetComponent(out interactable);
+        }
 
         private void Interact() {
             // Check if the player has an item and drop it
@@ -209,16 +228,7 @@ namespace Major {
                 return;
             }
 
-            // get the hit
-            if (!Physics.Raycast(
-                new Ray(cam.transform.position, cam.transform.forward),
-                out var hit,
-                interactDistance,
-                interactLayerMask)) {
-                return;
-            }
-
-            if (!hit.transform.TryGetComponent(out World.Interactable interactable)) {
+            if (!TryGetFacingInteractable(out var interactable, out var hit)) {
                 return;
             }
 
@@ -226,44 +236,44 @@ namespace Major {
         }
 
         private void UpdateCarriedItem() {
-            if (!_carriedItem) {
+            if (!carriedItem) {
                 return;
             }
 
-            if (_carriedItem.rb.isKinematic) {
+            if (carriedItem.rb.isKinematic) {
                 return;
             }
 
-            if (rb.linearVelocity.magnitude > maxItemHoldSpeed) {
+            if (autoDropItemsPlayerSpeed && rb.linearVelocity.magnitude > itemMaxHeldPlayerSpeed) {
                 DropCarriedItem();
                 return;
             }
 
-            var objPos = _carriedItem.rb.position;
+            var objPos = carriedItem.rb.position;
             var target = cam.transform.position + (cam.transform.forward * 2.5f);
             var distance = Vector3.Distance(objPos, target);
-            UnityEngine.Debug.DrawLine(start: objPos, end: target, color: Color.Lerp(Color.green, Color.red, Mathf.InverseLerp(0.0f, maxItemHoldDistance, distance)), depthTest: false, duration: 0.0f);
-            if (autoDropFarItems && distance > maxItemHoldDistance) {
+            UnityEngine.Debug.DrawLine(start: objPos, end: target, color: Color.Lerp(Color.green, Color.red, Mathf.InverseLerp(0.0f, itemMaxHeldDistance, distance)), depthTest: false, duration: 0.0f);
+            if (autoDropItemsDistance && distance > itemMaxHeldDistance) {
                 DropCarriedItem();
                 return;
             }
 
-            _carriedItem.rb.linearVelocity =
+            carriedItem.rb.linearVelocity =
                 (target - objPos).normalized * // direction
-                Mathf.Min(Mathf.InverseLerp(0.0f, maxDistance, distance), 1.0f) * // speed
-                travelSpeed;
+                Mathf.Min(Mathf.InverseLerp(0.0f, itemDistanceForMaxSpeed, distance), 1.0f) * // speed
+                itemTravelSpeed;
         }
 
         public void SetCarriedItem(World.Item item) {
             DropCarriedItem();
             item.SetCarriedState(true);
-            _carriedItem = item;
+            carriedItem = item;
         }
 
         public bool DropCarriedItem() {
-            if (_carriedItem) {
-                _carriedItem.SetCarriedState(false);
-                _carriedItem = null;
+            if (carriedItem) {
+                carriedItem.SetCarriedState(false);
+                carriedItem = null;
                 return true;
             }
             return false;

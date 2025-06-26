@@ -73,7 +73,7 @@ namespace Major {
                 Player.instance.rb.detectCollisions = nState;
                 Player.instance.rb.useGravity = nState;
                 Player.instance.rb.isKinematic = state;
-                Player.instance.autoDropFarItems = nState;
+                Player.instance.autoDropItemsDistance = nState;
             }
 
             if (Keyboard.current.f6Key.wasPressedThisFrame) {
