@@ -113,11 +113,13 @@ namespace Major {
             paused = state;
             if (state) {
                 // UI.instance.SetMenuState(UI.MenuState.paused);
+                Time.timeScale = 0.0f;
                 Input.Handler.instance.input.Player.Disable();
                 Input.Handler.instance.input.Player.Pause.Enable();
             }
             else {
                 // UI.instance.SetMenuState(UI.MenuState.inGame);
+                Time.timeScale = 1.0f;
                 Input.Handler.instance.input.Player.Enable();
             }
         }
