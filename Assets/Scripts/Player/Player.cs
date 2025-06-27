@@ -9,6 +9,7 @@ namespace Major {
         public Rigidbody rb { get; private set; }
         public GameObject body { get; private set; }
         public World.Item carriedItem { get; private set; }
+        public World.Interactable facingInteractable { get; private set; }
         [field: SerializeField] public Camera cam { get; private set; }
         public bool grounded { get; private set; }
 
@@ -217,6 +218,11 @@ namespace Major {
                 interactable = null;
                 hit = new();
                 return false;
+            }
+
+            if (hit.collider.gameObject == facingInteractable.gameObject) {
+                interactable = facingInteractable;
+                return true;
             }
 
             return hit.collider.TryGetComponent(out interactable);
