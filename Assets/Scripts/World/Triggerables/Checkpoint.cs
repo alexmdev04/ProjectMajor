@@ -69,6 +69,9 @@ namespace Major.World {
         }
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
+            if (Levels.LevelManager.levelCurrent.checkpointCurrent == this) {
+                return;
+            }
             Levels.LevelManager.levelCurrent.ActivateCheckpoint(this, teleportOnActivation);
             Log.Debug("[Checkpoint] '" + name + "' activated.");
         }
