@@ -5,12 +5,14 @@ namespace Major.World {
     public class TriggerableForce : Triggerable {
         public Rigidbody target;
         public bool targetIsSender = true;
-        public Vector3 position = Vector3.zero;
-        public bool positionIsOffset = true;
+        [Tooltip("The base position and forward direction of the force")]
+        public Transform forceTransform;
+        public Vector3 positionOffset = Vector3.zero;
         public bool positionIsTarget = true;
-        public Vector3 direction = Vector3.zero;
         public float force = 10.0f;
         public ForceMode forceMode = ForceMode.VelocityChange;
+        public bool resetTargetLinearVelocity = true;
+        public bool resetTargetAngularVelocity = true;
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
             Rigidbody rb = target;
@@ -21,16 +23,24 @@ namespace Major.World {
                     rb = senderRb;
                 }
                 else if (!sender.TryGetComponent(out rb)) {
-                    Log.Warning("[TriggerableForce] Sender and its parent has no rigidbody.");
+                    Log.Warning("[TriggerableForce] Sender and its parent have no rigidbody.");
                     return;
                 }
             }
 
-            var targetPos = positionIsTarget ? rb.position : position;
+            if (resetTargetLinearVelocity) {
+                rb.linearVelocity = Vector3.zero;
+            }
+
+            if (resetTargetAngularVelocity) {
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            var targetPos = positionIsTarget ? rb.position : forceTransform.position;
 
             rb.AddForceAtPosition(
-                direction * force,
-                positionIsOffset ? transform.position + targetPos : targetPos,
+                forceTransform.forward * force,
+                targetPos + positionOffset,
                 forceMode
             );
         }

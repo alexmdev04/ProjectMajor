@@ -365,6 +365,7 @@ MonoBehaviour:
   triggerables:
   - {fileID: 1829785172}
   minimumEntities: 1
+  triggeredByEveryEntity: 0
 --- !u!65 &79455278
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1710,10 +1711,6 @@ PrefabInstance:
       value: Cube Spawner Button
       objectReference: {fileID: 0}
     - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: triggerable
-      value: 
-      objectReference: {fileID: 434333300}
-    - target: {fileID: 5828851588702836805, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: triggerables.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1949,10 +1946,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 523409428}
     m_Modifications:
     - target: {fileID: 255921037203713420, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 255921037203713420, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1992,33 +1985,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4040170603661079351, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6087613
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040170603661079351, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.79335344
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040170603661079351, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -105
+      objectReference: {fileID: 0}
     - target: {fileID: 4379307540986129573, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: force
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4379307540986129573, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: direction.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4379307540986129573, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: direction.z
-      value: -0.5
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5832192364250559344, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: m_Name
       value: BouncePad
-      objectReference: {fileID: 0}
-    - target: {fileID: 9187290705672911081, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: strength
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 9187290705672911081, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: direction.y
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9187290705672911081, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: direction.z
-      value: -0.55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2137,10 +2122,6 @@ PrefabInstance:
     - target: {fileID: 5389618338231501104, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: m_Name
       value: Exit Item Slot
-      objectReference: {fileID: 0}
-    - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: triggerable
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: triggerables.Array.size
@@ -2536,14 +2517,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 970592180}
     m_Modifications:
-    - target: {fileID: 3170654007474399168, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4026301294658512998, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
     - target: {fileID: 4681521435094215460, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -2584,14 +2557,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4695735957071133199, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4747174178670767884, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
     - target: {fileID: 5389618338231501104, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: m_Name
       value: Conveyor Item Slot
@@ -2601,17 +2566,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: triggerable
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: triggerables.Array.size
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: 'triggerables.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1429099825}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2636,10 +2593,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 629041712922050895, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: 'triggerables.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2010783270}
-    - target: {fileID: 2785351058768278819, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
-      propertyPath: 'triggerables.Array.data[0]'
       value: 
       objectReference: {fileID: 2010783270}
     - target: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
@@ -2699,14 +2652,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 970592180}
     m_Modifications:
-    - target: {fileID: 3170654007474399168, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4026301294658512998, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
     - target: {fileID: 4681521435094215460, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -2747,21 +2692,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4695735957071133199, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4747174178670767884, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
     - target: {fileID: 5389618338231501104, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: m_Name
       value: Exit Item Slot
-      objectReference: {fileID: 0}
-    - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: triggerable
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: triggerables.Array.size
@@ -3003,14 +2936,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5613198765246894498, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
-      propertyPath: triggerCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5613198765246894498, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
-      propertyPath: triggersRequired
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8116174653599639225, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
       propertyPath: m_Name
       value: Exit Door
@@ -3084,6 +3009,7 @@ MonoBehaviour:
   triggerables:
   - {fileID: 29465054}
   minimumEntities: 1
+  triggeredByEveryEntity: 0
 --- !u!65 &961348644
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4023,11 +3949,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4808887413818352524, guid: dd575023fc38c334fa03f8627f23b367, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.0001
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4808887413818352524, guid: dd575023fc38c334fa03f8627f23b367, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5.0001
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4808887413818352524, guid: dd575023fc38c334fa03f8627f23b367, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4128,14 +4054,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1723630336}
     m_Modifications:
-    - target: {fileID: 550103423889252089, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.8000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 550103423889252089, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.20000002
-      objectReference: {fileID: 0}
     - target: {fileID: 550103423889252089, guid: 35526c6a3aa29a2408a4d14bae2b7b51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.5
@@ -4249,14 +4167,6 @@ PrefabInstance:
     - target: {fileID: 1627791594493681189, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5613198765246894498, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
-      propertyPath: triggerCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5613198765246894498, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
-      propertyPath: triggersRequired
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8116174653599639225, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
       propertyPath: m_Name
@@ -4586,10 +4496,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upper Bounce Pad
       objectReference: {fileID: 0}
-    - target: {fileID: 9187290705672911081, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: strength
-      value: 12
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4649,8 +4555,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: -1}
-  strength: 600
-  forceMode: 0
+  strength: 6.5
+  forceMode: 5
 --- !u!65 &1664932622
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4801,18 +4707,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1405385764}
     m_Modifications:
-    - target: {fileID: 3170654007474399168, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3315855491759224014, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: animDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4026301294658512998, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
     - target: {fileID: 4681521435094215460, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -4853,21 +4747,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4695735957071133199, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4747174178670767884, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
     - target: {fileID: 5389618338231501104, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: m_Name
       value: Exit Item Slot
-      objectReference: {fileID: 0}
-    - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: triggerable
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: triggerables.Array.size
@@ -4979,6 +4861,7 @@ MonoBehaviour:
   triggerables:
   - {fileID: 504654602}
   minimumEntities: 1
+  triggeredByEveryEntity: 0
 --- !u!65 &1774348977
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5141,6 +5024,7 @@ MonoBehaviour:
   triggerables:
   - {fileID: 1836331596}
   minimumEntities: 1
+  triggeredByEveryEntity: 0
 --- !u!65 &1836331598
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5329,14 +5213,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5613198765246894498, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
-      propertyPath: triggerCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5613198765246894498, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
-      propertyPath: triggersRequired
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6615819744714408821, guid: 5e3cac4b7aee6b944bf3d9c216e94060, type: 3}
       propertyPath: triggersRequired
       value: 2
@@ -5421,10 +5297,6 @@ PrefabInstance:
     - target: {fileID: 5832192364250559344, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: m_Name
       value: Lower Bounce Pad
-      objectReference: {fileID: 0}
-    - target: {fileID: 9187290705672911081, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: strength
-      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5567,7 +5439,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1937934532219443172, guid: 4ea1bd5eb72fd0043b99a1176809c3c0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.0001
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1937934532219443172, guid: 4ea1bd5eb72fd0043b99a1176809c3c0, type: 3}
       propertyPath: m_LocalScale.y
