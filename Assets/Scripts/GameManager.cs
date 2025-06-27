@@ -127,14 +127,21 @@ namespace Major {
         public void SetPlayerName(string input) => playerName = input;
 
         public void OnPlayerKilled() {
-            LevelManager.levelCurrent.GoToCheckpoint();
+            if (Player.instance.carriedItem) {
+                Player.instance.DropCarriedItem();
+            }
+            OnKevinKilled();
+            LevelManager.levelCurrent.checkpointCurrent.TeleportPlayer();
         }
 
         public void OnKevinKilled() {
-            LevelManager.levelCurrent.checkpointCurrent.TeleportKevin();
             if (Player.instance.carriedItem == Kevin.instance.item) {
                 Player.instance.DropCarriedItem();
             }
+            if (Kevin.instance.item.itemSlot) {
+                Kevin.instance.item.itemSlot.Release(false);
+            }
+            LevelManager.levelCurrent.checkpointCurrent.TeleportKevin();
         }
 
         public void OnPlayerDestroyed() {
