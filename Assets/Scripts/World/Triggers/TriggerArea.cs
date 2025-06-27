@@ -1,3 +1,4 @@
+using Unity.Logging;
 using UnityEngine;
 
 namespace Major.World {
@@ -5,6 +6,10 @@ namespace Major.World {
         private int triggerEntities;
         [SerializeField] private int minimumEntities = 1;
         private void OnTriggerEnter(Collider collision) {
+            if (collision.TryGetComponent<DestructionProtection>(out var collisionDP)) {
+                collisionDP.onColliderDestroyed += OnTriggerExit; 
+            }
+
             if (triggerEntities < minimumEntities) {
                 Begin(collision.gameObject);
                 OnTriggerAreaBegin(collision.gameObject);
@@ -12,6 +17,10 @@ namespace Major.World {
             triggerEntities++;
         }
         private void OnTriggerExit(Collider collision) {
+            if (collision.TryGetComponent<DestructionProtection>(out var collisionDP)) {
+                collisionDP.onColliderDestroyed -= OnTriggerExit; 
+            }
+
             triggerEntities--;
             if (triggerEntities < minimumEntities) {
                 End(collision.gameObject);
