@@ -220,9 +220,11 @@ namespace Major {
                 return false;
             }
 
-            if (hit.collider.gameObject == facingInteractable.gameObject) {
-                interactable = facingInteractable;
-                return true;
+            if (facingInteractable) {
+                if (hit.collider.gameObject == facingInteractable.gameObject) {
+                    interactable = facingInteractable;
+                    return true;
+                }
             }
 
             return hit.collider.TryGetComponent(out interactable);
