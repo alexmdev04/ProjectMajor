@@ -13,9 +13,9 @@ GameObject:
   m_Layer: 0
   m_Name: Checkpoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &121862759596781241
 Transform:
@@ -46,12 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggersRequired: 1
   firstCheckpointInLevel: 0
-  useObjectTransformAsSpawn: 1
-  spawnPlayer: 1
-  spawnKevin: 1
+  useCheckpointTransformAsPosition: 1
   killVelocity: 1
   teleportOnActivation: 0
-  playerSpawnLocation: {x: 0, y: 0, z: 0}
+  playerSpawnPosition: {x: 0, y: 0, z: 0}
+  playerSpawnPositionIsOffset: 0
   playerSpawnRotation: {x: 0, y: 0, z: 0}
   kevinSpawnPosition: {x: 0, y: 0, z: 0}
+  kevinSpawnLocationIsOffset: 0
   kevinSpawnRotation: {x: 0, y: 0, z: 0}

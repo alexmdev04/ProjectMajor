@@ -12,14 +12,14 @@ GameObject:
   - component: {fileID: 575656011305720335}
   - component: {fileID: 2234610069718995511}
   - component: {fileID: 4012646380483894791}
-  - component: {fileID: 1485796588467379714}
-  - component: {fileID: 2803650076848243863}
+  - component: {fileID: 7733628462781012175}
+  - component: {fileID: 7319193629878136449}
   m_Layer: 0
   m_Name: Death Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1937934532219443172
 Transform:
@@ -87,7 +87,7 @@ MonoBehaviour:
   triggersRequired: 1
   target: {fileID: 0}
   targetIsSender: 1
---- !u!33 &1485796588467379714
+--- !u!33 &7733628462781012175
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,7 +95,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953541824371973283}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2803650076848243863
+--- !u!23 &7319193629878136449
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
