@@ -524,10 +524,6 @@ PrefabInstance:
       value: CheckpointLeft
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
-      propertyPath: spawnKevin
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: firstCheckpointInLevel
       value: 0
       objectReference: {fileID: 0}
@@ -1260,10 +1256,6 @@ PrefabInstance:
     - target: {fileID: 3307416418627534785, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: m_Name
       value: CheckpointRight
-      objectReference: {fileID: 0}
-    - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
-      propertyPath: spawnKevin
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: firstCheckpointInLevel

@@ -1737,10 +1737,6 @@ PrefabInstance:
       propertyPath: teleportOnLoad
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6057481602077336461, guid: c78da2a316cf39744b670a186eb6d5ec, type: 3}
-      propertyPath: level.m_AssetGUID
-      value: 7ea8f74b45d8ec74ba2a8cfe71f7ae82
-      objectReference: {fileID: 0}
     - target: {fileID: 7386924888566300254, guid: c78da2a316cf39744b670a186eb6d5ec, type: 3}
       propertyPath: m_Size.z
       value: 8
@@ -1881,10 +1877,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 629041712922050895, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: 'triggerables.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1300490969}
-    - target: {fileID: 2785351058768278819, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
-      propertyPath: 'triggerables.Array.data[0]'
       value: 
       objectReference: {fileID: 1300490969}
     - target: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
