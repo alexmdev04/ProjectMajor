@@ -98,14 +98,14 @@ namespace Major {
         }
 
         private void FixedUpdate() {
+            GroundedCheck();
+            if (moveActive) { UpdateMove(); }
             if (carriedItem) {
                 UI.UI.instance.ShowInteractPrompt("Drop");
             }
             else {
                 UpdateInteractPrompt();
             }
-            GroundedCheck();
-            if (moveActive) { UpdateMove(); }
         }
 
         private void LateUpdate() {
