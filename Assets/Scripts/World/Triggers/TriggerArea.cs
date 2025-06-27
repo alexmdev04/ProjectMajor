@@ -4,28 +4,52 @@ using UnityEngine;
 namespace Major.World {
     public abstract class TriggerArea : Trigger {
         private int triggerEntities;
-        [SerializeField] private int minimumEntities = 1;
+        [SerializeField, Tooltip("Overriden by 'triggered by every entity'")]
+        private int minimumEntities = 1;
+
+        [SerializeField, Tooltip("If an entity enters the area immediately begin and end the trigger, useful for one time triggerables like bounce pads")]
+        private bool triggeredByEveryEntity = false;
+
         private void OnTriggerEnter(Collider collision) {
-            if (collision.TryGetComponent<DestructionProtection>(out var collisionDP)) {
-                collisionDP.onColliderDestroyed += OnTriggerExit; 
+            if (triggeredByEveryEntity) {
+                OnBegin(collision.gameObject);
+                OnEnd(collision.gameObject);
+                return;
             }
 
-            if (triggerEntities < minimumEntities) {
-                Begin(collision.gameObject);
-                OnTriggerAreaBegin(collision.gameObject);
+            if (collision.TryGetComponent<DestructionProtection>(out var collisionDP)) {
+                collisionDP.onColliderDestroyed += OnTriggerExit;
+            }
+
+            if (triggerEntities < minimumEntities || triggeredByEveryEntity) {
+                OnBegin(collision.gameObject);
             }
             triggerEntities++;
         }
+
+        private void OnBegin(GameObject sender) {
+            Begin(sender);
+            OnTriggerAreaBegin(sender);
+        }
+
         private void OnTriggerExit(Collider collision) {
+            if (triggeredByEveryEntity) {
+                return;
+            }
+
             if (collision.TryGetComponent<DestructionProtection>(out var collisionDP)) {
-                collisionDP.onColliderDestroyed -= OnTriggerExit; 
+                collisionDP.onColliderDestroyed -= OnTriggerExit;
             }
 
             triggerEntities--;
             if (triggerEntities < minimumEntities) {
-                End(collision.gameObject);
-                OnTriggerAreaEnd(collision.gameObject);
+                OnEnd(collision.gameObject);
             }
+        }
+
+        private void OnEnd(GameObject sender) {
+            End(sender);
+            OnTriggerAreaEnd(sender);
         }
 
         protected abstract void OnTriggerAreaBegin(GameObject sender);
