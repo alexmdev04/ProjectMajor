@@ -17,7 +17,7 @@ namespace Major.World {
         }
 
         public Rigidbody rb { get; private set; }
-        private ItemSlot itemSlot;
+        public ItemSlot itemSlot { get; private set; }
         public bool recentlySlotted;
         [SerializeField] private string prompt = "Pickup";
         [SerializeField] private string slottedPrompt = "Unslot";
