@@ -7,6 +7,8 @@ using UnityEngine;
 namespace Major.World {
     public abstract class Trigger : MonoBehaviour {
         [SerializeField] private List<Triggerable> triggerables = new();
+        [SerializeField] private bool objectDestructionProtection = true;
+
 
         private void Start() {
 #if UNITY_EDITOR
@@ -48,6 +50,7 @@ namespace Major.World {
             }
             OnTriggerBegin(sender);
         }
+
         protected virtual void OnTriggerBegin(GameObject sender) {
 
         }
@@ -58,8 +61,15 @@ namespace Major.World {
             }
             OnTriggerEnd(sender);
         }
+
         protected virtual void OnTriggerEnd(GameObject sender) {
 
+        }
+
+        private void OnDestroy() {
+            if (objectDestructionProtection) {
+                End(gameObject);
+            }
         }
     }
 }
