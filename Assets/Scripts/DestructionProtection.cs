@@ -7,14 +7,22 @@ namespace Major {
         public event Action<Collider> onColliderDestroyed = (c) => { };
         [HideInInspector] public new Collider collider;
         private bool hasCollider;
+
         private void Awake() {
             hasCollider = TryGetComponent(out collider);
         }
+
         private void OnDestroy() {
             onDestroyed(gameObject);
             if (hasCollider) {
                 onColliderDestroyed(collider);
             }
+        }
+
+        private void OnApplicationQuit() {
+            // Destruction protection is not needed if the app is quitting
+            onDestroyed = (go) => { };
+            onColliderDestroyed = (c) => { };
         }
     }
 }
