@@ -24,6 +24,11 @@ namespace Major.World {
                     log.Append("\n - Self triggerable found, please set this in the editor");
                     triggerables.Add(selfTriggerable);
                 }
+                else if (this is ItemSlot itemSlot) {
+                    if (!itemSlot.passthrough) {
+                        log.Append("\n - No triggerables set in scene");
+                    }
+                }
                 else {
                     log.Append("\n - No triggerables set in scene");
                 }
