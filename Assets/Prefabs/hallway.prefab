@@ -170,9 +170,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: a53c3b107db45d048baec72896459eb1, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a53c3b107db45d048baec72896459eb1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: be9f8293ea5c66841bc0e3cdebbfa990, type: 2}
+    - target: {fileID: -7511558181221131132, guid: a53c3b107db45d048baec72896459eb1, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5510ab75f1d6c7f4c84f10a28a21f2e4, type: 2}
     - target: {fileID: 919132149155446097, guid: a53c3b107db45d048baec72896459eb1, type: 3}
       propertyPath: m_Name
       value: Hallway
@@ -217,7 +225,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -8624468366930770980, guid: a53c3b107db45d048baec72896459eb1, type: 3}
+  m_Mesh: {fileID: -9028115708954250909, guid: a53c3b107db45d048baec72896459eb1, type: 3}
 --- !u!4 &775717911359368327 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a53c3b107db45d048baec72896459eb1, type: 3}
