@@ -23,6 +23,9 @@ namespace Major.Debug {
                     text.Append("Checkpoint: ").Append(LevelManager.levelCurrent.checkpointCurrent.name).Append("\n");
                 }
             }
+            if (Input.Handler.instance) {
+                text.Append("Sensitivity: ").Append(Input.Handler.instance.sensitivity).Append("\n");
+            }
             if (GameManager.instance.dbg_noclipEnabled) {
                 text.Append("Noclip\n");
             }
