@@ -1,4 +1,5 @@
 using System;
+using Unity.Logging;
 using UnityEngine;
 
 namespace Major {
@@ -12,6 +13,13 @@ namespace Major {
             hasCollider = TryGetComponent(out collider);
         }
 
+        private void Start() {
+            if (!Levels.LevelManager.levelCurrent) {
+                return;
+            }
+            Levels.LevelManager.levelCurrent.onLevelUnloaded += ClearCallbacks;
+        }
+
         private void OnDestroy() {
             onDestroyed(gameObject);
             if (hasCollider) {
@@ -21,8 +29,12 @@ namespace Major {
 
         private void OnApplicationQuit() {
             // Destruction protection is not needed if the app is quitting
+            ClearCallbacks();
+        }
+
+        public void ClearCallbacks() {
             onDestroyed = (go) => { };
-            onColliderDestroyed = (c) => { };
+            onColliderDestroyed = (c) => { };            
         }
     }
 }
