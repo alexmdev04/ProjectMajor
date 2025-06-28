@@ -9,8 +9,8 @@ namespace Major.World {
         private Item item;
         private Animations.SlideAnimation slideAnimation;
         private Animations.RotateAnimation rotateAnimation;
-        [SerializeField] private bool passthrough;
-        [SerializeField] private bool requireKevin = true;
+        public bool passthrough;
+        public bool requireKevin = true;
 
         private void Awake() {
             rotateAnimation = GetComponent<Animations.RotateAnimation>();
