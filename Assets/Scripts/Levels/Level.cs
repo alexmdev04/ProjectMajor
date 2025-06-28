@@ -32,6 +32,7 @@ namespace Major.Levels {
         private World.Checkpoint firstCheckpoint;
 
         public event Action onLevelLoaded = () => { };
+        public event Action onLevelUnloaded = () => { };
 
         // Constructs and loads a level, loads the first scene present and fills the asset databases
         public void Construct(ConstructData constructData) {
@@ -73,6 +74,8 @@ namespace Major.Levels {
         }
 
         public async void Unload() {
+            onLevelUnloaded();
+            
             await Addressables.UnloadSceneAsync(sceneInstance, UnloadSceneOptions.None).Task;
 
             foreach (var prefab in prefabs.Values) {
