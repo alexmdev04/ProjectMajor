@@ -92,6 +92,14 @@ namespace Major {
             if (Keyboard.current.f9Key.wasPressedThisFrame) {
                 QualitySettings.vSyncCount = QualitySettings.vSyncCount == 1 ? 0 : 1;
             }
+
+            if (Keyboard.current.equalsKey.wasPressedThisFrame) {
+                Input.Handler.instance.sensitivity += 0.1f;
+            }
+
+            if (Keyboard.current.minusKey.wasPressedThisFrame) {
+                Input.Handler.instance.sensitivity -= 0.1f;
+            }
         }
 
         private void OnDisable() {
