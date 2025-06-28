@@ -7,18 +7,10 @@ namespace Major.Input {
         public Actions input { get; private set; }
         public bool sprinting { get; private set; }
         public bool crouched { get; private set; }
-        public Vector2 mouseDelta { get; private set; }
+        public Vector2 lookDelta { get; private set; }
         public Vector2 scrollDelta { get; private set; }
-        public Vector3 movementDirection;// { get; private set; }
-        // public float sensitivity {
-        //     get => _sens;
-        //     set {
-        //         PlayerPrefs.SetFloat(sensPrefKey, value);
-        //         _sens = value;
-        //     }
-        // }
-        public float sensitivity = 1.0f;
-        private float _sens = 1.0f;
+        public Vector3 movementDirection { get; private set; }
+        public float sensitivity;
         public event Action OnJump = () => { };
         public event Action OnInteract = () => { };
         public event Action<bool> OnPause = paused => { };
@@ -34,14 +26,17 @@ namespace Major.Input {
         }
 
         private void Start() {
-            // if (PlayerPrefs.HasKey(sensPrefKey)) {
-            //     UI.instance.SetSensitivity(PlayerPrefs.GetFloat(sensPrefKey).ToString());
-            // }
+            if (PlayerPrefs.HasKey(sensPrefKey)) {
+                sensitivity = PlayerPrefs.GetFloat(sensPrefKey);
+            }
+            else {
+                sensitivity = 1.0f;
+            }
         }
 
         private void Update() {
             // mouse vector
-            mouseDelta = input.Player.Look.ReadValue<Vector2>();
+            lookDelta = input.Player.Look.ReadValue<Vector2>();
 
             // movement vector
             var vec = input.Player.Movement.ReadValue<Vector2>();
@@ -77,6 +72,10 @@ namespace Major.Input {
                 return;
             }
             input.Player.Disable();
+        }
+
+        private void OnApplicationQuit() {
+            PlayerPrefs.SetFloat(sensPrefKey, sensitivity);
         }
     }
 }
