@@ -24,7 +24,7 @@ namespace Major.Debug {
                 }
             }
             if (Input.Handler.instance) {
-                text.Append("Sensitivity: ").Append(Input.Handler.instance.sensitivity).Append("\n");
+                text.Append("Sensitivity: ").Append(MathF.Round(Input.Handler.instance.sensitivity, 3)).Append("\n");
             }
             if (GameManager.instance.dbg_noclipEnabled) {
                 text.Append("Noclip\n");
