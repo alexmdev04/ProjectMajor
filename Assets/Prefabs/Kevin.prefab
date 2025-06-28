@@ -131,7 +131,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6459007583272411451, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
       propertyPath: m_Name
-      value: Kevin Variant
+      value: Kevin
       objectReference: {fileID: 0}
     - target: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -173,7 +173,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1096652448600800156, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9106511937892544666, guid: b8f7c6e9d1353a043be1f23037ec944c, type: 3}
