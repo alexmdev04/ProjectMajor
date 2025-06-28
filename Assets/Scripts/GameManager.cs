@@ -41,7 +41,7 @@ namespace Major {
             if (!startupComplete) {
                 return;
             }
-            Application.targetFrameRate = 165;
+            //Application.targetFrameRate = 165;
             QualitySettings.vSyncCount = 1;
             inGame = true;
             Addressables.InitializeAsync();
@@ -87,6 +87,10 @@ namespace Major {
             if (dbg_noclipEnabled) {
                 Player.instance.transform.position += Player.instance.cam.transform.TransformDirection(Input.Handler.instance.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
                 dbg_noclipSpeed = Mathf.Clamp(dbg_noclipSpeed + Mouse.current.scroll.value.y, 0.0f, 100.0f);
+            }
+
+            if (Keyboard.current.f9Key.wasPressedThisFrame) {
+                QualitySettings.vSyncCount = QualitySettings.vSyncCount == 1 ? 0 : 1;
             }
         }
 
