@@ -12,7 +12,7 @@ namespace Major.Levels {
         public static LevelManager instance { get; private set; }
         public static Level levelCurrent { get; private set; }
         public static Dictionary<string, LevelAsset> levelDatabase { get; private set; }
-        private bool teleportToFirstCheckpoint;
+        public static bool isBusy;
 
         private void Awake() {
             if (!GameManager.startupComplete) {
@@ -31,21 +31,22 @@ namespace Major.Levels {
 
         private void Update() {
             // Debug Keys
-            if (Keyboard.current.f3Key.wasPressedThisFrame) {
+            if (Keyboard.current.f3Key.wasPressedThisFrame && !isBusy) {
                 LoadLevel(AssetKeys.Levels.home);
             }
 
-            if (Keyboard.current.f4Key.wasPressedThisFrame) {
+            if (Keyboard.current.f4Key.wasPressedThisFrame && !isBusy) {
                 LoadLevel(AssetKeys.Levels.tutorial);
             }
 
-            if (Keyboard.current.f5Key.wasPressedThisFrame) {
+            if (Keyboard.current.f5Key.wasPressedThisFrame && levelCurrent) {
                 RestartHard();
             }
         }
 
         public static async void LoadLevel(string key, bool teleportOnLoad = true) {
             Log.Debug("[LevelManager] Loading level: " + key);
+            isBusy = true;
 
             if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
                 Log.Error("[LevelManager] Load Level failed: Key " + key + " does not exist.");
@@ -56,6 +57,8 @@ namespace Major.Levels {
 
         public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true) {
             Log.Debug("[LevelManager] Loading level: " + levelAsset.name);
+            isBusy = true;
+            
             await LoadLevelAssetAsync(levelAsset, teleportOnLoad);
         }
 
@@ -73,6 +76,7 @@ namespace Major.Levels {
             Player.instance.rb.useGravity = true;
             Player.instance.rb.isKinematic = false;
             Player.instance.autoDropItemsDistance = true;
+            isBusy = false;
             Log.Debug("[LevelManager] Loading level " + key + " completed.");
         }
 
