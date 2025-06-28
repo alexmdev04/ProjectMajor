@@ -94,11 +94,11 @@ namespace Major {
             }
 
             if (Keyboard.current.equalsKey.wasPressedThisFrame) {
-                Input.Handler.instance.sensitivity += 0.1f;
+                Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity + 0.1f, 0.0f, float.MaxValue);
             }
 
             if (Keyboard.current.minusKey.wasPressedThisFrame) {
-                Input.Handler.instance.sensitivity -= 0.1f;
+                Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity - 0.1f, 0.0f, float.MaxValue);
             }
         }
 
