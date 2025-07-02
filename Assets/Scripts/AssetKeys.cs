@@ -3,6 +3,7 @@ namespace Major.AssetKeys {
     public static class Levels {
         public const string home = "home";
         public const string tutorial = "tutorial";
+        public const string level1 = "level1";
         public const string dev = "dev";
     }
 
