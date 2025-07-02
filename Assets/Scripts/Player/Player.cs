@@ -50,7 +50,8 @@ namespace Major {
             itemMaxHeldDistance = 5.0f,
             itemMaxHeldPlayerSpeed = 10.0f;
         public bool autoDropItemsDistance = true;
-        public bool autoDropItemsPlayerSpeed = true;
+        public bool autoDropItemsPlayerSpeed = false;
+        public bool autoDropItemsBehindWall = false;
 
         // Privates
         private bool respawning = false;
@@ -100,11 +101,12 @@ namespace Major {
         private void FixedUpdate() {
             GroundedCheck();
             if (moveActive) { UpdateMove(); }
+            UpdateInteract();
             if (carriedItem) {
                 UI.UI.instance.ShowInteractPrompt("Drop");
             }
             else {
-                UpdateInteractPrompt();
+                UpdateInteract();
             }
         }
 
@@ -199,8 +201,16 @@ namespace Major {
             bodyTransform.localScale = bodyScale;
         }
 
-        private void UpdateInteractPrompt() {
-            if (TryGetFacingInteractable(out var interactable, out var hit)) {
+        private void UpdateInteract() {
+            var isFacingInteractable = TryGetFacingInteractable(out var interactable, out var hit, out var isFacingWall);
+
+            if (carriedItem) {
+                UI.UI.instance.ShowInteractPrompt("Drop");
+                if (autoDropItemsBehindWall && isFacingWall && hit.distance < Vector3.Distance(transform.position, carriedItem.transform.position)) {
+                    DropCarriedItem();
+                }
+            }
+            else if (isFacingInteractable) {
                 UI.UI.instance.ShowInteractPrompt(interactable.GetPrompt());
             }
             else {
@@ -208,7 +218,7 @@ namespace Major {
             }
         }
 
-        private bool TryGetFacingInteractable(out World.Interactable interactable, out RaycastHit hit) {
+        private bool TryGetFacingInteractable(out World.Interactable interactable, out RaycastHit hit, out bool facingWall) {
             if (!Physics.Raycast(
                 new Ray(cam.transform.position, cam.transform.forward),
                 out hit,
@@ -217,17 +227,21 @@ namespace Major {
             )) {
                 interactable = null;
                 hit = new();
+                facingWall = false;
                 return false;
             }
 
             if (facingInteractable) {
                 if (hit.collider.gameObject == facingInteractable.gameObject) {
                     interactable = facingInteractable;
+                    facingWall = false;
                     return true;
                 }
             }
 
-            return hit.collider.TryGetComponent(out interactable);
+            var isFacingInteractable = hit.collider.TryGetComponent(out interactable);
+            facingWall = !isFacingInteractable;
+            return isFacingInteractable;
         }
 
         private void Interact() {
@@ -236,7 +250,7 @@ namespace Major {
                 return;
             }
 
-            if (!TryGetFacingInteractable(out var interactable, out var hit)) {
+            if (!TryGetFacingInteractable(out var interactable, out var hit, out _)) {
                 return;
             }
 
