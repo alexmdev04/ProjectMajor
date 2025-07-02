@@ -70,6 +70,13 @@ namespace Major.Levels {
                 Kevin.instance.item.OnUnslotted();
             }
 
+            if (constructData.homeTransition) {
+                Player.instance.transform.position += levelAsset.homeTransitionPosOffset;
+                Player.instance.rb.position += levelAsset.homeTransitionPosOffset;
+                Kevin.instance.transform.position += levelAsset.homeTransitionPosOffset;
+                Kevin.instance.rb.position += levelAsset.homeTransitionPosOffset;
+            }
+
             onLevelLoaded();
         }
 
@@ -115,17 +122,22 @@ namespace Major.Levels {
             public CachedPrefabs cachedPrefabs;
             public SceneInstance sceneInstance;
             public bool teleportOnLoad;
+            public bool homeTransition;
 
             public ConstructData(
                 LevelAsset levelAsset,
                 CachedPrefabs cachedPrefabs,
-                SceneInstance sceneInstance
-            ) {
+                SceneInstance sceneInstance,
+                bool teleportOnLoad = true,
+                bool homeTransition = false
+            )
+            {
                 this.levelAsset = levelAsset;
                 this.key = levelAsset.name;
                 this.cachedPrefabs = cachedPrefabs;
                 this.sceneInstance = sceneInstance;
-                this.teleportOnLoad = true;
+                this.teleportOnLoad = teleportOnLoad;
+                this.homeTransition = homeTransition;
             }
         }
     }

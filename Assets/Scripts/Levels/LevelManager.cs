@@ -29,22 +29,12 @@ namespace Major.Levels {
             };
         }
 
-        private void Update() {
-            // Debug Keys
-            if (Keyboard.current.f3Key.wasPressedThisFrame && !isBusy) {
-                LoadLevel(AssetKeys.Levels.home);
+        public static async void LoadLevel(string key, bool teleportOnLoad = true, bool homeTransition = false) {
+            if (isBusy) {
+                Log.Warning("[LevelManager] Busy, load level aborted: " + key);
+                return;
             }
 
-            if (Keyboard.current.f4Key.wasPressedThisFrame && !isBusy) {
-                LoadLevel(AssetKeys.Levels.tutorial);
-            }
-
-            if (Keyboard.current.f5Key.wasPressedThisFrame && levelCurrent) {
-                RestartHard();
-            }
-        }
-
-        public static async void LoadLevel(string key, bool teleportOnLoad = true) {
             Log.Debug("[LevelManager] Loading level: " + key);
             isBusy = true;
 
@@ -52,21 +42,27 @@ namespace Major.Levels {
                 Log.Error("[LevelManager] Load Level failed: Key " + key + " does not exist.");
             }
 
-            await LoadLevelAssetAsync(levelAsset, teleportOnLoad);
+            await LoadLevelAssetAsync(levelAsset, teleportOnLoad, homeTransition);
         }
 
-        public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true) {
+        public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true, bool homeTransition = false) {
+            if (isBusy) {
+                Log.Warning("[LevelManager] Busy, load level aborted: " + levelAsset.name);
+                return;
+            }
+
             Log.Debug("[LevelManager] Loading level: " + levelAsset.name);
             isBusy = true;
             
-            await LoadLevelAssetAsync(levelAsset, teleportOnLoad);
+            await LoadLevelAssetAsync(levelAsset, teleportOnLoad, homeTransition);
         }
 
-        private static async Task LoadLevelAssetAsync(LevelAsset levelAsset, bool teleportOnLoad) {
+        private static async Task LoadLevelAssetAsync(LevelAsset levelAsset, bool teleportOnLoad, bool homeTransition) {
             UnloadLevelCurrent();
             var key = levelAsset.name;
             var levelConstructData = await levelAsset.LoadAsync(true, true);
             levelConstructData.teleportOnLoad = teleportOnLoad;
+            levelConstructData.homeTransition = homeTransition;
             var newLevel = levelConstructData.sceneInstance.Scene.GetRootGameObjects()[0].AddComponent<Level>();
             newLevel.Construct(levelConstructData);
             levelCurrent = newLevel;
@@ -88,11 +84,11 @@ namespace Major.Levels {
             levelCurrent = null;
         }
 
-        public void RestartSoft() {
+        public static void RestartSoft() {
             levelCurrent.GoToCheckpoint();
         }
 
-        public void RestartHard() {
+        public static void RestartHard() {
             LoadLevel(levelCurrent.levelAsset);
         }
 

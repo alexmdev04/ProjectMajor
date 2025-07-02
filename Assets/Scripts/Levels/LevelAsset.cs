@@ -26,6 +26,9 @@ namespace Major.Levels {
         [field: AssetReferenceUILabelRestriction(AssetKeys.Labels.prefab)]
         public List<AssetReference> prefabReferences { get; private set; }
 
+        [field: SerializeField]
+        public Vector3 homeTransitionPosOffset { get; private set; } = Vector3.zero;
+
         public async Task<Level.ConstructData> LoadAsync(bool logTasks = false, bool timeTasks = false) {
             return new(
                 this,

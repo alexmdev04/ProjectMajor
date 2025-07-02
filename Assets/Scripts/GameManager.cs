@@ -65,40 +65,64 @@ namespace Major {
         }
 
         private void Update() {
-            if (Keyboard.current.f1Key.wasPressedThisFrame) {
-                bool state = !dbg_noclipEnabled;
-                bool nState = !state;
-                dbg_noclipEnabled = state;
-                Player.instance.moveActive = nState;
-                Player.instance.rb.detectCollisions = nState;
-                Player.instance.rb.useGravity = nState;
-                Player.instance.rb.isKinematic = state;
-                Player.instance.autoDropItemsDistance = nState;
-            }
+            
+            
+            
+            
 
-            if (Keyboard.current.f6Key.wasPressedThisFrame) {
-                OnPlayerKilled();
+            // Debug Keys
+            if (Keyboard.current.ctrlKey.isPressed) {
+                if (Keyboard.current.f1Key.wasPressedThisFrame) {
+                    LevelManager.LoadLevel(AssetKeys.Levels.home, true);
+                }
+                
+                if (Keyboard.current.f2Key.wasPressedThisFrame) {
+                    LevelManager.LoadLevel(AssetKeys.Levels.tutorial, true);
+                }
+                
+                if (Keyboard.current.f3Key.wasPressedThisFrame) {
+                    LevelManager.LoadLevel(AssetKeys.Levels.level1, true);
+                }
             }
+            else {
+                if (Keyboard.current.f1Key.wasPressedThisFrame) {
+                    bool state = !dbg_noclipEnabled;
+                    dbg_noclipEnabled = state;
+                    Player.instance.moveActive = !state;
+                    Player.instance.rb.detectCollisions = !state;
+                    Player.instance.rb.useGravity = !state;
+                    Player.instance.rb.isKinematic = state;
+                    Player.instance.autoDropItemsDistance = !state;
+                }
+                
+                if (Keyboard.current.f5Key.wasPressedThisFrame && LevelManager.levelCurrent) {
+                    LevelManager.RestartHard();
+                }
+                
+                if (Keyboard.current.f6Key.wasPressedThisFrame) {
+                    OnPlayerKilled();
+                }
+                
+                if (Keyboard.current.f7Key.wasPressedThisFrame) {
+                    OnKevinKilled();
+                }
+                
+                if (Keyboard.current.f9Key.wasPressedThisFrame) {
+                    QualitySettings.vSyncCount = QualitySettings.vSyncCount == 1 ? 0 : 1;
+                }
+                
+                if (Keyboard.current.equalsKey.wasPressedThisFrame) {
+                    Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity + 0.1f, 0.0f, float.MaxValue);
+                }
 
-            if (Keyboard.current.f7Key.wasPressedThisFrame) {
-                OnKevinKilled();
+                if (Keyboard.current.minusKey.wasPressedThisFrame) {
+                    Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity - 0.1f, 0.0f, float.MaxValue);
+                }
             }
 
             if (dbg_noclipEnabled) {
                 Player.instance.transform.position += Player.instance.cam.transform.TransformDirection(Input.Handler.instance.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
                 dbg_noclipSpeed = Mathf.Clamp(dbg_noclipSpeed + Mouse.current.scroll.value.y, 0.0f, 100.0f);
-            }
-
-            if (Keyboard.current.f9Key.wasPressedThisFrame) {
-                QualitySettings.vSyncCount = QualitySettings.vSyncCount == 1 ? 0 : 1;
-            }
-
-            if (Keyboard.current.equalsKey.wasPressedThisFrame) {
-                Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity + 0.1f, 0.0f, float.MaxValue);
-            }
-
-            if (Keyboard.current.minusKey.wasPressedThisFrame) {
-                Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity - 0.1f, 0.0f, float.MaxValue);
             }
         }
 
@@ -160,14 +184,14 @@ namespace Major {
             Log.Error("[GameManager] Player object was destroyed, do not do this. Respawning and restarting level.");
             var newPlayer = Instantiate(playerPrefab).GetComponent<Player>();
             newPlayer.OnRespawn();
-            LevelManager.instance.RestartHard();
+            LevelManager.RestartHard();
         }
 
         public void OnKevinDestroyed() {
             Log.Error("[GameManager] Kevin object was destroyed, do not do this. Respawning and restarting level.");
             var newKevin = Instantiate(kevinPrefab).GetComponent<Kevin>();
             newKevin.OnRespawn();
-            LevelManager.instance.RestartHard();
+            LevelManager.RestartHard();
         }
 
         private void OnDestroy() {
