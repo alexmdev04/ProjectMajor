@@ -63,7 +63,7 @@ namespace Major.World {
                 return;
             }
 
-            if (triggerObject) { triggerObject.layer = state ? 0 : triggerLayer; }
+            //if (triggerObject) { triggerObject.layer = state ? 0 : triggerLayer; }
             isCarried = state;
             rb.useGravity = !state;
         }

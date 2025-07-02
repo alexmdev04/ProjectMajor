@@ -28,6 +28,13 @@ namespace Major.World {
                 }
             }
 
+            if (rb.TryGetComponent(out Item item)) {
+                if (item.isCarried) {
+                    Player.instance.DropCarriedItem();
+                }
+
+            }
+
             if (resetTargetLinearVelocity) {
                 rb.linearVelocity = Vector3.zero;
             }
