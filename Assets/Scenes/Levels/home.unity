@@ -1895,6 +1895,10 @@ PrefabInstance:
       value: tutorial
       objectReference: {fileID: 0}
     - target: {fileID: 6057481602077336461, guid: c78da2a316cf39744b670a186eb6d5ec, type: 3}
+      propertyPath: homeTransition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057481602077336461, guid: c78da2a316cf39744b670a186eb6d5ec, type: 3}
       propertyPath: teleportOnLoad
       value: 0
       objectReference: {fileID: 0}
