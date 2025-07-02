@@ -82,10 +82,4 @@ namespace Major.Levels {
             this.count = count;
         }
     }
-
-    [Serializable]
-    public struct StartingPosition {
-        public Vector3 pos;
-        public bool isOffset;
-    }
 }

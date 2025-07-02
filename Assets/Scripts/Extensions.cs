@@ -53,12 +53,6 @@ namespace Major {
             onTaskComplete?.Invoke(task.Result);
             return result;
         }
-
-        public static void StartupTeleport(this Rigidbody rb, Levels.StartingPosition startingPosition) {
-            rb.position = startingPosition.isOffset ?
-                rb.position + startingPosition.pos :
-                startingPosition.pos;
-        }
     }
 
     public static class MathExt {
