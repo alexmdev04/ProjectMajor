@@ -262,18 +262,18 @@ MonoBehaviour:
   dotSize: 2
   dotOpacity: 1
   dotOutlineOpacity: 1
-  icLength: 10
-  icThickness: 10
-  icOffset: 10
+  icLength: 7
+  icThickness: 2
+  icOffset: 9.89
   icOpacity: 1
   icOutlineOpacity: 1
   dotEnabled: 0
   icEnabled: 1
   ocEnabled: 0
   rainbowEnabled: 0
-  dotColor: {r: 0, g: 1, b: 0, a: 1}
+  dotColor: {r: 1, g: 1, b: 1, a: 1}
   dotOutlineColor: {r: 0, g: 0, b: 0, a: 1}
-  icColor: {r: 0, g: 1, b: 0, a: 1}
+  icColor: {r: 1, g: 1, b: 1, a: 1}
   icOutlineColor: {r: 0, g: 0, b: 0, a: 1}
   rainbowColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &169944086
