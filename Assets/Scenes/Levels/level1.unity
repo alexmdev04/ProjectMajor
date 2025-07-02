@@ -358,6 +358,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207802404}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &395167497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 395167498}
+  m_Layer: 0
+  m_Name: Teleport Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &395167498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395167497}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1864453136}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &622951501
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,23 +820,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4040170603661079351, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.38268372
+      value: 0.42261827
       objectReference: {fileID: 0}
     - target: {fileID: 4040170603661079351, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.92387944
+      value: -0.9063079
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040170603661079351, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040170603661079351, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4040170603661079351, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -135
+      value: -130
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379307540986129573, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      propertyPath: force
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 5832192364250559344, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
       propertyPath: m_Name
       value: BouncePad
       objectReference: {fileID: 0}
+    - target: {fileID: 7200834786059138294, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      propertyPath: triggerables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200834786059138294, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      propertyPath: 'triggerables.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 255921037203713420, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 395167498}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
 --- !u!1 &1770640844
