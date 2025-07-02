@@ -4,8 +4,8 @@ using UnityEngine;
 namespace Major.World {
     public abstract class Triggerable : MonoBehaviour {
         private bool triggered => triggeredBy.Count >= triggersRequired;
-        [SerializeField] private uint triggersRequired = 1;
-        public HashSet<Trigger> triggeredBy = new HashSet<Trigger>();
+        [SerializeField] protected uint triggersRequired = 1;
+        protected HashSet<Trigger> triggeredBy = new HashSet<Trigger>();
         public void Begin(Trigger senderTrigger, GameObject sender) {
             if (triggeredBy.Contains(senderTrigger)) {
                 return;
