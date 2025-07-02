@@ -797,7 +797,7 @@ MonoBehaviour:
   teleportOnActivation: 0
   playerSpawnPosition: {x: -0.5, y: 10, z: 0.5}
   playerSpawnPositionIsOffset: 0
-  playerSpawnRotation: {x: 0, y: 0, z: 0}
+  playerSpawnRotation: {x: 0, y: -90, z: 0}
   kevinSpawnPosition: {x: -0.5, y: 3, z: 0.5}
   kevinSpawnLocationIsOffset: 0
   kevinSpawnRotation: {x: 0, y: 0, z: 0}
@@ -863,7 +863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3925532882581927394, guid: c021619b2f4e6614387796e6d4ef6c36, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
