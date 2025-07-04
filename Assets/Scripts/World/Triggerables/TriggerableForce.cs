@@ -36,7 +36,7 @@ namespace Major.World {
 
             if (rb == Player.instance.rb) {
                 Player.instance.OverrideGrounded(false, 2);
-                Player.instance.OverrideMaxVelocity(force / (14.0f / 9.0f));
+                Player.instance.OverrideMaxVelocity(force);
             }
 
             if (resetTargetLinearVelocity) {
