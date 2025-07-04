@@ -32,7 +32,10 @@ namespace Major.World {
                 if (item.isCarried) {
                     Player.instance.DropCarriedItem();
                 }
+            }
 
+            if (rb == Player.instance.rb) {
+                Player.instance.OverrideGroundedThisFixedUpdate(false);
             }
 
             if (resetTargetLinearVelocity) {

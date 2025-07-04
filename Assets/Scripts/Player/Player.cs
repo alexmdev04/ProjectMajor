@@ -11,6 +11,7 @@ namespace Major {
         public World.Item carriedItem { get; private set; }
         public World.Interactable facingInteractable { get; private set; }
         [field: SerializeField] public Camera cam { get; private set; }
+        private bool overrideGrounded;
         public bool grounded { get; private set; }
 
 
@@ -171,6 +172,11 @@ namespace Major {
         }
 
         private void GroundedCheck() {
+            // Prevents remaining grounded for a single fixed update after gaining the necessary force
+            if (overrideGrounded) {
+                overrideGrounded = false;
+                return;
+            }
             grounded = Physics.OverlapBox(center: rb.position, halfExtents: groundedCheckBoxSize, orientation: Quaternion.identity, layerMask: groundedCheckLayer).Length > 0;
         }
 
@@ -299,6 +305,12 @@ namespace Major {
                 return true;
             }
             return false;
+        }
+
+        public void OverrideGroundedThisFixedUpdate(bool state) {
+            overrideGrounded = true;
+            grounded = state;
+            Log.Debug("grounded overriden: " + grounded);
         }
     }
 }
