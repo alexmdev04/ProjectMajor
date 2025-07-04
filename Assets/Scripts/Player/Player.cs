@@ -129,15 +129,15 @@ namespace Major {
         public static void OverrideInstance(Player newInstance) => instance = newInstance;
 
         private void Look() {
-            Vector2 mouseDeltaMult = (Input.Handler.instance.sensitivity * Time.deltaTime) * Input.Handler.instance.lookDelta;
+            Vector2 lookDelta = (Input.Handler.instance.sensitivity * Time.deltaTime) * Input.Handler.instance.lookDelta;
 
             eulerAngles = new Vector2(
                 Math.Clamp(
-                    eulerAngles.x - mouseDeltaMult.y,
+                    eulerAngles.x - lookDelta.y,
                     -90f,
                     90f
                 ),
-                eulerAngles.y + mouseDeltaMult.x
+                eulerAngles.y + lookDelta.x
             );
 
             body.transform.eulerAngles = new Vector3(0f, eulerAngles.y, 0f);
