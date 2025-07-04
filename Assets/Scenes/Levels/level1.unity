@@ -850,10 +850,6 @@ PrefabInstance:
       propertyPath: triggerables.Array.size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7200834786059138294, guid: 1046edd3bd2ac79428f255f76859f953, type: 3}
-      propertyPath: 'triggerables.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
