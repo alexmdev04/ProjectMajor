@@ -19,7 +19,8 @@ namespace Major {
         public bool lookActive = true;
         [SerializeField] private LayerMask groundedCheckLayer;
         [SerializeField] private Vector3 groundedCheckBoxSize = new(0.1f, 0.01f, 0.1f);
-        [SerializeField] private float
+        [SerializeField]
+        private float
             toCrouchSpeed = 3.5f,
             playerHeight = 1.0f,
             playerCrouchHeight = 0.6f,
@@ -44,7 +45,8 @@ namespace Major {
 
         [Header("Interaction")]
         [SerializeField] private LayerMask interactLayerMask = int.MaxValue;
-        [SerializeField] private float
+        [SerializeField]
+        private float
             interactDistance = 3.0f,
             itemDistanceForMaxSpeed = 10.0f,
             itemTravelSpeed = 50.0f,
@@ -57,7 +59,7 @@ namespace Major {
         // Privates
         private bool respawning = false;
         private float maxVelocity;
-
+        public bool decelerateToMaxVelocity = false;
 
         private void Awake() {
             if (!GameManager.startupComplete) {
@@ -168,7 +170,9 @@ namespace Major {
                 accelVel = maxVelocity - projVel;
             }
 
-            rb.linearVelocity += movementDirectionGlobal * accelVel;
+            rb.linearVelocity += decelerateToMaxVelocity ?
+                movementDirectionGlobal * accelVel :
+                movementDirectionGlobal * Math.Max(accelVel, 0.0f);
         }
 
         private void GroundedCheck() {
@@ -310,11 +314,6 @@ namespace Major {
         public void OverrideGrounded(bool state, int frames = 1) {
             overrideGrounded += frames;
             grounded = state;
-            Log.Debug("grounded overriden: " + grounded);
-        }
-
-        public void OverrideMaxVelocity(float value) {
-            maxVelocity = value;
         }
     }
 }   
