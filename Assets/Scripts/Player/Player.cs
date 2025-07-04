@@ -287,9 +287,9 @@ namespace Major {
             }
 
             carriedItem.rb.linearVelocity =
-                (target - objPos).normalized * // direction
-                Mathf.Min(Mathf.InverseLerp(0.0f, itemDistanceForMaxSpeed, distance), 1.0f) * // speed
-                itemTravelSpeed;
+                itemTravelSpeed *
+                Mathf.Min(Mathf.InverseLerp(0.0f, itemDistanceForMaxSpeed, distance), 1.0f) *
+                (target - objPos).normalized;
         }
 
         public void SetCarriedItem(World.Item item) {
