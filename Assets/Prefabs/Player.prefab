@@ -321,7 +321,7 @@ MonoBehaviour:
   eulerAngles: {x: 0, y: 0, z: 0}
   moveActive: 1
   acceleration: 50
-  accelerationAir: 5
+  accelerationAir: 20
   friction: 5
   flatvelMin: 0.1
   walkVelocity: 4
@@ -339,6 +339,7 @@ MonoBehaviour:
   autoDropItemsDistance: 1
   autoDropItemsPlayerSpeed: 0
   autoDropItemsBehindWall: 0
+  decelerateToMaxVelocity: 0
 --- !u!54 &773336461374269899
 Rigidbody:
   m_ObjectHideFlags: 0
