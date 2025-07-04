@@ -65,21 +65,16 @@ namespace Major {
         }
 
         private void Update() {
-            
-            
-            
-            
-
             // Debug Keys
             if (Keyboard.current.ctrlKey.isPressed) {
                 if (Keyboard.current.f1Key.wasPressedThisFrame) {
                     LevelManager.LoadLevel(AssetKeys.Levels.home, true);
                 }
-                
+
                 if (Keyboard.current.f2Key.wasPressedThisFrame) {
                     LevelManager.LoadLevel(AssetKeys.Levels.tutorial, true);
                 }
-                
+
                 if (Keyboard.current.f3Key.wasPressedThisFrame) {
                     LevelManager.LoadLevel(AssetKeys.Levels.level1, true);
                 }
@@ -94,23 +89,23 @@ namespace Major {
                     Player.instance.rb.isKinematic = state;
                     Player.instance.autoDropItemsDistance = !state;
                 }
-                
+
                 if (Keyboard.current.f5Key.wasPressedThisFrame && LevelManager.levelCurrent) {
                     LevelManager.RestartHard();
                 }
-                
+
                 if (Keyboard.current.f6Key.wasPressedThisFrame) {
                     OnPlayerKilled();
                 }
-                
+
                 if (Keyboard.current.f7Key.wasPressedThisFrame) {
                     OnKevinKilled();
                 }
-                
+
                 if (Keyboard.current.f9Key.wasPressedThisFrame) {
                     QualitySettings.vSyncCount = QualitySettings.vSyncCount == 1 ? 0 : 1;
                 }
-                
+
                 if (Keyboard.current.equalsKey.wasPressedThisFrame) {
                     Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity + 0.1f, 0.0f, float.MaxValue);
                 }
