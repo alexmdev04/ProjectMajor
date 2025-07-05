@@ -23,8 +23,8 @@ namespace Major.Levels {
         }
 
         private void Start() {
-            GameManager.onStartupComplete += () => {
-                Addressables.LoadAssetsAsync<LevelAsset>(AssetKeys.Labels.level, levelAsset => { levelDatabase.Add(levelAsset.name, levelAsset); }).WaitForCompletion();
+            GameManager.onStartupComplete += async () => {
+                await Addressables.LoadAssetsAsync<LevelAsset>(AssetKeys.Labels.level, levelAsset => { levelDatabase.Add(levelAsset.name, levelAsset); }).Task;//.WaitForCompletion();
                 LoadLevel(GameManager.startupSettings.levelKey);
             };
         }
