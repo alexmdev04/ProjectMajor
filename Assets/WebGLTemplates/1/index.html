@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity Web Player | {{{ PRODUCT_NAME }}}</title>
+</head>
+
+<body style="text-align: center; padding: 0; border: 0; margin: 0;">
+  <canvas id="unity-canvas" width={{{ WIDTH }}} height={{{ HEIGHT }}} tabindex="-1"
+    style="width: {{{ WIDTH }}}px; height: {{{ HEIGHT }}}px; background: {{{ BACKGROUND_FILENAME ? 'url(\'Build/' + BACKGROUND_FILENAME.replace(/'/g, '%27') + '\') center / cover' : BACKGROUND_COLOR }}}"></canvas>
+  <script src="Build/{{{ LOADER_FILENAME }}}"></script>
+  <script>
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      // Mobile device style: fill the whole browser client area with the game canvas:
+      var meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+      document.getElementsByTagName('head')[0].appendChild(meta);
+
+      var canvas = document.querySelector("#unity-canvas");
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      canvas.style.position = "fixed";
+
+      document.body.style.textAlign = "left";
+    }
+
+    createUnityInstance(document.querySelector("#unity-canvas"), {
+      arguments: [],
+      dataUrl: "Build/{{{ DATA_FILENAME }}}",
+      frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
+      #if USE_THREADS
+        workerUrl: "Build/{{{ WORKER_FILENAME }}}",
+      #endif
+#if USE_WASM
+        codeUrl: "Build/{{{ CODE_FILENAME }}}",
+      #endif
+#if SYMBOLS_FILENAME
+        symbolsUrl: "Build/{{{ SYMBOLS_FILENAME }}}",
+      #endif
+        streamingAssetsUrl: "StreamingAssets",
+      companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+      productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+      productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
+  </script>
+  <script>
+    document.addEventListener('keydown', function (e) {
+      // Prevent Ctrl/Cmd + key combinations
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        return false;
+      }
+
+      // Prevent Keys
+      if (
+        e.key === 'ControlLeft' ||
+        e.key === 'ShiftLeft' ||
+        e.key === 'Tab' ||
+        e.key === 'Escape' ||
+        e.key === 'W' ||
+        e.key === 'A' ||
+        e.key === 'S' ||
+        e.key === 'D' ||
+        e.key === 'F' ||
+        e.key === 'Space' ||
+        e.key === 'F1' || e.keyCode === 112 ||
+        e.key === 'F2' || e.keyCode === 113 ||
+        e.key === 'F3' || e.keyCode === 114 ||
+        e.key === 'F4' || e.keyCode === 115 ||
+        e.key === 'F5' || e.keyCode === 116 ||
+        e.key === 'F6' || e.keyCode === 117 ||
+        e.key === 'F7' || e.keyCode === 118 ||
+        e.key === 'F8' || e.keyCode === 119 ||
+        e.key === 'F9' || e.keyCode === 120 ||
+        e.key === 'F10' || e.keyCode === 121
+      ) {
+        e.preventDefault();
+        return false;
+      }
+
+      // // Prevent F1
+      // if (e.key === 'F2' || e.keyCode === 113) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+
+      // // Prevent F1
+      // if (e.key === 'F3' || e.keyCode === 114) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+
+      // // Prevent F4
+      // if (e.key === 'F4' || e.keyCode === 115) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+
+      // // Prevent F5
+      // if (e.key === 'F5' || e.keyCode === 116) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+
+      // // Prevent F6
+      // if (e.key === 'F6' || e.keyCode === 117) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+
+      // // Prevent F7
+      // if (e.key === 'F7' || e.keyCode === 118) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+
+      // // Prevent F8
+      // if (e.key === 'F8' || e.keyCode === 119) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+
+      // // Prevent F9
+      // if (e.key === 'F9' || e.keyCode === 120) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+
+      // // Prevent F10
+      // if (e.key === 'F10' || e.keyCode === 121) {
+      //   e.preventDefault();
+      //   return false;
+      // }
+    });
+  </script>
+</body>
+
+</html>
