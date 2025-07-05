@@ -70,7 +70,6 @@ namespace Major.Levels {
 #else
             await Task.WhenAll(prefabLoadHandles);
 #endif
-            Log.Debug("[LevelAsset] Ended cache prefabs from references.");
             return new(prefabs, prefabAddresses, prefabLoadHandles.Count);
         }
     }
