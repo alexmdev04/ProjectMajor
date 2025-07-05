@@ -63,7 +63,14 @@ namespace Major.Levels {
                 };
                 prefabLoadHandles.Add(handle.Task);
             }
+#if UNITY_WEBGL
+            foreach (var handle in prefabLoadHandles) {
+                await handle;
+            }
+#else
             await Task.WhenAll(prefabLoadHandles);
+#endif
+            Log.Debug("[LevelAsset] Ended cache prefabs from references.");
             return new(prefabs, prefabAddresses, prefabLoadHandles.Count);
         }
     }
