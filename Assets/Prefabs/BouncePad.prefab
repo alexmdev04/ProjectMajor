@@ -154,3 +154,5 @@ MonoBehaviour:
   positionIsTarget: 0
   force: 10
   forceMode: 2
+  resetTargetLinearVelocity: 1
+  resetTargetAngularVelocity: 1
