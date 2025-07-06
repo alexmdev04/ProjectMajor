@@ -333,7 +333,7 @@ MonoBehaviour:
     m_Bits: 193
   interactDistance: 3
   itemDistanceForMaxSpeed: 10
-  itemTravelSpeed: 65
+  itemTravelSpeed: 100
   itemMaxHeldDistance: 4
   itemMaxHeldPlayerSpeed: 10
   autoDropItemsDistance: 1
