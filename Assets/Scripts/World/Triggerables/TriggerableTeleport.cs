@@ -1,3 +1,4 @@
+using Unity.Logging;
 using UnityEngine;
 
 namespace Major.World {
@@ -8,6 +9,7 @@ namespace Major.World {
         public bool positionIsTargetOffset;
         public bool resetTargetLinearVelocity = true;
         public bool resetTargetAngularVelocity = true;
+        public bool requireRigidbody = true;
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
             var _target = targetIsSender ? sender : target;
@@ -27,8 +29,12 @@ namespace Major.World {
 
                 targetRb.position = positionIsTargetOffset ? targetRb.position + position.position : position.position;
             }
-
-            _target.transform.position = positionIsTargetOffset ? _target.transform.position + position.position : position.position;
+            else if (requireRigidbody) {
+                Log.Warning("[TriggerableForce] '" + name + "' found no rigidbody on '" + _target.name + "' or it's parent, but requireRigidbody is enabled.");
+            }
+            else {
+                _target.transform.position = positionIsTargetOffset ? _target.transform.position + position.position : position.position;
+            }
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {
