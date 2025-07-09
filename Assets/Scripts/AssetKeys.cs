@@ -4,6 +4,9 @@ namespace Major.AssetKeys {
         public const string home = "home";
         public const string tutorial = "tutorial";
         public const string level1 = "level1";
+        public const string doorway = "doorway";
+        public const string pitJump = "pitJump";
+        public const string external1 = "external1";
         public const string dev = "dev";
     }
 
