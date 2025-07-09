@@ -21,6 +21,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - lbl_scene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15a4128ac553c47479bcb5f409e0f168
+    m_Address: Assets/Scenes/Levels/doorway.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_scene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a94fdff71877d24cab02678f0d6dc18
+    m_Address: Assets/Scenes/Levels/pitJump.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_scene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cab5d75d7eedcb48a12b9c1400ba85c
     m_Address: Assets/Scenes/Levels/dev.unity
     m_ReadOnly: 0
@@ -29,6 +41,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2debeed2b195d1f4b8bbd6f2f256b458
     m_Address: Assets/Scenes/Levels/home.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_scene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 50e90b833c71dae43a302cb7bfddcebb
+    m_Address: Assets/Scenes/Levels/external1.unity
     m_ReadOnly: 0
     m_SerializedLabels:
     - lbl_scene

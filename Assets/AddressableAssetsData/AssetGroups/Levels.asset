@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Levels
   m_GUID: c5738c30216945e4f89ed1100888deb6
   m_SerializeEntries:
+  - m_GUID: 1400fd3fe0408624ca31cf3b15c03d2e
+    m_Address: Assets/Scriptable Objects/Levels/external1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_level
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3f9900f465d392f4386e25bb749a63b0
     m_Address: Assets/Scriptable Objects/Levels/level1.asset
     m_ReadOnly: 0
@@ -35,6 +41,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 887221ff854b7c14f83c895c09037fa3
     m_Address: Assets/Scriptable Objects/Levels/dev.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_level
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e488796212f71b42a8df9e18b64c5d0
+    m_Address: Assets/Scriptable Objects/Levels/pitJump.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_level
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb016da6709ba904e95173d2b848f387
+    m_Address: Assets/Scriptable Objects/Levels/doorway.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - lbl_level
