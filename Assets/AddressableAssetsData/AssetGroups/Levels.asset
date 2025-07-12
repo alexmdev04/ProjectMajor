@@ -45,14 +45,38 @@ MonoBehaviour:
     m_SerializedLabels:
     - lbl_level
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b811af1d072a0548b8330e5c73a4504
+    m_Address: Assets/Scriptable Objects/Levels/slotting.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_level
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9e488796212f71b42a8df9e18b64c5d0
     m_Address: Assets/Scriptable Objects/Levels/pitJump.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - lbl_level
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7b2b47f1a7c76f41b3a6d1a95a506f4
+    m_Address: Assets/Scriptable Objects/Levels/bounce.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_level
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cb016da6709ba904e95173d2b848f387
     m_Address: Assets/Scriptable Objects/Levels/doorway.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_level
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cfc97c59ed57644498cc5730a118ea74
+    m_Address: Assets/Scriptable Objects/Levels/elevate.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_level
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbd36211ae808b842bd20ead54ce8fe0
+    m_Address: Assets/Scriptable Objects/Levels/race.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - lbl_level
