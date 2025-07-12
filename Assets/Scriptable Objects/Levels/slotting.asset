@@ -19,4 +19,6 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   <prefabReferences>k__BackingField: []
-  <homeTransitionPosOffset>k__BackingField: {x: 0, y: 0, z: 0}
+  <exitPosition>k__BackingField: {x: 4.5, y: 0, z: 10}
+  <exitRotation>k__BackingField: {x: 0, y: 0, z: 0}
+  <nextLevel>k__BackingField: bounce

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: bounce
   m_EditorClassIdentifier: 
   <sceneReference>k__BackingField:
-    m_AssetGUID: 
+    m_AssetGUID: fb632219c1eb8d84a825f2d255af425f
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   <prefabReferences>k__BackingField: []
-  <homeTransitionPosOffset>k__BackingField: {x: 0, y: 0, z: 0}
+  <exitPosition>k__BackingField: {x: 4.5, y: 9, z: 21}
+  <exitRotation>k__BackingField: {x: 0, y: 0, z: 0}
+  <nextLevel>k__BackingField: elevate
