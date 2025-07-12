@@ -3,12 +3,17 @@ using UnityEngine;
 
 namespace Major.World {
     public class TriggerableLevel : Triggerable {
-        [SerializeField] private string level = "dev";
-        [SerializeField] private bool teleportOnLoad = true;
-        [SerializeField] private bool homeTransition = false;
+        public string level = "dev";
+        public bool teleportOnLoad = true;
+        public bool seamlessTeleport = false;
+        public bool nextLevel = false;
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
-            LevelManager.LoadLevel(level, teleportOnLoad, homeTransition);
+            if (nextLevel) {
+                LevelManager.NextLevel(teleportOnLoad, seamlessTeleport);
+                return;
+            }
+            LevelManager.LoadLevel(level, teleportOnLoad, seamlessTeleport);
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {

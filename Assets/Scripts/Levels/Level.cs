@@ -52,12 +52,12 @@ namespace Major.Levels {
             }
 
             if (firstCheckpoint) {
-                ActivateCheckpoint(firstCheckpoint, constructData.teleportOnLoad);
+                ActivateCheckpoint(firstCheckpoint, constructData.teleportOnLoad && !constructData.seamlessTeleport);
             }
             else {
                 if (checkpoints.Length > 0) {
                     firstCheckpoint = checkpoints[0];
-                    ActivateCheckpoint(firstCheckpoint, constructData.teleportOnLoad);
+                    ActivateCheckpoint(firstCheckpoint, constructData.teleportOnLoad && !constructData.seamlessTeleport);
                     Log.Warning("[Level] '" + key + "' has no first checkpoint, assumed " + checkpointCurrent.gameObject.name + " is the first.");
                 }
                 else {
@@ -70,11 +70,17 @@ namespace Major.Levels {
                 Kevin.instance.item.OnUnslotted();
             }
 
-            if (constructData.homeTransition) {
-                Player.instance.transform.position += levelAsset.homeTransitionPosOffset;
-                Player.instance.rb.position += levelAsset.homeTransitionPosOffset;
-                Kevin.instance.transform.position += levelAsset.homeTransitionPosOffset;
-                Kevin.instance.rb.position += levelAsset.homeTransitionPosOffset;
+            if (constructData.teleportOnLoad && constructData.seamlessTeleport) {
+                // player pos = (player pos - exit hallway pos) + start hallway pos
+                // player rot = player rot - exit hallway rot
+
+                Vector3 startHallwayPos = new(4.5f, 0.0f, -17.0f);
+
+                Player.instance.rb.position = (Player.instance.transform.position - levelAsset.exitPosition) + startHallwayPos;
+                Player.instance.rb.rotation = Quaternion.Euler(Player.instance.rb.rotation.eulerAngles - levelAsset.exitRotation);
+
+                Kevin.instance.rb.position = (Kevin.instance.transform.position - levelAsset.exitPosition) + startHallwayPos;
+                Kevin.instance.rb.rotation = Quaternion.Euler(Kevin.instance.rb.rotation.eulerAngles - levelAsset.exitRotation);
             }
 
             onLevelLoaded();
@@ -82,7 +88,7 @@ namespace Major.Levels {
 
         public async void Unload() {
             onLevelUnloaded();
-            
+
             await Addressables.UnloadSceneAsync(sceneInstance, UnloadSceneOptions.None).Task;
 
             foreach (var prefab in prefabs.Values) {
@@ -122,22 +128,21 @@ namespace Major.Levels {
             public CachedPrefabs cachedPrefabs;
             public SceneInstance sceneInstance;
             public bool teleportOnLoad;
-            public bool homeTransition;
+            public bool seamlessTeleport;
 
             public ConstructData(
                 LevelAsset levelAsset,
                 CachedPrefabs cachedPrefabs,
                 SceneInstance sceneInstance,
                 bool teleportOnLoad = true,
-                bool homeTransition = false
-            )
-            {
+                bool seamlessTeleport = false
+            ) {
                 this.levelAsset = levelAsset;
                 this.key = levelAsset.name;
                 this.cachedPrefabs = cachedPrefabs;
                 this.sceneInstance = sceneInstance;
                 this.teleportOnLoad = teleportOnLoad;
-                this.homeTransition = homeTransition;
+                this.seamlessTeleport = seamlessTeleport;
             }
         }
     }
