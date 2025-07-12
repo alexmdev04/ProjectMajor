@@ -25,7 +25,7 @@ namespace Major.Levels {
         public LevelAsset levelAsset { get; private set; }
 
         // Indicates successful construction
-        public bool isConstructed;
+        public bool isConstructed { get; private set; }
         public ConstructData constructData { get; private set; }
 
         public World.Checkpoint checkpointCurrent { get; private set; }
