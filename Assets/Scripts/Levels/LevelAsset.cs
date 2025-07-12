@@ -27,7 +27,12 @@ namespace Major.Levels {
         public List<AssetReference> prefabReferences { get; private set; }
 
         [field: SerializeField]
-        public Vector3 homeTransitionPosOffset { get; private set; } = Vector3.zero;
+        public Vector3 exitPosition { get; private set; } = Vector3.zero;
+        [field: SerializeField]
+        public Vector3 exitRotation { get; private set; } = Vector3.zero;
+
+        [field: SerializeField]
+        public string nextLevel { get; private set; } = "dev";
 
         public async Task<Level.ConstructData> LoadAsync(bool logTasks = false, bool timeTasks = false) {
             return new(
