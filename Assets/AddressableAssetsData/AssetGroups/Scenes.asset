@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - lbl_scene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12a40ddd46221114681f42887561519c
+    m_Address: Assets/Scenes/Levels/slotting.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_scene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15a4128ac553c47479bcb5f409e0f168
     m_Address: Assets/Scenes/Levels/doorway.unity
     m_ReadOnly: 0
@@ -51,8 +57,26 @@ MonoBehaviour:
     m_SerializedLabels:
     - lbl_scene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5f9723f5c314ec4eb9d84f4b8f7991c
+    m_Address: Assets/Scenes/Levels/race.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_scene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6874d76be14b9a4c88618d1e0ce29d4
+    m_Address: Assets/Scenes/Levels/elevate.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_scene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f07d85f93445a2f49826918ef4eb3516
     m_Address: Assets/Scenes/Levels/tutorial.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_scene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb632219c1eb8d84a825f2d255af425f
+    m_Address: Assets/Scenes/Levels/bounce.unity
     m_ReadOnly: 0
     m_SerializedLabels:
     - lbl_scene
