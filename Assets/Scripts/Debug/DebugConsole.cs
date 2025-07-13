@@ -1,14 +1,47 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Major.Levels;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Major {
 
     namespace UI {
         public class DebugConsole : MonoBehaviour {
-            public void Command(string input) {
+            private static TMP_InputField inputField;
+            public static List<string> previousInputs = new() { string.Empty };
+            public static int previousInputsIndex = 0;
+
+            private void Awake() {
+                inputField = GetComponent<TMP_InputField>();
+                inputField.onSubmit.AddListener(input => Command(input));
+                gameObject.SetActive(false);
+            }
+
+            private void OnEnable() {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+
+            private void OnDisable() {
+                if (!GameManager.startupComplete) {
+                    return;
+                }
+                GameManager.instance.SetCursorVisible(GameManager.isCursorVisible);
+                previousInputs[0] = string.Empty;
+                inputField.text = string.Empty;
+                previousInputsIndex = 0;
+            }
+
+            private void Update() {
+                inputField.ActivateInputField();
+                PreviousInputUpdate();
+            }
+
+            public static void Command(string input) {
+                previousInputs.Insert(1, input);
+                previousInputsIndex = 0;
+
                 if (input == string.Empty) {
                     return;
                 }
@@ -122,26 +155,50 @@ namespace Major {
                             GameManager.instance.OnPlayerKilled();
                             break;
                         }
+                    case int_Ping: {
+                            Log2.Debug("pong", "DebugConsole", true);
+                            break;
+                        }
                     default: {
                             UnknownCommand(args[0]);
                             break;
                         }
+
+                }
+
+                inputField.text = "";
+            }
+
+            private void PreviousInputUpdate() {
+                if (previousInputsIndex == 0) { previousInputs[0] = inputField.text; }
+                if (previousInputs.Count > 1) {
+                    if (Keyboard.current.upArrowKey.wasPressedThisFrame && previousInputsIndex < previousInputs.Count - 1) {
+                        previousInputsIndex++;
+                        inputField.text = previousInputs[previousInputsIndex];
+                        inputField.stringPosition = inputField.text.Length;
+                    }
+                    if (Keyboard.current.downArrowKey.wasPressedThisFrame && previousInputsIndex > 0) {
+                        previousInputsIndex--;
+                        inputField.text = previousInputs[previousInputsIndex];
+                        inputField.stringPosition = inputField.text.Length;
+                    }
                 }
             }
 
-            private void UnknownCommand(string cmd) {
+            private static void UnknownCommand(string cmd) {
                 Log2.Debug("Unknown Command '" + cmd + "'", "DebugConsole", true);
             }
 
-            private void InvalidArgCount(string cmd) {
+            private static void InvalidArgCount(string cmd) {
                 Log2.Debug("Invalid argument count for '" + cmd + "'", "DebugConsole", true);
             }
 
-            private void InvalidArgs(string cmd) {
+            private static void InvalidArgs(string cmd) {
                 Log2.Debug("Invalid arguments for '" + cmd + "'", "DebugConsole", true);
             }
 
-            public Dictionary<string, int> cmdDict = new() {
+            public static Dictionary<string, uint> cmdDict = new() {
+                { str_Ping, int_Ping },
                 { str_Fov, int_Fov },
                 { str_Level, int_Level },
                 { str_Tp, int_Tp },
@@ -191,6 +248,7 @@ namespace Major {
             };
 
             public const string
+                str_Ping = "ping",
                 str_Fov = "fov",
                 str_Level = "level",
                 str_Tp = "tp",
@@ -284,7 +342,8 @@ namespace Major {
                 int_Gravity = 42,
                 int_Dropitem = 43,
                 int_Scale = 44,
-                int_GravityScale = 45;
+                int_GravityScale = 45,
+                int_Ping = 46;
         }
     }
 }
