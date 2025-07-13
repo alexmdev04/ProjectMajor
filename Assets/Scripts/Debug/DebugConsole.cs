@@ -97,7 +97,7 @@ namespace Major {
                     case int_Sens:
                     case int_Sensitivity: {
                             if (args.Length < 2) { InvalidArgCount(args[0]); break; }
-                            if (!int.TryParse(args[1], out var value)) { InvalidArgs(args[0]); break; }
+                            if (!float.TryParse(args[1], out var value)) { InvalidArgs(args[0]); break; }
                             Input.Handler.instance.sensitivity = value;
                             break;
                         }
