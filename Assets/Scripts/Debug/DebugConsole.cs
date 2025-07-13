@@ -103,8 +103,8 @@ namespace Major {
                         }
                     case int_Reload: {
                             LevelManager.RestartHard();
-                                break;
-                    }
+                            break;
+                        }
                     case int_Restart:
                     case int_Reset: {
                             if (args.Length > 2) {
