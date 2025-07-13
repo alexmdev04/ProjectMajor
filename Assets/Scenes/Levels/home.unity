@@ -795,10 +795,10 @@ MonoBehaviour:
   useCheckpointTransformAsPosition: 0
   killVelocity: 1
   teleportOnActivation: 0
-  playerSpawnPosition: {x: -0.5, y: 10, z: 0.5}
+  playerSpawnPosition: {x: -0.5, y: 20, z: 0.5}
   playerSpawnPositionIsOffset: 0
   playerSpawnRotation: {x: 0, y: -90, z: 0}
-  kevinSpawnPosition: {x: -0.5, y: 3, z: 0.5}
+  kevinSpawnPosition: {x: -0.5, y: 13, z: 0.5}
   kevinSpawnLocationIsOffset: 0
   kevinSpawnRotation: {x: 0, y: 0, z: 0}
 --- !u!1001 &565647152
@@ -1675,7 +1675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23303939d492ee4439c72efa0207853e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23303939d492ee4439c72efa0207853e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1900,7 +1900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6057481602077336461, guid: c78da2a316cf39744b670a186eb6d5ec, type: 3}
       propertyPath: teleportOnLoad
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7386924888566300254, guid: c78da2a316cf39744b670a186eb6d5ec, type: 3}
       propertyPath: m_Size.z

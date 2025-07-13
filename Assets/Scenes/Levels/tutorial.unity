@@ -1932,7 +1932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: kevinSpawnPosition.y
-      value: 14.25
+      value: 24.25
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: kevinSpawnPosition.z
@@ -1944,7 +1944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: playerSpawnPosition.y
-      value: 14.25
+      value: 24.25
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: playerSpawnPosition.z
@@ -5210,7 +5210,8 @@ MonoBehaviour:
   triggersRequired: 1
   level: home
   teleportOnLoad: 1
-  homeTransition: 0
+  seamlessTeleport: 0
+  nextLevel: 0
 --- !u!114 &1836331597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5262,7 +5263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 73bea2299c915ad4aa072333eb6a3db8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 73bea2299c915ad4aa072333eb6a3db8, type: 3}
       propertyPath: m_LocalPosition.z
