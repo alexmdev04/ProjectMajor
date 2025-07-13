@@ -18,7 +18,12 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  <prefabReferences>k__BackingField: []
+  <prefabReferences>k__BackingField:
+  - m_AssetGUID: b8f7c6e9d1353a043be1f23037ec944c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
   <exitPosition>k__BackingField: {x: 4.5, y: 9, z: 21}
   <exitRotation>k__BackingField: {x: 0, y: 0, z: 0}
   <nextLevel>k__BackingField: elevate
