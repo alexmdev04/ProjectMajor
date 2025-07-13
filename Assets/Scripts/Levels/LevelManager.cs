@@ -61,6 +61,18 @@ namespace Major.Levels {
         }
 
         private static async Task LoadLevelAssetAsync(LevelAsset levelAsset, bool teleportOnLoad, bool seamlessTeleport) {
+            if (levelCurrent) {
+                if (teleportOnLoad && seamlessTeleport) {
+                    Vector3 startHallwayPos = new(4.5f, 0.0f, -17.0f);
+
+                    Player.instance.rb.position = (Player.instance.transform.position - levelCurrent.levelAsset.exitPosition) + startHallwayPos;
+                    Player.instance.rb.rotation = Quaternion.Euler(Player.instance.rb.rotation.eulerAngles - levelCurrent.levelAsset.exitRotation);
+
+                    Kevin.instance.rb.position = (Kevin.instance.transform.position - levelCurrent.levelAsset.exitPosition) + startHallwayPos;
+                    Kevin.instance.rb.rotation = Quaternion.Euler(Kevin.instance.rb.rotation.eulerAngles - levelCurrent.levelAsset.exitRotation);
+                }
+            }
+
             UnloadLevelCurrent();
             var key = levelAsset.name;
             var levelConstructData = await levelAsset.LoadAsync(true, true);
