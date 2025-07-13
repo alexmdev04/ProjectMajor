@@ -98,12 +98,12 @@ namespace Major {
                 GameManager.instance.OnPlayerKilled();
             }
             UpdateCrouch();
-            UpdateCarriedItem();
         }
 
         private void FixedUpdate() {
             GroundedCheck();
             if (moveActive) { UpdateMove(); }
+            UpdateCarriedItem();
             UpdateInteract();
         }
 
