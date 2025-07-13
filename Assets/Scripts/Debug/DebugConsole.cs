@@ -59,23 +59,23 @@ namespace Major {
 
                 switch (cmdIndex) {
                     case int_Fov: {
-                            if (args.Length < 2) { InvalidArgCount(args[0]); break; }
-                            if (!float.TryParse(args[1], out var value)) { InvalidArgs(args[0]); break; }
+                            if (args.Length < 2) { InvalidArgCount(args, 1); break; }
+                            if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); break; }
                             Camera.main.fieldOfView = Mathf.Clamp(value, 1.0f, 179.0f);
                             break;
                         }
                     case int_Level: {
-                            if (args.Length < 2) { InvalidArgCount(args[0]); break; }
+                            if (args.Length < 2) { InvalidArgCount(args, 1); break; }
                             LevelManager.LoadLevel(args[1]);
                             break;
                         }
                     case int_Tp:
                     case int_Teleport: {
-                            if (args.Length < 4) { InvalidArgCount(args[0]); break; }
-                            if (!float.TryParse(args[1], out var value1)) { InvalidArgs(args[0]); break; }
-                            if (!float.TryParse(args[2], out var value2)) { InvalidArgs(args[0]); break; }
-                            if (!float.TryParse(args[3], out var value3)) { InvalidArgs(args[0]); break; }
-                            Player.instance.rb.position = new Vector3(value1, value2, value3);
+                            var value = Player.instance.rb.position;
+                            if (!TryParseVec3Arg(args, ref value)) {
+                                break;
+                            }
+                            Player.instance.rb.position = value;
                             break;
                         }
                     case int_Fps: {
@@ -83,21 +83,21 @@ namespace Major {
                                 // show hide FPS
                             }
                             else {
-                                if (!int.TryParse(args[1], out var value)) { InvalidArgs(args[0]); break; }
+                                if (!int.TryParse(args[1], out var value)) { InvalidArgs(args); break; }
                                 Application.targetFrameRate = value;
                             }
                             break;
                         }
                     case int_Vsync: {
-                            if (args.Length < 2) { InvalidArgCount(args[0]); break; }
-                            if (!int.TryParse(args[1], out var value)) { InvalidArgs(args[0]); break; }
+                            if (args.Length < 2) { InvalidArgCount(args, 1); break; }
+                            if (!int.TryParse(args[1], out var value)) { InvalidArgs(args); break; }
                             QualitySettings.vSyncCount = value;
                             break;
                         }
                     case int_Sens:
                     case int_Sensitivity: {
-                            if (args.Length < 2) { InvalidArgCount(args[0]); break; }
-                            if (!float.TryParse(args[1], out var value)) { InvalidArgs(args[0]); break; }
+                            if (args.Length < 2) { InvalidArgCount(args, 1); break; }
+                            if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); break; }
                             Input.Handler.instance.sensitivity = value;
                             break;
                         }
@@ -131,7 +131,7 @@ namespace Major {
                     case int_Echo:
                     case int_Say:
                     case int_Msg: {
-                            if (args.Length < 2) { InvalidArgCount(args[0]); break; }
+                            if (args.Length < 2) { InvalidArgCount(args, 1); break; }
                             Log2.Debug(input.TrimStart()[(args[0].Length + 1)..], "DebugConsole", true);
                             break;
                         }
@@ -146,7 +146,7 @@ namespace Major {
                                     break;
                                 }
                                 else {
-                                    InvalidArgs(args[0]);
+                                    InvalidArgs(args);
                                     break;
                                 }
                             }
@@ -163,7 +163,7 @@ namespace Major {
                         }
                     case int_Noclip: {
                             if (args.Length < 2) { GameManager.instance.dbg_noclipEnabled = !GameManager.instance.dbg_noclipEnabled; break; }
-                            if (!float.TryParse(args[1], out var value)) { InvalidArgs(args[0]); break; }
+                            if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); break; }
                             GameManager.instance.dbg_noclipSpeed = Mathf.Max(value, 0.0f);
                             break;
                         }
@@ -175,6 +175,26 @@ namespace Major {
                 }
 
                 inputField.text = "";
+            }
+
+            private static bool TryParseVec3Arg(string[] args, ref Vector3 result) {
+                if (args.Length < 4) {
+                    InvalidArgCount(args, 3);
+                    return false;
+                }
+
+                for (int i = 1; i < args.Length; i++) {
+                    var arg = args[i];
+                    var isDelta = arg.StartsWith('~');
+
+                    if (!float.TryParse(isDelta ? arg[1..] : arg, out var value)) {
+                        InvalidArgs(args);
+                        return false;
+                    }
+
+                    result[i - 1] = isDelta ? result[i - 1] + value : value;
+                }
+                return true;
             }
 
             private void PreviousInputUpdate() {
@@ -197,12 +217,12 @@ namespace Major {
                 Log2.Debug("Unknown Command '" + cmd + "'", "DebugConsole", true);
             }
 
-            private static void InvalidArgCount(string cmd) {
-                Log2.Debug("Invalid argument count for '" + cmd + "'", "DebugConsole", true);
+            private static void InvalidArgCount(string[] args, int argsNeeded) {
+                Log2.Debug("Invalid argument count (" + (args.Length - 1) + ") for '" + args[0] + "' (" + argsNeeded + ")", "DebugConsole", true);
             }
 
-            private static void InvalidArgs(string cmd) {
-                Log2.Debug("Invalid arguments for '" + cmd + "'", "DebugConsole", true);
+            private static void InvalidArgs(string[] args) {
+                Log2.Debug("Invalid arguments for '" + args[0] + "'", "DebugConsole", true);
             }
 
             public static Dictionary<string, uint> cmdDict = new() {
