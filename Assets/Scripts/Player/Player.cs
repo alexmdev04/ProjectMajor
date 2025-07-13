@@ -213,6 +213,7 @@ namespace Major {
             if (carriedItem) {
                 UI.UI.instance.ShowInteractPrompt("Drop");
                 if (autoDropItemsBehindWall && isFacingWall && hit.distance < Vector3.Distance(transform.position, carriedItem.transform.position)) {
+                    Log2.Debug("The object was dropped because it's behind a wall!", "Player", true);
                     DropCarriedItem();
                 }
             }
@@ -273,6 +274,7 @@ namespace Major {
             }
 
             if (autoDropItemsPlayerSpeed && rb.linearVelocity.magnitude > itemMaxHeldPlayerSpeed) {
+                Log2.Debug("The object was dropped because the player is too fast!", "Player", true);
                 DropCarriedItem();
                 return;
             }
@@ -283,6 +285,7 @@ namespace Major {
             UnityEngine.Debug.DrawLine(start: objPos, end: target, color: Color.Lerp(Color.green, Color.red, Mathf.InverseLerp(0.0f, itemMaxHeldDistance, distance)), depthTest: false, duration: 0.0f);
             if (autoDropItemsDistance && distance > itemMaxHeldDistance) {
                 DropCarriedItem();
+                Log2.Debug("The object was dropped for being too far away!", "Player", true);
                 return;
             }
 

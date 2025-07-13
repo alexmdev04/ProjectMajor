@@ -170,6 +170,8 @@ namespace Major {
         public void SetPlayerName(string input) => playerName = input;
 
         public void OnPlayerKilled() {
+            Log2.Debug("You died.", "DebugConsole", true);
+
             if (Player.instance.carriedItem) {
                 Player.instance.DropCarriedItem();
             }
@@ -178,6 +180,8 @@ namespace Major {
         }
 
         public void OnKevinKilled() {
+            Log2.Debug("The cube was destroyed.", "DebugConsole", true);
+
             if (Player.instance.carriedItem == Kevin.instance.item) {
                 Player.instance.DropCarriedItem();
             }
