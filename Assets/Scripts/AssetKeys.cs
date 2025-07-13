@@ -8,6 +8,10 @@ namespace Major.AssetKeys {
         public const string pitJump = "pitJump";
         public const string external1 = "external1";
         public const string dev = "dev";
+        public const string slotting = "slotting";
+        public const string bounce = "bounce";
+        public const string elevate = "elevate";
+        public const string race = "race";
     }
 
     // Contains keys to addressable prefabs

@@ -67,19 +67,19 @@ namespace Major {
             // Debug Keys
             if (Keyboard.current.tabKey.isPressed) { // using ctrl has issues with browsers
                 if (Keyboard.current.f1Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.home, true);
+                    LevelManager.LoadLevel(AssetKeys.Levels.slotting, true);
                 }
 
                 if (Keyboard.current.f2Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.tutorial, true);
+                    LevelManager.LoadLevel(AssetKeys.Levels.bounce, true);
                 }
 
                 if (Keyboard.current.f3Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.level1, true);
+                    LevelManager.LoadLevel(AssetKeys.Levels.elevate, true);
                 }
 
                 if (Keyboard.current.f4Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.doorway, true);
+                    LevelManager.LoadLevel(AssetKeys.Levels.race, true);
                 }
 
                 if (Keyboard.current.f5Key.wasPressedThisFrame) {
