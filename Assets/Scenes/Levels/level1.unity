@@ -320,7 +320,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4852008427130180185, guid: 6e2cb9be1ed2bf14d9076f404eb02bd9, type: 3}
+  m_Mesh: {fileID: 8066634281429336969, guid: 6e2cb9be1ed2bf14d9076f404eb02bd9, type: 3}
 --- !u!1001 &173373692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -499,7 +499,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 8989520949512695189, guid: d9ef8a58394418549b186fa4919e974d, type: 3}
+  m_Mesh: {fileID: -6952927752553836514, guid: d9ef8a58394418549b186fa4919e974d, type: 3}
 --- !u!1 &207802404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,7 +1746,8 @@ MonoBehaviour:
   triggersRequired: 1
   level: home
   teleportOnLoad: 1
-  homeTransition: 0
+  seamlessTeleport: 0
+  nextLevel: 0
 --- !u!114 &737140877
 MonoBehaviour:
   m_ObjectHideFlags: 0
