@@ -33,35 +33,44 @@ namespace Major.Levels {
         }
 
         public static async void LoadLevel(string key, bool teleportOnLoad = true, bool seamlessTeleport = false) {
+            if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
+                Log2.Error("Load level failed: Key " + key + " does not exist.", "LevelManager");
+                return;
+            }
+
             if (isBusy) {
-                Log2.Warning("Busy, load level aborted: " + key, "LevelManager");
+                Log2.Warning("Already loading level, load level '" + key + " ' aborted.", "LevelManager");
                 return;
             }
 
             Log2.Debug("Loading level: " + key, "LevelManager");
             isBusy = true;
-
-            if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
-                Log2.Error("Load Level failed: Key " + key + " does not exist.", "LevelManager");
-                return;
-            }
-
             await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
         }
 
         public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true, bool seamlessTeleport = false) {
+            if (!levelAsset) {
+                Log2.Error("Load level failed: Null level asset.", "LevelManager");
+                return;
+            }
+
             if (isBusy) {
-                Log2.Warning("Busy, load level aborted: " + levelAsset.name, "LevelManager");
+                Log2.Warning("Already loading level, load level '" + levelAsset.name + " ' aborted.", "LevelManager");
                 return;
             }
 
             Log2.Debug("Loading level: " + levelAsset.name, "LevelManager");
             isBusy = true;
-            
             await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
         }
 
         private static async Task LoadLevelAssetAsync(LevelAsset levelAsset, bool teleportOnLoad, bool seamlessTeleport) {
+            if (levelAsset.sceneReference == null) {
+                Log2.Error("Load level failed: Level asset '" + levelAsset.name + "' has no scene reference .", "LevelManager");
+                isBusy = false;
+                return;
+            }
+
             if (levelCurrent) {
                 if (teleportOnLoad && seamlessTeleport) {
                     Vector3 startHallwayPos = new(4.5f, 0.0f, -17.0f);
