@@ -101,11 +101,23 @@ namespace Major {
                             Input.Handler.instance.sensitivity = value;
                             break;
                         }
+                    case int_Reload: {
+                            LevelManager.RestartHard();
+                                break;
+                    }
                     case int_Restart:
-                    case int_Reload:
                     case int_Reset: {
-                            if (args.Length > 2) { }
-                            UnknownCommand(args[0]);
+                            if (args.Length > 2) {
+                                if (args[0] == str_Soft) {
+                                    LevelManager.RestartSoft();
+                                    break;
+                                }
+                                else if (args[0] == str_Hard) {
+                                    LevelManager.RestartHard();
+                                    break;
+                                }
+                            }
+                            LevelManager.RestartSoft();
                             break;
                         }
                     case int_Checkpoint: {
