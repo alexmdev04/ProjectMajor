@@ -21,10 +21,10 @@ namespace Major.World {
                 collisionDP.onColliderDestroyed += OnTriggerExit;
             }
 
+            triggerEntities++;
             if (triggerEntities == minimumEntities) {
                 OnBegin(collision.gameObject);
             }
-            triggerEntities++;
         }
 
         private void OnBegin(GameObject sender) {
