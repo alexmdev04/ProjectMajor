@@ -75,10 +75,10 @@ namespace Major.Levels {
                 if (teleportOnLoad && seamlessTeleport) {
                     Vector3 startHallwayPos = new(4.5f, 0.0f, -17.0f);
 
-                    Player.instance.rb.position = (Player.instance.transform.position - levelCurrent.levelAsset.exitPosition) + startHallwayPos;
+                    Player.instance.rb.position = (Player.instance.rb.position - levelCurrent.levelAsset.exitPosition) + startHallwayPos;
                     Player.instance.rb.rotation = Quaternion.Euler(Player.instance.rb.rotation.eulerAngles - levelCurrent.levelAsset.exitRotation);
 
-                    Kevin.instance.rb.position = (Kevin.instance.transform.position - levelCurrent.levelAsset.exitPosition) + startHallwayPos;
+                    Kevin.instance.rb.position = (Kevin.instance.rb.position - levelCurrent.levelAsset.exitPosition) + startHallwayPos;
                     Kevin.instance.rb.rotation = Quaternion.Euler(Kevin.instance.rb.rotation.eulerAngles - levelCurrent.levelAsset.exitRotation);
                 }
             }
