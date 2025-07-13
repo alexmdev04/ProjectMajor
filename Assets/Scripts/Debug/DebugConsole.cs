@@ -137,6 +137,7 @@ namespace Major {
                     case int_Kill: {
                             if (args.Length > 1) {
                                 if (args[1] == str_Kevin) {
+                                    GameManager.instance.OnKevinKilled();
                                     break;
                                 }
                                 else if (args[1] == str_Player) {
