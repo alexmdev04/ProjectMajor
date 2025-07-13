@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab06a41612073474980230faaa65061a, type: 3}
   m_Name: DefaultStartupSettings
   m_EditorClassIdentifier: 
-  levelKey: home
+  levelKey: slotting
