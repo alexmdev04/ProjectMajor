@@ -161,6 +161,12 @@ namespace Major {
                             Log2.Debug("pong", "DebugConsole", true);
                             break;
                         }
+                    case int_Noclip: {
+                            if (args.Length < 2) { GameManager.instance.dbg_noclipEnabled = !GameManager.instance.dbg_noclipEnabled; break; }
+                            if (!float.TryParse(args[1], out var value)) { InvalidArgs(args[0]); break; }
+                            GameManager.instance.dbg_noclipSpeed = Mathf.Max(value, 0.0f);
+                            break;
+                        }
                     default: {
                             UnknownCommand(args[0]);
                             break;
@@ -200,7 +206,6 @@ namespace Major {
             }
 
             public static Dictionary<string, uint> cmdDict = new() {
-                { str_Ping, int_Ping },
                 { str_Fov, int_Fov },
                 { str_Level, int_Level },
                 { str_Tp, int_Tp },
@@ -247,10 +252,11 @@ namespace Major {
                 { str_Dropitem, int_Dropitem },
                 { str_Scale, int_Scale },
                 { str_GravityScale, int_GravityScale },
+                { str_Ping, int_Ping },
+                { str_Noclip, int_Noclip },
             };
 
             public const string
-                str_Ping = "ping",
                 str_Fov = "fov",
                 str_Level = "level",
                 str_Tp = "tp",
@@ -296,7 +302,9 @@ namespace Major {
                 str_Gravity = "gravity",
                 str_Dropitem = "dropitem",
                 str_Scale = "scale",
-                str_GravityScale = "gravityscale";
+                str_GravityScale = "gravityscale",
+                str_Ping = "ping",
+                str_Noclip = "noclip";
 
             public const int
                 int_Fov = 0,
@@ -345,7 +353,8 @@ namespace Major {
                 int_Dropitem = 43,
                 int_Scale = 44,
                 int_GravityScale = 45,
-                int_Ping = 46;
+                int_Ping = 46,
+                int_Noclip = 47;
         }
     }
 }
