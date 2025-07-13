@@ -131,7 +131,8 @@ namespace Major {
                     case int_Echo:
                     case int_Say:
                     case int_Msg: {
-                            Log2.Debug(input, "DebugConsole", true);
+                            if (args.Length < 2) { InvalidArgCount(args[0]); break; }
+                            Log2.Debug(input.TrimStart()[(args[0].Length + 1)..], "DebugConsole", true);
                             break;
                         }
                     case int_Kill: {
