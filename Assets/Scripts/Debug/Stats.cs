@@ -29,7 +29,7 @@ namespace Major.Debug {
             if (GameManager.instance.dbg_noclipEnabled) {
                 text.Append("Noclip\n");
             }
-            if (GameManager.instance.paused) {
+            if (GameManager.isPaused) {
                 text.Append("Paused\n");
             }
             textBox.text = text.ToString();

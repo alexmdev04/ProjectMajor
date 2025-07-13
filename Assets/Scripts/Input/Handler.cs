@@ -63,7 +63,7 @@ namespace Major.Input {
 
             // pause
             if (input.Player.Pause.WasPressedThisFrame()) {
-                OnPause(!GameManager.instance.paused);
+                OnPause(!GameManager.isPaused);
             }
         }
 

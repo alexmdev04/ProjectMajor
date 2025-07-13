@@ -129,7 +129,7 @@ namespace Major.Levels {
         }
 
         private void OnDestroy() {
-            if (!GameManager.startupComplete || GameManager.quitting) {
+            if (!GameManager.startupComplete || GameManager.isQuitting) {
                 return;
             }
             Log2.Error("Destroyed.", "LevelManager");

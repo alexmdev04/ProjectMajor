@@ -1,22 +1,21 @@
 using System;
 using System.Collections;
 using Major.Levels;
-using Unity.Logging;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-// Per client manager for general Game and UI management
 namespace Major {
     public class GameManager : MonoBehaviour {
         public static GameManager instance { get; private set; }
-        public bool paused { get; private set; }
-        public bool inGame { get; private set; }
         public string playerName { get; private set; } = "Player";
 
+        public static bool isPaused { get; private set; }
+        public static bool isInGame { get; private set; }
+        public static bool isCursorVisible { get; private set; }
         public static bool startupComplete { get; private set; }
-        public static bool quitting { get; private set; }
+        public static bool isQuitting { get; private set; }
         public static Startup.Settings startupSettings { get; private set; }
         public static event Action onStartupComplete;
 
@@ -43,7 +42,7 @@ namespace Major {
             }
             //Application.targetFrameRate = 165;
             QualitySettings.vSyncCount = 1;
-            inGame = true;
+            isInGame = true;
             Addressables.InitializeAsync();
             SetCursorVisible(false);
             Input.Handler.instance.OnPause += SetPause;
@@ -146,14 +145,15 @@ namespace Major {
         }
 
         public void SetCursorVisible(bool state) {
-            Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = state;
+            isCursorVisible = state;
+            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = isCursorVisible;
         }
 
         public void SetPause(bool state) {
-            if (!inGame) { return; }
+            if (!isInGame) { return; }
             SetCursorVisible(state);
-            paused = state;
+            isPaused = state;
             if (state) {
                 // UI.instance.SetMenuState(UI.MenuState.paused);
                 Time.timeScale = 0.0f;
@@ -202,14 +202,14 @@ namespace Major {
         }
 
         private void OnDestroy() {
-            if (!startupComplete || quitting) {
+            if (!startupComplete || isQuitting) {
                 return;
             }
             Log2.Error("Destroyed.", "GameManager");
         }
 
         private void OnApplicationQuit() {
-            quitting = true;
+            isQuitting = true;
             Log2.Debug("Quitting.", "GameManager");
         }
     }

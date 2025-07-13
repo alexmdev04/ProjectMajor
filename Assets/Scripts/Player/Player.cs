@@ -118,7 +118,7 @@ namespace Major {
         }
 
         private void OnDestroy() {
-            if (!GameManager.startupComplete || GameManager.quitting) {
+            if (!GameManager.startupComplete || GameManager.isQuitting) {
                 return;
             }
             Input.Handler.instance.OnJump -= Jump;
