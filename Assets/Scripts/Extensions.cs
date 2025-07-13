@@ -22,13 +22,13 @@ namespace Major {
                 Stopwatch timer = Stopwatch.StartNew();
                 onTaskComplete += () => {
                     timer.Stop();
-                    Log.Debug("[" + caller + "] " + taskName + " took " + timer.Elapsed.ToString());
+                    Log2.Debug(taskName + " took " + timer.Elapsed.ToString(), caller);
                 };
             }
 
             if (logged) {
-                Log.Debug("[" + caller + "] " + "Beginning " + taskName + "...");
-                onTaskComplete += () => { Log.Debug("[" + caller + "] " + "Finished " + taskName + "."); };
+                Log2.Debug("Beginning " + taskName + "...", caller);
+                onTaskComplete += () => { Log2.Debug("Finished " + taskName + ".", caller); };
             }
 
             await task;
@@ -40,13 +40,13 @@ namespace Major {
                 Stopwatch timer = Stopwatch.StartNew();
                 onTaskComplete += (t) => {
                     timer.Stop();
-                    Log.Debug("[" + caller + "] " + taskName + " took " + timer.Elapsed.ToString());
+                    Log2.Debug(taskName + " took " + timer.Elapsed.ToString(), caller);
                 };
             }
 
             if (logged) {
-                Log.Debug("[" + caller + "] " + "Beginning " + taskName + "...");
-                onTaskComplete += (t) => { Log.Debug("[" + caller + "] " + "Finished " + taskName + "."); };
+                Log2.Debug("Beginning " + taskName + "...", caller);
+                onTaskComplete += (t) => { Log2.Debug("Finished " + taskName + ".", caller); };
             }
 
             var result = await task;

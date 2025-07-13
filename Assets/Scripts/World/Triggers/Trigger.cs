@@ -17,7 +17,7 @@ namespace Major.World {
         private void Start() {
 #if UNITY_EDITOR
             var logName = transform.parent ? transform.parent.name + "." + name : name;
-            string logCreate = "[Trigger] '" + logName + "' has issues;";
+            string logCreate = "'" + logName + "' has issues;";
             StringBuilder log = new(logCreate);
             if (triggerables.Count == 0) {
                 if (TryGetComponent(out Triggerable selfTriggerable)) {
@@ -48,7 +48,7 @@ namespace Major.World {
 
             var output = log.ToString();
             if (logCreate != output) {
-                Log.Warning(output);
+                Log2.Warning(output, "Trigger");
             }
 #endif
         }

@@ -73,7 +73,7 @@ namespace Major.World {
                 return;
             }
             Levels.LevelManager.levelCurrent.ActivateCheckpoint(this, teleportOnActivation);
-            Log.Debug("[Checkpoint] '" + name + "' activated.");
+            Log2.Debug("'" + name + "' activated.", "Checkpoint");
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {

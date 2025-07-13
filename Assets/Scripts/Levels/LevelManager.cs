@@ -34,15 +34,15 @@ namespace Major.Levels {
 
         public static async void LoadLevel(string key, bool teleportOnLoad = true, bool seamlessTeleport = false) {
             if (isBusy) {
-                Log.Warning("[LevelManager] Busy, load level aborted: " + key);
+                Log2.Warning("Busy, load level aborted: " + key, "LevelManager");
                 return;
             }
 
-            Log.Debug("[LevelManager] Loading level: " + key);
+            Log2.Debug("Loading level: " + key, "LevelManager");
             isBusy = true;
 
             if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
-                Log.Error("[LevelManager] Load Level failed: Key " + key + " does not exist.");
+                Log2.Error("Load Level failed: Key " + key + " does not exist.", "LevelManager");
             }
 
             await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
@@ -50,11 +50,11 @@ namespace Major.Levels {
 
         public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true, bool seamlessTeleport = false) {
             if (isBusy) {
-                Log.Warning("[LevelManager] Busy, load level aborted: " + levelAsset.name);
+                Log2.Warning("Busy, load level aborted: " + levelAsset.name, "LevelManager");
                 return;
             }
 
-            Log.Debug("[LevelManager] Loading level: " + levelAsset.name);
+            Log2.Debug("Loading level: " + levelAsset.name, "LevelManager");
             isBusy = true;
             
             await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
@@ -90,7 +90,7 @@ namespace Major.Levels {
             Player.instance.rb.isKinematic = false;
             Player.instance.autoDropItemsDistance = true;
             isBusy = false;
-            Log.Debug("[LevelManager] Loading level " + key + " completed.");
+            Log2.Debug("Loading level " + key + " completed.", "LevelManager");
         }
 
         private static void UnloadLevelCurrent() {
@@ -111,7 +111,7 @@ namespace Major.Levels {
 
         public static bool NextLevel(bool teleportOnLoad = true, bool seamlessTeleport = false) {
             if (levelCurrent.levelAsset.nextLevel == string.Empty) {
-                Log.Warning("[LevelManager] '" + levelCurrent.levelAsset.name + "' does not have a specified next level.");
+                Log2.Warning("'" + levelCurrent.levelAsset.name + "' does not have a specified next level.", "LevelManager");
                 return false;
             }
             LoadLevel(levelCurrent.levelAsset.nextLevel, teleportOnLoad, seamlessTeleport);
@@ -122,7 +122,7 @@ namespace Major.Levels {
             if (!GameManager.startupComplete || GameManager.quitting) {
                 return;
             }
-            Log.Error("[GameManager] Destroyed.");
+            Log2.Error("Destroyed.", "LevelManager");
         }
     }
 }

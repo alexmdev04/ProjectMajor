@@ -22,7 +22,7 @@ namespace Major.Animations {
         public override void SetAnimationState(bool state, bool waitForFixedUpdate = false) {
 #if UNITY_EDITOR
             if (animRotation == Vector3.zero) {
-                Log.Warning("Animation has zero rotation and will not animate.");
+                Log2.Warning("Animation has zero rotation and will not animate.", "RotateAnimation");
                 return;
             }
 #endif

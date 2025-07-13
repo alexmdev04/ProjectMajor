@@ -23,7 +23,7 @@ namespace Major.World {
                     rb = senderRb;
                 }
                 else if (!sender.TryGetComponent(out rb)) {
-                    Log.Warning("[TriggerableForce] Sender and its parent have no rigidbody.");
+                    Log2.Warning("Sender and its parent have no rigidbody.", "TriggerableForce");
                     return;
                 }
             }

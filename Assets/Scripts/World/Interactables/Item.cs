@@ -27,7 +27,7 @@ namespace Major.World {
         private void Awake() {
             rb = GetComponent<Rigidbody>();
             triggerLayer = LayerMask.NameToLayer("Trigger");
-            if (!triggerObject) { Log.Warning("[Item] " + name + " has no trigger object assigned."); }
+            if (!triggerObject) { Log2.Warning("" + name + " has no trigger object assigned.", "Item"); }
         }
 
         public bool isCarried { get; private set; }
@@ -35,7 +35,7 @@ namespace Major.World {
         public override void Interact(Player sender, Action callback = null) {
             switch (pickupType) {
                 case PickupType.None: {
-                        Log.Warning("[WorldItem] Interacted with None type WorldItem");
+                        Log2.Warning("Interacted with None type Item", "Item");
                         break;
                     }
                 case PickupType.Instant: {

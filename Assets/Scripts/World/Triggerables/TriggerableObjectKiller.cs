@@ -29,7 +29,7 @@ namespace Major.World {
 
 #if UNITY_EDITOR
             if (!_target) {
-                Log.Warning("[TriggerableObjectKiller] No target.");
+                Log2.Warning("No target.", "TriggerableObjectKiller");
             }
 #endif
             Destroy(_target);

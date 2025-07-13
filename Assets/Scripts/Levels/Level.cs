@@ -58,10 +58,10 @@ namespace Major.Levels {
                 if (checkpoints.Length > 0) {
                     firstCheckpoint = checkpoints[0];
                     ActivateCheckpoint(firstCheckpoint, constructData.teleportOnLoad && !constructData.seamlessTeleport);
-                    Log.Warning("[Level] '" + key + "' has no first checkpoint, assumed " + checkpointCurrent.gameObject.name + " is the first.");
+                    Log2.Warning("'" + key + "' has no first checkpoint, assumed " + checkpointCurrent.gameObject.name + " is the first.", "Level");
                 }
                 else {
-                    Log.Warning("[Level] '" + key + "' has no checkpoints.");
+                    Log2.Warning("'" + key + "' has no checkpoints.", "Level");
                 }
             }
 
@@ -85,7 +85,7 @@ namespace Major.Levels {
 
         public bool SpawnPrefab(IResourceLocation prefabAssetLocation, Vector3 position, Quaternion rotation, out GameObject newObj) {
             if (!prefabs.TryGetValue(prefabAssetLocation, out var prefab)) {
-                Log.Error("[Level] Prefab spawn failed: '" + prefabAssetLocation.PrimaryKey + "' is not part of this level or doesn't exist.");
+                Log2.Error("Prefab spawn failed: '" + prefabAssetLocation.PrimaryKey + "' is not part of this level or doesn't exist.", "Level");
                 newObj = null;
                 return false;
             }

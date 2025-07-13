@@ -30,7 +30,7 @@ namespace Major.World {
                 targetRb.position = positionIsTargetOffset ? targetRb.position + position.position : position.position;
             }
             else if (requireRigidbody) {
-                Log.Warning("[TriggerableForce] '" + name + "' found no rigidbody on '" + _target.name + "' or it's parent, but requireRigidbody is enabled.");
+                Log2.Warning("'" + name + "' found no rigidbody on '" + _target.name + "' or it's parent, but requireRigidbody is enabled.", "TriggerableForce");
             }
             else {
                 _target.transform.position = positionIsTargetOffset ? _target.transform.position + position.position : position.position;

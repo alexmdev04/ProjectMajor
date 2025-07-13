@@ -28,7 +28,7 @@ namespace Major {
 
         private void Awake() {
             if (instance != null) {
-                UnityEngine.Debug.LogError("[GameManager] There is already an instance of this singleton");
+                Log2.Error("There is already an instance of this singleton", "GameManager");
                 return;
             }
             if (!startupComplete) {
@@ -55,7 +55,7 @@ namespace Major {
             startupComplete = true;
             onStartupComplete = () => {
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
-                Log.Debug("[GameManager] Startup Complete.");
+                Log2.Debug("Startup Complete.", "GameManager");
             };
         }
 
@@ -188,14 +188,14 @@ namespace Major {
         }
 
         public void OnPlayerDestroyed() {
-            Log.Error("[GameManager] Player object was destroyed, do not do this. Respawning and restarting level.");
+            Log2.Error("Player object was destroyed, do not do this. Respawning and restarting level.", "GameManager");
             var newPlayer = Instantiate(playerPrefab).GetComponent<Player>();
             newPlayer.OnRespawn();
             LevelManager.RestartHard();
         }
 
         public void OnKevinDestroyed() {
-            Log.Error("[GameManager] Kevin object was destroyed, do not do this. Respawning and restarting level.");
+            Log2.Error("Kevin object was destroyed, do not do this. Respawning and restarting level.", "GameManager");
             var newKevin = Instantiate(kevinPrefab).GetComponent<Kevin>();
             newKevin.OnRespawn();
             LevelManager.RestartHard();
@@ -205,12 +205,12 @@ namespace Major {
             if (!startupComplete || quitting) {
                 return;
             }
-            Log.Error("[GameManager] Destroyed.");
+            Log2.Error("Destroyed.", "GameManager");
         }
 
         private void OnApplicationQuit() {
             quitting = true;
-            Log.Debug("[GameManager] Quitting.");
+            Log2.Debug("Quitting.", "GameManager");
         }
     }
 }
