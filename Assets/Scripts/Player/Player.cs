@@ -185,15 +185,17 @@ namespace Major {
 
         private void UpdateCrouch() {
             // overkill early exit
-            // if (!Input.Handler.instance.crouched && currentHeight >= playerHeight) {
-            //     return;
-            // }
-
             var bodyTransform = body.transform;
+            var currentHeight = bodyTransform.localPosition.y;
+            var crouched = Input.Handler.instance.crouched;
+
+            if (!crouched && currentHeight >= playerHeight) {
+                return;
+            }
 
             // depending on input move between playerHeight and crouchHeight by crouchSpeed
             var height = Mathf.Clamp(
-                bodyTransform.localPosition.y + (toCrouchSpeed * Time.deltaTime * (Input.Handler.instance.crouched ? -1.0f : 1.0f)),
+                currentHeight + (toCrouchSpeed * Time.deltaTime * (crouched ? -1.0f : 1.0f)),
                 playerCrouchHeight,
                 playerHeight
             );
