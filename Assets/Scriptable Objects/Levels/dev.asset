@@ -19,9 +19,6 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   <prefabReferences>k__BackingField: []
-  <playerStartingPosition>k__BackingField:
-    pos: {x: 0, y: 6, z: 0}
-    isOffset: 0
-  <kevinStartingPosition>k__BackingField:
-    pos: {x: 0, y: 3, z: 0}
-    isOffset: 0
+  <exitPosition>k__BackingField: {x: 22, y: 0, z: 10}
+  <exitRotation>k__BackingField: {x: 0, y: 90, z: 0}
+  <nextLevel>k__BackingField: dev
