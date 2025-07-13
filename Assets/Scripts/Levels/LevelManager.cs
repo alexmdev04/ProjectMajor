@@ -43,6 +43,7 @@ namespace Major.Levels {
 
             if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
                 Log2.Error("Load Level failed: Key " + key + " does not exist.", "LevelManager");
+                return;
             }
 
             await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
