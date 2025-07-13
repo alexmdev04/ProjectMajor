@@ -1,16 +1,20 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Major.UI {
     public class UI : MonoBehaviour {
         public static UI instance { get; private set; }
         [HideInInspector] public HUD hud;
+        public DebugConsole debugConsole;
 
         private void Awake() {
             instance = this;
         }
 
         private void Update() {
-
+            if (Keyboard.current.backquoteKey.wasPressedThisFrame) {
+                debugConsole.gameObject.SetActive(!debugConsole.gameObject.activeSelf);
+            }
         }
 
         public void ShowInteractPrompt(string text) {
