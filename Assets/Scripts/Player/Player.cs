@@ -105,12 +105,6 @@ namespace Major {
             GroundedCheck();
             if (moveActive) { UpdateMove(); }
             UpdateInteract();
-            if (carriedItem) {
-                UI.UI.instance.ShowInteractPrompt("Drop");
-            }
-            else {
-                UpdateInteract();
-            }
         }
 
         private void LateUpdate() {
