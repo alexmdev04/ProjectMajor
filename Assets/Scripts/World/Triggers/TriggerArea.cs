@@ -21,7 +21,7 @@ namespace Major.World {
                 collisionDP.onColliderDestroyed += OnTriggerExit;
             }
 
-            if (triggerEntities < minimumEntities || triggeredByEveryEntity) {
+            if (triggerEntities == minimumEntities) {
                 OnBegin(collision.gameObject);
             }
             triggerEntities++;
