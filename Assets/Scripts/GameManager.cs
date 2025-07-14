@@ -20,8 +20,8 @@ namespace Major {
         public static event Action onStartupComplete;
 
         // Debug
-        [HideInInspector] public bool dbg_noclipEnabled;
-        [HideInInspector] public float dbg_noclipSpeed = 10.0f;
+        [HideInInspector] public bool dbg_noclipEnabled { get; private set; }
+        [HideInInspector] public float dbg_noclipSpeed = 15.0f;
         [SerializeField] private GameObject playerPrefab;
         [SerializeField] private GameObject kevinPrefab;
 
@@ -92,13 +92,7 @@ namespace Major {
             }
             else {
                 if (Keyboard.current.f1Key.wasPressedThisFrame) {
-                    bool state = !dbg_noclipEnabled;
-                    dbg_noclipEnabled = state;
-                    Player.instance.moveActive = !state;
-                    Player.instance.rb.detectCollisions = !state;
-                    Player.instance.rb.useGravity = !state;
-                    Player.instance.rb.isKinematic = state;
-                    Player.instance.autoDropItemsDistance = !state;
+                    ToggleNoclip();
                 }
 
                 if (Keyboard.current.f5Key.wasPressedThisFrame && LevelManager.levelCurrent) {
@@ -215,6 +209,18 @@ namespace Major {
         private void OnApplicationQuit() {
             isQuitting = true;
             Log2.Debug("Quitting.", "GameManager");
+        }
+
+        public void ToggleNoclip() {
+            SetNoclipActive(!dbg_noclipEnabled);
+        }
+
+        public void SetNoclipActive(bool state) {
+            Player.instance.moveActive = !state;
+            Player.instance.rb.detectCollisions = !state;
+            Player.instance.rb.useGravity = !state;
+            Player.instance.rb.isKinematic = state;
+            Player.instance.autoDropItemsDistance = !state;            
         }
     }
 }
