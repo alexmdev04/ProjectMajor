@@ -123,7 +123,7 @@ namespace Major {
         public static void OverrideInstance(Player newInstance) => instance = newInstance;
 
         private void Look() {
-            Vector2 lookDelta = (Input.Handler.instance.sensitivity * Time.deltaTime) * Input.Handler.instance.lookDelta;
+            Vector2 lookDelta = Input.Handler.instance.sensitivity * Input.Handler.instance.lookDelta;
 
             eulerAngles = new Vector2(
                 Math.Clamp(
