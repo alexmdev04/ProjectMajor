@@ -216,6 +216,7 @@ namespace Major {
         }
 
         public void SetNoclipActive(bool state) {
+            dbg_noclipEnabled = state;
             Player.instance.moveActive = !state;
             Player.instance.rb.detectCollisions = !state;
             Player.instance.rb.useGravity = !state;
