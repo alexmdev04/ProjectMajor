@@ -40,14 +40,16 @@ namespace Major {
             }
 
             public static void Execute(string input) {
-                previousInputs.Insert(1, input);
-                previousInputsIndex = 0;
+                var inputTrimmed = input.Trim();
 
-                if (input == string.Empty) {
+                if (inputTrimmed == string.Empty) {
                     return;
                 }
 
-                ExecuteWithArgs(input.Trim().ToLower().Split(' '));
+                previousInputs.Insert(1, input);
+                previousInputsIndex = 0;
+
+                ExecuteWithArgs(inputTrimmed.ToLower().Split(' '));
             }
 
             private static void ExecuteWithArgs(string[] args) {
