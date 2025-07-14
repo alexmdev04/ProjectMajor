@@ -1340,7 +1340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7c3e625ba55d7409ac97d637827417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: -1}
+  direction: {x: 0, y: 0, z: 1}
   strength: 0.5
   forceMode: 5
 --- !u!65 &912148002
