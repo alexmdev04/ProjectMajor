@@ -19,6 +19,6 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   <prefabReferences>k__BackingField: []
-  <exitPosition>k__BackingField: {x: 0, y: 0, z: 0}
-  <exitRotation>k__BackingField: {x: 0, y: 0, z: 0}
-  <nextLevel>k__BackingField: dev
+  <exitPosition>k__BackingField: {x: -11, y: 0, z: 13.5}
+  <exitRotation>k__BackingField: {x: 0, y: -90, z: 0}
+  <nextLevel>k__BackingField: pit_jump
