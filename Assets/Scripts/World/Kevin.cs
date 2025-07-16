@@ -24,7 +24,7 @@ namespace Major {
         }
 
         private void Update() {
-            if (transform.position.y < -10.0f) {
+            if (transform.position.y < -100.0f) {
                 GameManager.instance.OnKevinKilled();
             }
         }
