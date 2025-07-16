@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Major.Debug;
 using Major.Levels;
 using TMPro;
 using UnityEngine;
@@ -437,6 +438,33 @@ namespace Major {
                         GameManager.instance.dbg_noclipSpeed = Mathf.Max(value, 0.0f);
                     } )
                 },
+                { "stats",
+                    new(args: 0, cmd: (args) => {
+                        if (args.Length < 2) {
+                            Stats.isEnabled = !Stats.isEnabled;
+                        }
+                        else {
+                            switch (args[1]) {
+                                case "fps":
+                                    Stats.isFpsEnabled = !Stats.isFpsEnabled;{
+                                    break;
+                                }
+                                case "speed":
+                                    Stats.isSpeedEnabled = !Stats.isSpeedEnabled;{
+                                    break;
+                                }
+                                case "level":
+                                    Stats.isLevelEnabled = !Stats.isLevelEnabled;{
+                                    break;
+                                }
+                                default: {
+                                    InvalidArgs(args);
+                                    break;
+                                }
+                            }
+                        }
+                    } )
+                }
             };
         }
     }
