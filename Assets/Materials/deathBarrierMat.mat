@@ -7,25 +7,18 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: antiItemBarrier
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
-  m_Parent: {fileID: 2100000, guid: 4803c263b1ba6f8408a8756d0f245132, type: 2}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords:
-  - _ENVIRONMENTREFLECTIONS_OFF
-  - _RECEIVE_SHADOWS_OFF
-  - _SPECULARHIGHLIGHTS_OFF
-  m_LightmapFlags: 4
+  m_Name: deathBarrierMat
+  m_Shader: {fileID: -6465566751694194690, guid: 24ebe6bbe6d4a584fab2d603ee41c0e9, type: 3}
+  m_Parent: {fileID: -876546973899608171, guid: 24ebe6bbe6d4a584fab2d603ee41c0e9, type: 3}
+  m_ModifiedSerializedProperties: 2
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Transparent
+  stringTagMap: {}
   disabledShaderPasses:
-  - DepthOnly
-  - SHADOWCASTER
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
@@ -33,21 +26,16 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0
-    - _Blend: 0
-    - _Cutoff: 0
-    - _DstBlend: 10
-    - _DstBlendAlpha: 10
-    - _Metallic: 0
-    - _Smoothness: 1
-    - _SrcBlend: 5
-    - _WorkflowMode: 1
+    - _QueueControl: 0
+    - _layer1_normalMax: 1
+    - _layer1_normalMin: -1
+    - _layer1_scale: 2.5
     m_Colors:
-    - _BaseColor: {r: 0, g: 1, b: 1, a: 0.2}
-    - _Color: {r: 0, g: 1, b: 1, a: 0.2}
+    - _layer1_direction: {r: 1, g: 0.35, b: 0, a: 0}
+    - _tiling: {r: 5, g: 18, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &8668102161135575947
+--- !u!114 &6547401285973570673
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
