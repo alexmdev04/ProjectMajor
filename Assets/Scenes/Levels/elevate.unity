@@ -473,7 +473,7 @@ PrefabInstance:
     - target: {fileID: 43332294742410801, guid: dd575023fc38c334fa03f8627f23b367, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d7418da4ec09a9542a2dc498ee2f12fd, type: 2}
+      objectReference: {fileID: -876546973899608171, guid: a2f5731bfa5af6b4d92d2e35745a149e, type: 3}
     - target: {fileID: 4808887413818352524, guid: dd575023fc38c334fa03f8627f23b367, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.5
@@ -815,7 +815,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 10
   m_Range: 30
   m_SpotAngle: 179
   m_InnerSpotAngle: 30
@@ -1352,7 +1352,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 10
   m_Range: 30
   m_SpotAngle: 179
   m_InnerSpotAngle: 30
