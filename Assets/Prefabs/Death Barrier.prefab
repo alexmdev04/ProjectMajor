@@ -72,6 +72,7 @@ MonoBehaviour:
   triggerables:
   - {fileID: 4012646380483894791}
   minimumEntities: 1
+  triggeredByEveryEntity: 0
 --- !u!114 &4012646380483894791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 601ec9a2c8e228a469ce25a19e18a77d, type: 2}
+  - {fileID: 2100000, guid: f8ca40b17246888429aa5bc06e5ca253, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

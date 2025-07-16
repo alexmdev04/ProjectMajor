@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4808887413818352524
 Transform:
@@ -76,7 +76,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -88,7 +88,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f04cbaa961e70a94ba301366c3e109d2, type: 2}
+  - {fileID: -876546973899608171, guid: a2f5731bfa5af6b4d92d2e35745a149e, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   triggerables:
   - {fileID: 4410661488425928152}
   minimumEntities: 1
+  triggeredByEveryEntity: 0
 --- !u!114 &4410661488425928152
 MonoBehaviour:
   m_ObjectHideFlags: 0
