@@ -40,7 +40,6 @@ namespace Major {
             if (!startupComplete) {
                 return;
             }
-            //Application.targetFrameRate = 165;
             QualitySettings.vSyncCount = 1;
             isInGame = true;
             Addressables.InitializeAsync();
@@ -109,14 +108,6 @@ namespace Major {
 
                 if (Keyboard.current.f9Key.wasPressedThisFrame) {
                     QualitySettings.vSyncCount = QualitySettings.vSyncCount == 1 ? 0 : 1;
-                }
-
-                if (Keyboard.current.equalsKey.wasPressedThisFrame) {
-                    Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity + 0.1f, 0.0f, float.MaxValue);
-                }
-
-                if (Keyboard.current.minusKey.wasPressedThisFrame) {
-                    Input.Handler.instance.sensitivity = Mathf.Clamp(Input.Handler.instance.sensitivity - 0.1f, 0.0f, float.MaxValue);
                 }
             }
 
