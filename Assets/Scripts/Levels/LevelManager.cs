@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.InputSystem;
-using Unity.Logging;
-using UnityEngine.SceneManagement;
 
 namespace Major.Levels {
     public class LevelManager : MonoBehaviour {
@@ -73,13 +70,11 @@ namespace Major.Levels {
 
             if (levelCurrent) {
                 if (teleportOnLoad && seamlessTeleport) {
-                    Vector3 startHallwayPos = new(4.5f, 0.0f, -17.0f);
+                    var playerTp = ExitTransform(Player.instance.rb.position, Player.instance.eulerAngles);
+                    Player.instance.rb.position = playerTp.Item1;
+                    Player.instance.eulerAngles = playerTp.Item2;
 
-                    Player.instance.rb.position = (Player.instance.rb.position - levelCurrent.levelAsset.exitPosition) + startHallwayPos;
-                    Player.instance.rb.rotation = Quaternion.Euler(Player.instance.rb.rotation.eulerAngles - levelCurrent.levelAsset.exitRotation);
-
-                    Kevin.instance.rb.position = (Kevin.instance.rb.position - levelCurrent.levelAsset.exitPosition) + startHallwayPos;
-                    Kevin.instance.rb.rotation = Quaternion.Euler(Kevin.instance.rb.rotation.eulerAngles - levelCurrent.levelAsset.exitRotation);
+                    ExitTransform(Kevin.instance.rb);
                 }
             }
 
@@ -101,6 +96,24 @@ namespace Major.Levels {
             Player.instance.autoDropItemsDistance = true;
             isBusy = false;
             Log2.Debug("Loading level " + key + " completed.", "LevelManager");
+        }
+
+        private static (Vector3, Vector3) ExitTransform(Vector3 position, Vector3 eulerAngles) {
+            var levelAsset = levelCurrent.levelAsset;
+            var exitEul = levelAsset.exitRotation;
+            var entrancePos = new Vector3(4.5f, 0.0f, -17.0f);
+            var posOffset = position - levelAsset.exitPosition;
+
+            return (
+                entrancePos + (Quaternion.Inverse(Quaternion.Euler(exitEul)) * posOffset),
+                eulerAngles - exitEul
+            );
+        }
+
+        private static void ExitTransform(Rigidbody rb) {
+            var tp = ExitTransform(rb.position, rb.rotation.eulerAngles);
+            rb.position = tp.Item1;
+            rb.rotation = Quaternion.Euler(tp.Item2);
         }
 
         private static void UnloadLevelCurrent() {
