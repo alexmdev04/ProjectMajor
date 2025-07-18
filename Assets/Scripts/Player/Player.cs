@@ -25,7 +25,19 @@ namespace Major {
             playerHeight = 1.0f,
             playerCrouchHeight = 0.6f,
             cameraHeight = 0.85f;
-        public Vector3 eulerAngles = Vector3.zero;
+        public Vector3 eulerAngles {
+            get {
+                return new(
+                    cam.transform.localEulerAngles.x,
+                    body.transform.localEulerAngles.y,
+                    0.0f
+                );
+            }
+            set {
+                body.transform.localEulerAngles = new(0.0f, value.y, 0.0f);
+                cam.transform.localEulerAngles = new(value.x, 0.0f, 0.0f);
+            }
+        }
 
 
         [Header("Movement")]
@@ -124,18 +136,12 @@ namespace Major {
 
         private void Look() {
             Vector2 lookDelta = Input.Handler.instance.sensitivity * Input.Handler.instance.lookDelta;
-
-            eulerAngles = new Vector2(
-                Math.Clamp(
-                    eulerAngles.x - lookDelta.y,
-                    -90f,
-                    90f
-                ),
-                eulerAngles.y + lookDelta.x
+            body.transform.localRotation *= Quaternion.AngleAxis(lookDelta.x, Vector3.up);
+            cam.transform.localEulerAngles = new Vector3(
+                Mathf.Clamp(((cam.transform.localEulerAngles.x + 180.0f) % 360.0f - 180.0f) - lookDelta.y, -90.0f, 90.0f),
+                0.0f,
+                0.0f
             );
-
-            body.transform.eulerAngles = new Vector3(0f, eulerAngles.y, 0f);
-            cam.transform.localEulerAngles = new Vector3(eulerAngles.x, 0f, 0f);
         }
 
         private void UpdateMove() {
@@ -315,4 +321,4 @@ namespace Major {
             grounded = state;
         }
     }
-}   
+}
