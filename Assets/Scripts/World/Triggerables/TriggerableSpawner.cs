@@ -1,11 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Major.Levels;
-using Unity.Logging;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace Major.World {
@@ -48,7 +43,7 @@ namespace Major.World {
 
             instances = validInstances;
 
-            if (LevelManager.levelCurrent.SpawnPrefab(prefabAddress, spawnLocation.position, spawnLocation.rotation, out var prefabInstance)) {
+            if (Levels.Manager.levelCurrent.SpawnPrefab(prefabAddress, spawnLocation.position, spawnLocation.rotation, out var prefabInstance)) {
                 instances.Enqueue(prefabInstance);
                 used++;
             }

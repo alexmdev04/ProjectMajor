@@ -1,4 +1,3 @@
-using Major.Levels;
 using UnityEngine;
 
 namespace Major.World {
@@ -10,10 +9,10 @@ namespace Major.World {
 
         protected override void OnTriggered(Trigger senderTrigger, GameObject sender) {
             if (nextLevel) {
-                LevelManager.NextLevel(teleportOnLoad, seamlessTeleport);
+                Levels.Manager.NextLevel(teleportOnLoad, seamlessTeleport);
                 return;
             }
-            LevelManager.LoadLevel(level, teleportOnLoad, seamlessTeleport);
+            Levels.Manager.LoadLevel(level, teleportOnLoad, seamlessTeleport);
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {

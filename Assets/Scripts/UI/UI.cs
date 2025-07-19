@@ -5,7 +5,7 @@ namespace Major.UI {
     public class UI : MonoBehaviour {
         public static UI instance { get; private set; }
         [HideInInspector] public HUD hud;
-        public DebugConsole debugConsole;
+        public Debug.Console debugConsole;
 
         private void Awake() {
             instance = this;

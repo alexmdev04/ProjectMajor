@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Major.Levels;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
@@ -96,6 +95,10 @@ namespace Major {
         }
 
         public void SetPause(bool state) {
+            if (Debug.Console.instance.gameObject.activeSelf) {
+                Debug.Console.instance.gameObject.SetActive(false);
+                return;
+            }
             if (!isInGame) { return; }
             SetCursorVisible(state);
             isPaused = state;
@@ -121,7 +124,7 @@ namespace Major {
                 Player.instance.DropCarriedItem();
             }
             OnKevinKilled();
-            LevelManager.levelCurrent.checkpointCurrent.TeleportPlayer();
+            Levels.Manager.levelCurrent.checkpointCurrent.TeleportPlayer();
         }
 
         public void OnKevinKilled() {
@@ -133,21 +136,21 @@ namespace Major {
             if (Kevin.instance.item.itemSlot) {
                 Kevin.instance.item.itemSlot.Release(false);
             }
-            LevelManager.levelCurrent.checkpointCurrent.TeleportKevin();
+            Levels.Manager.levelCurrent.checkpointCurrent.TeleportKevin();
         }
 
         public void OnPlayerDestroyed() {
             Log2.Error("Player object was destroyed, do not do this. Respawning and restarting level.", "GameManager");
             var newPlayer = Instantiate(playerPrefab).GetComponent<Player>();
             newPlayer.OnRespawn();
-            LevelManager.RestartHard();
+            Levels.Manager.RestartHard();
         }
 
         public void OnKevinDestroyed() {
             Log2.Error("Kevin object was destroyed, do not do this. Respawning and restarting level.", "GameManager");
             var newKevin = Instantiate(kevinPrefab).GetComponent<Kevin>();
             newKevin.OnRespawn();
-            LevelManager.RestartHard();
+            Levels.Manager.RestartHard();
         }
 
         private void OnDestroy() {

@@ -1,10 +1,5 @@
-using Major.Levels;
 using UnityEngine;
-using Unity.Logging;
 using UnityEngine.SceneManagement;
-using UnityEngine.AddressableAssets;
-using System.Threading.Tasks;
-using System;
 
 namespace Major.Startup {
     public class Startup : MonoBehaviour {

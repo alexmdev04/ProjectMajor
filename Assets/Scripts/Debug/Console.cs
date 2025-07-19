@@ -1,26 +1,29 @@
 using System;
 using System.Collections.Generic;
-using Major.Debug;
-using Major.Levels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Major {
 
-    namespace UI {
-        public class DebugConsole : MonoBehaviour {
+    namespace Debug {
+        public class Console : MonoBehaviour {
             private static TMP_InputField inputField;
-            public static List<string> previousInputs = new() { string.Empty };
-            public static int previousInputsIndex = 0;
+            private static List<string> previousInputs = new() { string.Empty };
+            private static int previousInputsIndex = 0;
+            public static Console instance { get; private set; }
 
             private void Awake() {
                 inputField = GetComponent<TMP_InputField>();
                 inputField.onSubmit.AddListener(input => Execute(input));
                 gameObject.SetActive(false);
+                instance = this;
             }
 
             private void OnEnable() {
+                if (!GameManager.startupComplete) {
+                    return;
+                }
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
@@ -151,7 +154,7 @@ namespace Major {
 
                 { "level",
                     new(args: 1, cmd: (args) => {
-                        LevelManager.LoadLevel(args[1]);
+                        Levels.Manager.LoadLevel(args[1]);
                     } )
                 },
                 { "map", new("level") },
@@ -197,7 +200,7 @@ namespace Major {
 
                 { "reload",
                     new(args: 0, cmd: (args) => {
-                        LevelManager.RestartHard();
+                        Levels.Manager.RestartHard();
                     } )
                 },
 
@@ -205,15 +208,15 @@ namespace Major {
                     new(args: 0, cmd: (args) => {
                         if (args.Length > 2) {
                             if (args[0] == "soft") {
-                                LevelManager.RestartSoft();
+                                Levels.Manager.RestartSoft();
                                 return;
                             }
                             else if (args[0] == "hard") {
-                                LevelManager.RestartHard();
+                                Levels.Manager.RestartHard();
                                 return;
                             }
                         }
-                        LevelManager.RestartSoft();
+                        Levels.Manager.RestartSoft();
                     } )
                 },
                 { "reset", new("restart") },
@@ -441,16 +444,16 @@ namespace Major {
                 { "stats",
                     new(args: 0, cmd: (args) => {
                         if (args.Length < 2) {
-                            Stats.isEnabled = !Stats.isEnabled;
+                            Debug.Stats.isEnabled = !Debug.Stats.isEnabled;
                         }
                         else {
                             switch (args[1]) {
                                 case "speed":
-                                    Stats.isSpeedEnabled = !Stats.isSpeedEnabled;{
+                                    Debug.Stats.isSpeedEnabled = !Debug.Stats.isSpeedEnabled;{
                                     break;
                                 }
                                 case "level":
-                                    Stats.isLevelEnabled = !Stats.isLevelEnabled;{
+                                    Debug.Stats.isLevelEnabled = !Debug.Stats.isLevelEnabled;{
                                     break;
                                 }
                                 default: {

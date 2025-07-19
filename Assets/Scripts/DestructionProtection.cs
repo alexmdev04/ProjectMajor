@@ -14,10 +14,10 @@ namespace Major {
         }
 
         private void Start() {
-            if (!Levels.LevelManager.levelCurrent) {
+            if (!Levels.Manager.levelCurrent) {
                 return;
             }
-            Levels.LevelManager.levelCurrent.onLevelUnloaded += ClearCallbacks;
+            Levels.Manager.levelCurrent.onLevelUnloaded += ClearCallbacks;
         }
 
         private void OnDestroy() {

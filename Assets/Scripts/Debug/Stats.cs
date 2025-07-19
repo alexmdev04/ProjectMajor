@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using Major.Levels;
 using TMPro;
 using UnityEngine;
 
@@ -35,10 +34,10 @@ namespace Major.Debug {
                 text.Append("Speed: ").Append(MathF.Round(Player.instance.rb.linearVelocity.magnitude, 4)).Append("\n");
             }
 
-            if (isLevelEnabled && LevelManager.levelCurrent) {
-                text.Append("Level: ").Append(LevelManager.levelCurrent.levelAsset.name).Append("\n");
-                if (LevelManager.levelCurrent.checkpointCurrent) {
-                    text.Append("Checkpoint: ").Append(LevelManager.levelCurrent.checkpointCurrent.name).Append("\n");
+            if (isLevelEnabled && Levels.Manager.levelCurrent) {
+                text.Append("Level: ").Append(Levels.Manager.levelCurrent.levelAsset.name).Append("\n");
+                if (Levels.Manager.levelCurrent.checkpointCurrent) {
+                    text.Append("Checkpoint: ").Append(Levels.Manager.levelCurrent.checkpointCurrent.name).Append("\n");
                 }
             }
 

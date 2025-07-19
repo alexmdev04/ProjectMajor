@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Major.Levels {
-    public class LevelManager : MonoBehaviour {
-        public static LevelManager instance { get; private set; }
+    public class Manager : MonoBehaviour {
+        public static Manager instance { get; private set; }
         public static Level levelCurrent { get; private set; }
         public static Dictionary<string, LevelAsset> levelDatabase { get; private set; }
         public static bool isBusy;
@@ -31,39 +31,39 @@ namespace Major.Levels {
 
         public static async void LoadLevel(string key, bool teleportOnLoad = true, bool seamlessTeleport = false) {
             if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
-                Log2.Error("Load level failed: Key " + key + " does not exist.", "LevelManager");
+                Log2.Error("Load level failed: Key " + key + " does not exist.", "Levels.Manager");
                 return;
             }
 
             if (isBusy) {
-                Log2.Warning("Already loading level, load level '" + key + " ' aborted.", "LevelManager");
+                Log2.Warning("Already loading level, load level '" + key + " ' aborted.", "Levels.Manager");
                 return;
             }
 
-            Log2.Debug("Loading level: " + key, "LevelManager");
+            Log2.Debug("Loading level: " + key, "Levels.Manager");
             isBusy = true;
             await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
         }
 
         public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true, bool seamlessTeleport = false) {
             if (!levelAsset) {
-                Log2.Error("Load level failed: Null level asset.", "LevelManager");
+                Log2.Error("Load level failed: Null level asset.", "Levels.Manager");
                 return;
             }
 
             if (isBusy) {
-                Log2.Warning("Already loading level, load level '" + levelAsset.name + " ' aborted.", "LevelManager");
+                Log2.Warning("Already loading level, load level '" + levelAsset.name + " ' aborted.", "Levels.Manager");
                 return;
             }
 
-            Log2.Debug("Loading level: " + levelAsset.name, "LevelManager");
+            Log2.Debug("Loading level: " + levelAsset.name, "Levels.Manager");
             isBusy = true;
             await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
         }
 
         private static async Task LoadLevelAssetAsync(LevelAsset levelAsset, bool teleportOnLoad, bool seamlessTeleport) {
             if (levelAsset.sceneReference == null) {
-                Log2.Error("Load level failed: Level asset '" + levelAsset.name + "' has no scene reference .", "LevelManager");
+                Log2.Error("Load level failed: Level asset '" + levelAsset.name + "' has no scene reference .", "Levels.Manager");
                 isBusy = false;
                 return;
             }
@@ -93,7 +93,7 @@ namespace Major.Levels {
             Player.instance.rb.isKinematic = false;
             Player.instance.autoDropItemsDistance = true;
             isBusy = false;
-            Log2.Debug("Loading level " + key + " completed.", "LevelManager");
+            Log2.Debug("Loading level " + key + " completed.", "Levels.Manager");
         }
 
         private static (Vector3 position, Vector3 eulerAngles, Vector3 linearVelocity) ExitTransform(Vector3 position, Vector3 eulerAngles, Vector3 linearVelocity) {
@@ -134,7 +134,7 @@ namespace Major.Levels {
 
         public static bool NextLevel(bool teleportOnLoad = true, bool seamlessTeleport = false) {
             if (levelCurrent.levelAsset.nextLevel == string.Empty) {
-                Log2.Warning("'" + levelCurrent.levelAsset.name + "' does not have a specified next level.", "LevelManager");
+                Log2.Warning("'" + levelCurrent.levelAsset.name + "' does not have a specified next level.", "Levels.Manager");
                 return false;
             }
             LoadLevel(levelCurrent.levelAsset.nextLevel, teleportOnLoad, seamlessTeleport);
@@ -145,7 +145,7 @@ namespace Major.Levels {
             if (!GameManager.startupComplete || GameManager.isQuitting) {
                 return;
             }
-            Log2.Error("Destroyed.", "LevelManager");
+            Log2.Error("Destroyed.", "Levels.Manager");
         }
     }
 }
