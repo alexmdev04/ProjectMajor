@@ -70,10 +70,8 @@ namespace Major.Levels {
 
             if (levelCurrent) {
                 if (teleportOnLoad && seamlessTeleport) {
-                    var playerTp = ExitTransform(Player.instance.rb.position, Player.instance.eulerAngles);
-                    Player.instance.rb.position = playerTp.Item1;
-                    Player.instance.eulerAngles = playerTp.Item2;
-
+                    (Player.instance.rb.position, Player.instance.eulerAngles, Player.instance.rb.linearVelocity) =
+                        ExitTransform(Player.instance.rb.position, Player.instance.eulerAngles, Player.instance.rb.linearVelocity);
                     ExitTransform(Kevin.instance.rb);
                 }
             }
@@ -98,22 +96,24 @@ namespace Major.Levels {
             Log2.Debug("Loading level " + key + " completed.", "LevelManager");
         }
 
-        private static (Vector3, Vector3) ExitTransform(Vector3 position, Vector3 eulerAngles) {
+        private static (Vector3 position, Vector3 eulerAngles, Vector3 linearVelocity) ExitTransform(Vector3 position, Vector3 eulerAngles, Vector3 linearVelocity) {
             var levelAsset = levelCurrent.levelAsset;
             var exitEul = levelAsset.exitRotation;
             var entrancePos = new Vector3(4.5f, 0.0f, -17.0f);
             var posOffset = position - levelAsset.exitPosition;
+            var exitEulInverse = Quaternion.Inverse(Quaternion.Euler(exitEul));
 
             return (
-                entrancePos + (Quaternion.Inverse(Quaternion.Euler(exitEul)) * posOffset),
-                eulerAngles - exitEul
+                entrancePos + (exitEulInverse * posOffset),
+                eulerAngles - exitEul,
+                exitEulInverse * linearVelocity
             );
         }
 
         private static void ExitTransform(Rigidbody rb) {
-            var tp = ExitTransform(rb.position, rb.rotation.eulerAngles);
-            rb.position = tp.Item1;
-            rb.rotation = Quaternion.Euler(tp.Item2);
+            Vector3 eul;
+            (rb.position, eul, rb.linearVelocity) = ExitTransform(rb.position, rb.rotation.eulerAngles, rb.linearVelocity);
+            rb.rotation = Quaternion.Euler(eul);
         }
 
         private static void UnloadLevelCurrent() {
