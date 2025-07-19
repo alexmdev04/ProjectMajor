@@ -436,7 +436,7 @@ namespace Major {
 
                 { "noclip",
                     new(args: 0, cmd: (args) => {
-                        if (args.Length < 2) { GameManager.instance.ToggleNoclip(); return; }
+                        if (args.Length < 2) { GameManager.instance.Dbg_ToggleNoclip(); return; }
                         if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
                         GameManager.instance.dbg_noclipSpeed = Mathf.Max(value, 0.0f);
                     } )

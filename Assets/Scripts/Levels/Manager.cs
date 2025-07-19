@@ -86,7 +86,7 @@ namespace Major.Levels {
             levelCurrent = newLevel;
             exitHallway.transform.position = levelAsset.exitPosition;
             exitHallway.transform.eulerAngles = levelAsset.exitRotation;
-            GameManager.instance.SetNoclipActive(false);
+            GameManager.instance.Dbg_SetNoclipActive(false);
             Player.instance.moveActive = true;
             Player.instance.rb.detectCollisions = true;
             Player.instance.rb.useGravity = true;

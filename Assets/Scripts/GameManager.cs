@@ -157,11 +157,11 @@ namespace Major {
             Log2.Debug("Quitting.", "GameManager");
         }
 
-        public void ToggleNoclip() {
-            SetNoclipActive(!dbg_noclipEnabled);
+        public void Dbg_ToggleNoclip() {
+            Dbg_SetNoclipActive(!dbg_noclipEnabled);
         }
 
-        public void SetNoclipActive(bool state) {
+        public void Dbg_SetNoclipActive(bool state) {
             dbg_noclipEnabled = state;
             Player.instance.moveActive = !state;
             Player.instance.rb.detectCollisions = !state;
