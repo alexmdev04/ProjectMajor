@@ -125,10 +125,16 @@ namespace Major.Levels {
         }
 
         public static void RestartSoft() {
+            if (!levelCurrent) {
+                return;
+            }
             levelCurrent.GoToCheckpoint();
         }
 
         public static void RestartHard() {
+            if (!levelCurrent) {
+                return;
+            }
             LoadLevel(levelCurrent.levelAsset);
         }
 
