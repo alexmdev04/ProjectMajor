@@ -7,8 +7,6 @@ using UnityEngine;
 namespace Major.Debug {
     public class Stats : MonoBehaviour {
         public static bool isEnabled;
-
-        public static bool isFpsEnabled = true;
         public static bool isSpeedEnabled;
         public static bool isLevelEnabled;
 

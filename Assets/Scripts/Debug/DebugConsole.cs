@@ -170,7 +170,7 @@ namespace Major {
                 { "fps",
                     new(args: 0, cmd: (args) => {
                         if (args.Length < 2) {
-                            // show hide FPS
+                            Execute("stats");
                         }
                         else {
                             if (!int.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
@@ -445,10 +445,6 @@ namespace Major {
                         }
                         else {
                             switch (args[1]) {
-                                case "fps":
-                                    Stats.isFpsEnabled = !Stats.isFpsEnabled;{
-                                    break;
-                                }
                                 case "speed":
                                     Stats.isSpeedEnabled = !Stats.isSpeedEnabled;{
                                     break;
