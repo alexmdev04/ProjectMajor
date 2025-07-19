@@ -542,7 +542,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1012,7 +1012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 096dfefa798a14a4da18b3f2b121164f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dbg_noclipEnabled: 0
   dbg_noclipSpeed: 10
   playerPrefab: {fileID: 6132541723238227052, guid: 024ae88ba1b178841aab464d70c2edfa, type: 3}
   kevinPrefab: {fileID: 5825377341236930540, guid: b560d81a9c3d9ec47a8f1be30bcbf716, type: 3}
@@ -1567,11 +1566,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 418527464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 215}
-  m_SizeDelta: {x: 200, y: 33.7}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -300}
+  m_SizeDelta: {x: 0, y: 33.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1378217728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1592,25 +1591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'uiMessage
-
-    a
-
-    a
-
-    a
-
-    a
-
-    a
-
-    a
-
-    a
-
-    a
-
-    a'
+  m_text: uiMessage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1701,6 +1682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b4c8df59d54ae4c85f880399320370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxMessages: 10
   debugMessageSenders: 0
   yPerMsg: 42.5
   animSpeed: 5
@@ -1916,7 +1898,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 53.7
-  m_fontSizeBase: 36
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
