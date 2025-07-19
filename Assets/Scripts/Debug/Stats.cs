@@ -26,7 +26,7 @@ namespace Major.Debug {
         }
 
         private void Update() {
-            textBox.gameObject.SetActive(isEnabled);
+            textBox.enabled = isEnabled;
             if (!isEnabled) {
                 return;
             }
