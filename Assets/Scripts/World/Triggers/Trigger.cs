@@ -7,6 +7,9 @@ using UnityEngine;
 namespace Major.World {
     public abstract class Trigger : MonoBehaviour {
         [SerializeField] private List<Triggerable> triggerables = new();
+#if UNITY_EDITOR
+        [SerializeField] private bool ignoreWarnings;
+#endif
 
         private void Awake() {
             if (TryGetComponent<DestructionProtection>(out var dp)) {
@@ -16,6 +19,9 @@ namespace Major.World {
 
         private void Start() {
 #if UNITY_EDITOR
+            if (ignoreWarnings) {
+                return;
+            }
             var logName = transform.parent ? transform.parent.name + "." + name : name;
             string logCreate = "'" + logName + "' has issues;";
             StringBuilder log = new(logCreate);
