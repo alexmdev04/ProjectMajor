@@ -740,7 +740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 121862759596781241, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 121862759596781241, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -784,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: kevinSpawnPosition.y
-      value: 0.1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: kevinSpawnPosition.z
@@ -796,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: playerSpawnPosition.y
-      value: 0.1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: playerSpawnPosition.z
