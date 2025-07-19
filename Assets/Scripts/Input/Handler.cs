@@ -48,13 +48,17 @@ namespace Major.Input {
                 return;
             }
             input.Player.Enable();
-            input.Player.Sprint.started += (ctx) => { sprinting = true; };
-            input.Player.Sprint.canceled += (ctx) => { sprinting = false; };
-            input.Player.Crouch.started += (ctx) => { crouched = true; };
-            input.Player.Crouch.canceled += (ctx) => { crouched = false; };
+            input.Player.Sprint.started += (ctx) => sprinting = true;
+            input.Player.Sprint.canceled += (ctx) => sprinting = false;
+            input.Player.Crouch.started += (ctx) => crouched = true;
+            input.Player.Crouch.canceled += (ctx) => crouched = false;
             input.Player.Jump.performed += (ctx) => OnJump();
             input.Player.Interact.performed += (ctx) => OnInteract();
             input.Player.Pause.performed += (ctx) => OnPause(!GameManager.isPaused);
+            input.Player.RestartLevel.performed += (ctx) => Levels.Manager.RestartHard();
+            input.Player.RestartCheckpoint.performed += (ctx) => Levels.Manager.RestartSoft();
+            input.Player.RestartCheckpointKevin.performed += (ctx) => GameManager.instance.OnKevinKilled();
+            input.Player.Console.performed += (ctx) => Debug.Console.Toggle();
         }
 
         private void OnDisable() {
@@ -62,13 +66,17 @@ namespace Major.Input {
                 return;
             }
             input.Player.Disable();
-            input.Player.Sprint.started -= (ctx) => { sprinting = true; };
-            input.Player.Sprint.canceled -= (ctx) => { sprinting = false; };
-            input.Player.Crouch.started -= (ctx) => { crouched = true; };
-            input.Player.Crouch.canceled -= (ctx) => { crouched = false; };
+            input.Player.Sprint.started -= (ctx) => sprinting = true;
+            input.Player.Sprint.canceled -= (ctx) => sprinting = false;
+            input.Player.Crouch.started -= (ctx) => crouched = true;
+            input.Player.Crouch.canceled -= (ctx) => crouched = false;
             input.Player.Jump.performed -= (ctx) => OnJump();
             input.Player.Interact.performed -= (ctx) => OnInteract();
             input.Player.Pause.performed -= (ctx) => OnPause(!GameManager.isPaused);
+            input.Player.RestartLevel.performed -= (ctx) => Levels.Manager.RestartHard();
+            input.Player.RestartCheckpoint.performed -= (ctx) => Levels.Manager.RestartSoft();
+            input.Player.RestartCheckpointKevin.performed -= (ctx) => GameManager.instance.OnKevinKilled();
+            input.Player.Console.performed -= (ctx) => Debug.Console.Toggle();
         }
 
         private void OnApplicationQuit() {

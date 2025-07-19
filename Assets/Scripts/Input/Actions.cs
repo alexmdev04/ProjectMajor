@@ -117,7 +117,7 @@ namespace Major.Input
                     ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -164,6 +164,42 @@ namespace Major.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RestartLevel"",
+                    ""type"": ""Button"",
+                    ""id"": ""8c65cd85-5c2c-4d19-9aff-7b3ae9988fa0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RestartCheckpoint"",
+                    ""type"": ""Button"",
+                    ""id"": ""c490202e-3a8c-473c-b0dc-e73b8cdb6a98"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RestartCheckpointKevin"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb23f718-d0b3-47e9-8d43-186c46b36a33"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Console"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2c75b2c-c6c3-4e4a-b8a9-69f516285af4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +293,28 @@ namespace Major.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""0537eea0-207a-480b-b731-570358c7d74d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eea20dd6-faed-409d-9b37-869044efd0dd"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b3f66d0b-7751-423f-908b-a11c5bd95930"",
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
@@ -268,11 +326,22 @@ namespace Major.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0537eea0-207a-480b-b731-570358c7d74d"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""id"": ""0d97a166-d7b2-4cc3-9cd1-8b2c559360c4"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a4bf14c-4d8a-4751-b207-f0185f618760"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -406,6 +475,127 @@ namespace Major.Input
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f546696-f125-4d5d-ab2a-4bc7538f6db4"",
+                    ""path"": ""<Keyboard>/f5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RestartLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""191f711d-dfc4-4e42-a7ad-8aff2c7283c5"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RestartLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""708b5672-1b05-4c98-bb6f-2c330a2eaee1"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""RestartLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ffeaabc-dcd8-4e20-8c3c-824f045b5a5c"",
+                    ""path"": ""<Gamepad>/dpad/Down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""RestartLevel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0c647cf-c701-4201-bd05-dc748d182543"",
+                    ""path"": ""<Keyboard>/f6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RestartCheckpoint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62f00a92-db18-4d50-a980-1c6b93b15f3c"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""RestartCheckpoint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72d94d0a-ccd2-4ec5-a29a-006eea280872"",
+                    ""path"": ""<Keyboard>/f7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RestartCheckpointKevin"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b02e5d7-1706-4c07-96c9-22233ea0fb43"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""RestartCheckpointKevin"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55b1e18e-b7a6-45b4-a592-c3ec1d049c87"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Console"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""064de2b4-09d9-479e-bb4f-ab69160e40b4"",
+                    ""path"": ""<Keyboard>/f10"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Console"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72a96c2b-86e0-4ac9-a2d8-1b302315233c"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Console"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -968,6 +1158,10 @@ namespace Major.Input
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
             m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
+            m_Player_RestartLevel = m_Player.FindAction("RestartLevel", throwIfNotFound: true);
+            m_Player_RestartCheckpoint = m_Player.FindAction("RestartCheckpoint", throwIfNotFound: true);
+            m_Player_RestartCheckpointKevin = m_Player.FindAction("RestartCheckpointKevin", throwIfNotFound: true);
+            m_Player_Console = m_Player.FindAction("Console", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1069,6 +1263,10 @@ namespace Major.Input
         private readonly InputAction m_Player_Sprint;
         private readonly InputAction m_Player_Pause;
         private readonly InputAction m_Player_Scroll;
+        private readonly InputAction m_Player_RestartLevel;
+        private readonly InputAction m_Player_RestartCheckpoint;
+        private readonly InputAction m_Player_RestartCheckpointKevin;
+        private readonly InputAction m_Player_Console;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1112,6 +1310,22 @@ namespace Major.Input
             /// Provides access to the underlying input action "Player/Scroll".
             /// </summary>
             public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/RestartLevel".
+            /// </summary>
+            public InputAction @RestartLevel => m_Wrapper.m_Player_RestartLevel;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/RestartCheckpoint".
+            /// </summary>
+            public InputAction @RestartCheckpoint => m_Wrapper.m_Player_RestartCheckpoint;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/RestartCheckpointKevin".
+            /// </summary>
+            public InputAction @RestartCheckpointKevin => m_Wrapper.m_Player_RestartCheckpointKevin;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Console".
+            /// </summary>
+            public InputAction @Console => m_Wrapper.m_Player_Console;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1162,6 +1376,18 @@ namespace Major.Input
                 @Scroll.started += instance.OnScroll;
                 @Scroll.performed += instance.OnScroll;
                 @Scroll.canceled += instance.OnScroll;
+                @RestartLevel.started += instance.OnRestartLevel;
+                @RestartLevel.performed += instance.OnRestartLevel;
+                @RestartLevel.canceled += instance.OnRestartLevel;
+                @RestartCheckpoint.started += instance.OnRestartCheckpoint;
+                @RestartCheckpoint.performed += instance.OnRestartCheckpoint;
+                @RestartCheckpoint.canceled += instance.OnRestartCheckpoint;
+                @RestartCheckpointKevin.started += instance.OnRestartCheckpointKevin;
+                @RestartCheckpointKevin.performed += instance.OnRestartCheckpointKevin;
+                @RestartCheckpointKevin.canceled += instance.OnRestartCheckpointKevin;
+                @Console.started += instance.OnConsole;
+                @Console.performed += instance.OnConsole;
+                @Console.canceled += instance.OnConsole;
             }
 
             /// <summary>
@@ -1197,6 +1423,18 @@ namespace Major.Input
                 @Scroll.started -= instance.OnScroll;
                 @Scroll.performed -= instance.OnScroll;
                 @Scroll.canceled -= instance.OnScroll;
+                @RestartLevel.started -= instance.OnRestartLevel;
+                @RestartLevel.performed -= instance.OnRestartLevel;
+                @RestartLevel.canceled -= instance.OnRestartLevel;
+                @RestartCheckpoint.started -= instance.OnRestartCheckpoint;
+                @RestartCheckpoint.performed -= instance.OnRestartCheckpoint;
+                @RestartCheckpoint.canceled -= instance.OnRestartCheckpoint;
+                @RestartCheckpointKevin.started -= instance.OnRestartCheckpointKevin;
+                @RestartCheckpointKevin.performed -= instance.OnRestartCheckpointKevin;
+                @RestartCheckpointKevin.canceled -= instance.OnRestartCheckpointKevin;
+                @Console.started -= instance.OnConsole;
+                @Console.performed -= instance.OnConsole;
+                @Console.canceled -= instance.OnConsole;
             }
 
             /// <summary>
@@ -1514,6 +1752,34 @@ namespace Major.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnScroll(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RestartLevel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRestartLevel(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RestartCheckpoint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRestartCheckpoint(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RestartCheckpointKevin" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRestartCheckpointKevin(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Console" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnConsole(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

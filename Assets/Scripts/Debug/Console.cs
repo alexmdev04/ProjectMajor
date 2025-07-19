@@ -43,6 +43,10 @@ namespace Major {
                 PreviousInputUpdate();
             }
 
+            public static void Toggle() {
+                instance.gameObject.SetActive(instance.gameObject.activeSelf);
+            }
+
             public static void Execute(string input) {
                 var inputTrimmed = input.Trim();
 
