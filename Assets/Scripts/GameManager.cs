@@ -62,14 +62,6 @@ namespace Major {
         }
 
         private void Update() {
-            if (Keyboard.current.f6Key.wasPressedThisFrame) {
-                OnPlayerKilled();
-            }
-
-            if (Keyboard.current.f7Key.wasPressedThisFrame) {
-                OnKevinKilled();
-            }
-
             if (dbg_noclipEnabled) {
                 Player.instance.transform.position += Player.instance.cam.transform.TransformDirection(Input.Handler.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
                 dbg_noclipSpeed = Mathf.Clamp(dbg_noclipSpeed + Mouse.current.scroll.value.y, 0.0f, 100.0f);
