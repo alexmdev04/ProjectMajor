@@ -44,7 +44,7 @@ namespace Major {
             isInGame = true;
             Addressables.InitializeAsync();
             SetCursorVisible(false);
-            Input.Handler.instance.OnPause += SetPause;
+            Input.Handler.OnPause += SetPause;
             StartCoroutine(Startup());
         }
 
@@ -112,7 +112,7 @@ namespace Major {
             }
 
             if (dbg_noclipEnabled) {
-                Player.instance.transform.position += Player.instance.cam.transform.TransformDirection(Input.Handler.instance.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
+                Player.instance.transform.position += Player.instance.cam.transform.TransformDirection(Input.Handler.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
                 dbg_noclipSpeed = Mathf.Clamp(dbg_noclipSpeed + Mouse.current.scroll.value.y, 0.0f, 100.0f);
             }
         }
@@ -121,7 +121,7 @@ namespace Major {
             if (!startupComplete) {
                 return;
             }
-            Input.Handler.instance.OnPause -= SetPause;
+            Input.Handler.OnPause -= SetPause;
             PlayerPrefs.Save();
         }
 
@@ -142,13 +142,13 @@ namespace Major {
             if (state) {
                 // UI.instance.SetMenuState(UI.MenuState.paused);
                 Time.timeScale = 0.0f;
-                Input.Handler.instance.input.Player.Disable();
-                Input.Handler.instance.input.Player.Pause.Enable();
+                Input.Handler.input.Player.Disable();
+                Input.Handler.input.Player.Pause.Enable();
             }
             else {
                 // UI.instance.SetMenuState(UI.MenuState.inGame);
                 Time.timeScale = 1.0f;
-                Input.Handler.instance.input.Player.Enable();
+                Input.Handler.input.Player.Enable();
             }
         }
 

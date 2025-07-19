@@ -101,8 +101,8 @@ namespace Major {
         }
 
         private void OnStartupComplete() {
-            Input.Handler.instance.OnJump += Jump;
-            Input.Handler.instance.OnInteract += Interact;
+            Input.Handler.OnJump += Jump;
+            Input.Handler.OnInteract += Interact;
         }
 
         private void Update() {
@@ -127,15 +127,15 @@ namespace Major {
             if (!GameManager.startupComplete || GameManager.isQuitting) {
                 return;
             }
-            Input.Handler.instance.OnJump -= Jump;
-            Input.Handler.instance.OnInteract -= Interact;
+            Input.Handler.OnJump -= Jump;
+            Input.Handler.OnInteract -= Interact;
             GameManager.instance.OnPlayerDestroyed();
         }
 
         public static void OverrideInstance(Player newInstance) => instance = newInstance;
 
         private void Look() {
-            Vector2 lookDelta = Input.Handler.instance.sensitivity * Input.Handler.instance.lookDelta;
+            Vector2 lookDelta = Input.Handler.sensitivity * Input.Handler.lookDelta;
             body.transform.localRotation *= Quaternion.AngleAxis(lookDelta.x, Vector3.up);
             cam.transform.localEulerAngles = new Vector3(
                 Mathf.Clamp(((cam.transform.localEulerAngles.x + 180.0f) % 360.0f - 180.0f) - lookDelta.y, -90.0f, 90.0f),
@@ -146,10 +146,10 @@ namespace Major {
 
         private void UpdateMove() {
             float accel = acceleration;
-            Vector3 movementDirectionGlobal = body.transform.TransformDirection(Input.Handler.instance.movementDirection);
+            Vector3 movementDirectionGlobal = body.transform.TransformDirection(Input.Handler.movementDirection);
 
             if (grounded) {
-                maxVelocity = Input.Handler.instance.crouched ? crouchVelocity : Input.Handler.instance.sprinting ? sprintVelocity : walkVelocity;
+                maxVelocity = Input.Handler.crouched ? crouchVelocity : Input.Handler.sprinting ? sprintVelocity : walkVelocity;
 
                 // apply friction
                 float speed = rb.linearVelocity.magnitude;
@@ -193,7 +193,7 @@ namespace Major {
             // overkill early exit
             var bodyTransform = body.transform;
             var currentHeight = bodyTransform.localPosition.y;
-            var crouched = Input.Handler.instance.crouched;
+            var crouched = Input.Handler.crouched;
 
             if (!crouched && currentHeight >= playerHeight) {
                 return;

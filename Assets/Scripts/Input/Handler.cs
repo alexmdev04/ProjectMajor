@@ -3,26 +3,23 @@ using UnityEngine;
 
 namespace Major.Input {
     public class Handler : MonoBehaviour {
-        public static Handler instance { get; private set; }
-        public Actions input { get; private set; }
-        public bool sprinting { get; private set; }
-        public bool crouched { get; private set; }
-        public Vector2 lookDelta { get; private set; }
-        public Vector2 scrollDelta { get; private set; }
-        public Vector3 movementDirection { get; private set; }
-        public float sensitivity;
-        public event Action OnJump = () => { };
-        public event Action OnInteract = () => { };
-        public event Action<bool> OnPause = paused => { };
+        public static Actions input { get; private set; }
+        public static bool sprinting { get; private set; }
+        public static bool crouched { get; private set; }
+        public static Vector2 lookDelta { get; private set; }
+        public static Vector2 scrollDelta { get; private set; }
+        public static Vector3 movementDirection { get; private set; }
+        public static float sensitivity;
+        public static event Action OnJump = () => { };
+        public static event Action OnInteract = () => { };
+        public static event Action<bool> OnPause = paused => { };
         private const string sensPrefKey = "sensitivity";
 
         private void Awake() {
             if (!GameManager.startupComplete) {
                 return;
             }
-            instance = this;
             input = new();
-            input.Player.Enable();
         }
 
         private void Start() {
@@ -44,27 +41,20 @@ namespace Major.Input {
 
             // scroll vector
             scrollDelta = input.Player.Scroll.ReadValue<Vector2>();
+        }
 
-            // sprint
-            sprinting = input.Player.Sprint.IsPressed();
-
-            // crouch
-            crouched = input.Player.Crouch.IsPressed();
-
-            // jump
-            if (input.Player.Jump.WasPressedThisFrame()) {
-                OnJump();
+        private void OnEnable() {
+            if (!GameManager.startupComplete) {
+                return;
             }
-
-            // interact
-            if (input.Player.Interact.WasPressedThisFrame()) {
-                OnInteract();
-            }
-
-            // pause
-            if (input.Player.Pause.WasPressedThisFrame()) {
-                OnPause(!GameManager.isPaused);
-            }
+            input.Player.Enable();
+            input.Player.Sprint.started += (ctx) => { sprinting = true; };
+            input.Player.Sprint.canceled += (ctx) => { sprinting = false; };
+            input.Player.Crouch.started += (ctx) => { crouched = true; };
+            input.Player.Crouch.canceled += (ctx) => { crouched = false; };
+            input.Player.Jump.performed += (ctx) => OnJump();
+            input.Player.Interact.performed += (ctx) => OnInteract();
+            input.Player.Pause.performed += (ctx) => OnPause(!GameManager.isPaused);
         }
 
         private void OnDisable() {
@@ -72,6 +62,13 @@ namespace Major.Input {
                 return;
             }
             input.Player.Disable();
+            input.Player.Sprint.started -= (ctx) => { sprinting = true; };
+            input.Player.Sprint.canceled -= (ctx) => { sprinting = false; };
+            input.Player.Crouch.started -= (ctx) => { crouched = true; };
+            input.Player.Crouch.canceled -= (ctx) => { crouched = false; };
+            input.Player.Jump.performed -= (ctx) => OnJump();
+            input.Player.Interact.performed -= (ctx) => OnInteract();
+            input.Player.Pause.performed -= (ctx) => OnPause(!GameManager.isPaused);
         }
 
         private void OnApplicationQuit() {

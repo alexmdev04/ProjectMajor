@@ -190,7 +190,7 @@ namespace Major {
                 { "sens",
                     new(args: 1, cmd: (args) => {
                         if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
-                        Input.Handler.instance.sensitivity = value;
+                        Input.Handler.sensitivity = value;
                     } )
                 },
                 { "sensitivity", new("sens") },
