@@ -464,6 +464,12 @@ namespace Major {
                             }
                         }
                     } )
+                },
+                { "timescale",
+                    new(args: 1, cmd: (args) => {
+                        if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
+                        Time.timeScale = value;
+                    } )
                 }
             };
         }
