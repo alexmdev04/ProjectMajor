@@ -63,52 +63,12 @@ namespace Major {
         }
 
         private void Update() {
-            // Debug Keys
-            if (Keyboard.current.tabKey.isPressed) { // using ctrl has issues with browsers
-                if (Keyboard.current.f1Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.slotting, true);
-                }
-
-                if (Keyboard.current.f2Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.bounce, true);
-                }
-
-                if (Keyboard.current.f3Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.elevate, true);
-                }
-
-                if (Keyboard.current.f4Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.race, true);
-                }
-
-                if (Keyboard.current.f5Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.pitJump, true);
-                }
-
-                if (Keyboard.current.f6Key.wasPressedThisFrame) {
-                    LevelManager.LoadLevel(AssetKeys.Levels.external1, true);
-                }
+            if (Keyboard.current.f6Key.wasPressedThisFrame) {
+                OnPlayerKilled();
             }
-            else {
-                if (Keyboard.current.f1Key.wasPressedThisFrame) {
-                    ToggleNoclip();
-                }
 
-                if (Keyboard.current.f5Key.wasPressedThisFrame && LevelManager.levelCurrent) {
-                    LevelManager.RestartHard();
-                }
-
-                if (Keyboard.current.f6Key.wasPressedThisFrame) {
-                    OnPlayerKilled();
-                }
-
-                if (Keyboard.current.f7Key.wasPressedThisFrame) {
-                    OnKevinKilled();
-                }
-
-                if (Keyboard.current.f9Key.wasPressedThisFrame) {
-                    QualitySettings.vSyncCount = QualitySettings.vSyncCount == 1 ? 0 : 1;
-                }
+            if (Keyboard.current.f7Key.wasPressedThisFrame) {
+                OnKevinKilled();
             }
 
             if (dbg_noclipEnabled) {
