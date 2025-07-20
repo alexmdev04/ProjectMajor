@@ -554,10 +554,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: triggerables.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: 'triggerables.Array.data[0]'
+      propertyPath: 'triggerables.Array.data[2]'
       value: 
       objectReference: {fileID: 1145058807}
     m_RemovedComponents: []

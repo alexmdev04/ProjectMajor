@@ -59,6 +59,22 @@ PrefabInstance:
       propertyPath: 'triggerables.Array.data[1]'
       value: 
       objectReference: {fileID: 4379307540986129573}
+    - target: {fileID: 3729548178274843149, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3729548178274843149, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3729548178274843149, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Size.z
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3729548178274843149, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Center.y
+      value: 0.125
+      objectReference: {fileID: 0}
     - target: {fileID: 4297651216335079113, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: m_Name
       value: BouncePad
@@ -67,6 +83,10 @@ PrefabInstance:
       propertyPath: animSpeed
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 5245102118795346971, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5016101011052342698, guid: 1357d70630f4dea458ebfb6a3703c384, type: 3}
     - target: {fileID: 5635605157822027651, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -111,6 +131,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7921535700843241064, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921535700843241064, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921535700843241064, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Size.z
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7921535700843241064, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: m_Center.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8011534162460864721, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0569b35d9bc77a14ea1144cda19a5a1e, type: 2}
+    - target: {fileID: 8011534162460864721, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e350ca1e1a6e7c54989a0dd50ea8f829, type: 2}
     m_RemovedComponents:
     - {fileID: 4681358735415051358, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
     - {fileID: 4064200627086105182, guid: 462f7050ae3af6d429496ded7fa44a7b, type: 3}
