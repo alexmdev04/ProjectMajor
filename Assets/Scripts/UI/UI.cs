@@ -21,6 +21,7 @@ namespace Major.UI {
         private void Awake() {
             instance = this;
             menus = new();
+            fade.color = Color.black;
         }
 
         private void Update() {

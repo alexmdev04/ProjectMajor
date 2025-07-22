@@ -42,5 +42,32 @@ namespace Major.UI {
             public Color textColor;
             public Color bgColor;
         }
+        
+        public static void Quit() {
+            UI.instance.Popup(
+                "",
+                "Are you sure you want to quit?",
+                new ButtonConstructor[] {
+                    new() {
+                        text = "Cancel",
+                        onClick = (popup) => { popup.Destroy(); },
+                        textColor = Color.black,
+                        bgColor = Color.white
+                    },
+                    new() {
+                        text = "Main Menu",
+                        onClick = (popup) => { GameManager.ReturnToMainMenu(); popup.Destroy(); },
+                        textColor = Color.black,
+                        bgColor = Color.white
+                    },
+                    new() {
+                        text = "Quit Game",
+                        onClick = (popup) => { GameManager.QuitToDesktop(); },
+                        textColor = Color.black,
+                        bgColor = Color.white
+                    },
+                }
+            );
+        }
     }
 }

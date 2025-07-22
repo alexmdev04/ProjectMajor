@@ -42,7 +42,6 @@ namespace Major {
             QualitySettings.vSyncCount = 1;
             isInGame = true;
             Addressables.InitializeAsync();
-            SetCursorVisible(false);
             Input.Handler.OnPause += SetPause;
             StartCoroutine(Startup());
         }
@@ -52,8 +51,53 @@ namespace Major {
             startupComplete = true;
             onStartupComplete = () => {
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
+                UI.UI.instance.Popup(
+                    "Warning",
+                    "This game collects data about your gameplay and your hardware.\n" +
+                    "This data is sent only to the developer.\n" +
+                    "Visit xae0.itch.io//quadrasylum for more details.",
+                    new UI.Popup.ButtonConstructor[] {
+                        new() {
+                            text = "Quit",
+                            textColor = Color.black,
+                            bgColor = Color.white,
+                            onClick = (popup) => { QuitToDesktop(); }
+                        },
+                        new() {
+                            text = "itch.io",
+                            textColor = Color.black,
+                            bgColor = Color.white,
+                            onClick = (popup) => { Application.OpenURL("https://xae0.itch.io/quadrasylum"); }
+                        },
+                        new() {
+                            text = "Agree",
+                            textColor = Color.black,
+                            bgColor = Color.white,
+                            onClick = (popup) => { popup.Destroy(); UI.UI.instance.Fade(fadeIn: 1.0f); }
+                        },
+                    }
+                );
+                Levels.Manager.onNextLevelLoaded += (level) => {
+                    OnMainMenuStart();
+                };
                 Log2.Debug("Startup Complete.", "GameManager");
             };
+        }
+
+        private static void OnMainMenuStart() {
+            Player.instance.DropCarriedItem();
+            Player.instance.moveActive = false;
+            Player.instance.lookActive = false;
+            Player.instance.rb.isKinematic = true;
+            SetCursorVisible(true);
+        }
+
+        public static void ReturnToMainMenu() {
+            Levels.Manager.LoadLevel("mainmenu");
+            Levels.Manager.onNextLevelLoaded += (level) => {
+                OnMainMenuStart();
+            };
+            UI.UI.instance.SetMenu("main");
         }
 
         private IEnumerator Startup() {
@@ -76,17 +120,27 @@ namespace Major {
             PlayerPrefs.Save();
         }
 
-        public void QuitToDesktop() {
+        public static void StartGame() {
+            Levels.Manager.LoadLevel("slotting");
+            Player.instance.moveActive = true;
+            Player.instance.lookActive = true;
+            Player.instance.rb.isKinematic = false;
+        }
+
+        public static void QuitToDesktop() {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
             Application.Quit();
         }
 
-        public void SetCursorVisible(bool state) {
+        public static void SetCursorVisible(bool state) {
             isCursorVisible = state;
             Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = isCursorVisible;
         }
 
-        public void SetPause(bool state) {
+        public static void SetPause(bool state) {
             if (Debug.Console.instance.gameObject.activeSelf) {
                 Debug.Console.instance.gameObject.SetActive(false);
                 return;
