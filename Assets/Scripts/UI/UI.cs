@@ -2,10 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
+using System.Collections.Generic;
 
 namespace Major.UI {
     public class UI : MonoBehaviour {
         public static UI instance { get; private set; }
+        public static Dictionary<string, Menu> menus { get; private set; }
+        public static Menu currentMenu;
         public bool fading { get; private set; }
 
         [HideInInspector] public HUD hud;
@@ -16,6 +20,7 @@ namespace Major.UI {
 
         private void Awake() {
             instance = this;
+            menus = new();
         }
 
         private void Update() {
@@ -70,6 +75,40 @@ namespace Major.UI {
             fade.color = fade.color.WithAlpha(0.0f);
 
             fading = false;
+        }
+
+        public void RegisterMenu(string menuName, Menu menu, bool activate = false) {
+            if (menuName == "New Menu") {
+                Log2.Warning("'" + menu.name + "' menu name was not set. It has been ignored.", "UI");
+                return;
+            }
+
+            menus.Add(menuName, menu);
+            if (activate) {
+                SetMenu(menuName);
+            }
+        }
+
+        public void SetMenu(string menuName) {
+            if (menuName == "Unset") {
+                return;
+            }
+
+            if (menuName == "New Menu") {
+                return;
+            }
+
+            if (!menus.TryGetValue(menuName, out var menu)) {
+                Log2.Error("Menu '" + menuName + "' has not been registered.", "UI");
+                return;
+            }
+            SetMenu(menu);
+        }
+
+        public void SetMenu(Menu menu) {
+            if (currentMenu) { currentMenu.Deactivate(); }
+            menu.Activate();
+            currentMenu = menu;
         }
     }
 }
