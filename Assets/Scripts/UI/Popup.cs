@@ -19,23 +19,26 @@ namespace Major.UI {
                 foreach (var button in buttons) {
                     var newButton = Instantiate(cloneableButton, buttonsParent);
                     newButton.onClick.RemoveAllListeners();
-                    newButton.onClick.AddListener(button.onClick);
+                    newButton.onClick.AddListener(() => button.onClick(this));
                     var newButtonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
                     newButtonText.text = button.text;
                     newButtonText.color = button.textColor;
                     newButton.GetComponent<Image>().color = button.bgColor;
                 }
+                Destroy(cloneableButton.gameObject);
             }
-            //GetComponent<VerticalLayoutGroup>().SetLayoutVertical();
+            else {
+                cloneableButton.onClick.AddListener(() => { Destroy(); });
+            }
         }
 
         public void Destroy() {
             Destroy(gameObject);
         }
-        
+
         public struct ButtonConstructor {
             public string text;
-            public UnityAction onClick;
+            public UnityAction<Popup> onClick;
             public Color textColor;
             public Color bgColor;
         }
