@@ -32,7 +32,7 @@ namespace Major {
                 if (!GameManager.startupComplete) {
                     return;
                 }
-                GameManager.instance.SetCursorVisible(GameManager.isCursorVisible);
+                GameManager.SetCursorVisible(GameManager.isCursorVisible);
                 previousInputs[0] = string.Empty;
                 inputField.text = string.Empty;
                 previousInputsIndex = 0;
@@ -236,15 +236,14 @@ namespace Major {
                 },
 
                 { "menu",
-                    new(null)
+                    new(args: 1, cmd: (args) => {
+                        UI.UI.instance.SetMenu(args[1]);
+                    })
                 },
 
                 { "exit",
                     new(args: 0, cmd: (args) => {
-                        #if UNITY_EDITOR
-                        UnityEditor.EditorApplication.isPlaying = false;
-                        #endif
-                        Application.Quit();
+                        GameManager.QuitToDesktop();
                     } )
                 },
                 { "quit", new("exit") },
@@ -490,7 +489,7 @@ namespace Major {
                         }
                         UI.UI.instance.Fade(fadeOut, fadeIn);
                     } )
-                }
+                },
             };
         }
     }
