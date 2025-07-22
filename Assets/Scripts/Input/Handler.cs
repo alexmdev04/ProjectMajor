@@ -55,9 +55,9 @@ namespace Major.Input {
             input.Player.Jump.performed += (ctx) => OnJump();
             input.Player.Interact.performed += (ctx) => OnInteract();
             input.Player.Pause.performed += (ctx) => OnPause(!GameManager.isPaused);
-            input.Player.RestartLevel.performed += (ctx) => Levels.Manager.RestartHard();
-            input.Player.RestartCheckpoint.performed += (ctx) => Levels.Manager.RestartSoft();
-            input.Player.RestartCheckpointKevin.performed += (ctx) => GameManager.instance.OnKevinKilled();
+            //input.Player.RestartLevel.performed += (ctx) => Levels.Manager.RestartHard();
+            //input.Player.RestartCheckpoint.performed += (ctx) => Levels.Manager.RestartSoft();
+            //input.Player.RestartCheckpointKevin.performed += (ctx) => GameManager.instance.OnKevinKilled();
             input.Player.Console.performed += (ctx) => Debug.Console.Toggle();
         }
 
@@ -73,9 +73,9 @@ namespace Major.Input {
             input.Player.Jump.performed -= (ctx) => OnJump();
             input.Player.Interact.performed -= (ctx) => OnInteract();
             input.Player.Pause.performed -= (ctx) => OnPause(!GameManager.isPaused);
-            input.Player.RestartLevel.performed -= (ctx) => Levels.Manager.RestartHard();
-            input.Player.RestartCheckpoint.performed -= (ctx) => Levels.Manager.RestartSoft();
-            input.Player.RestartCheckpointKevin.performed -= (ctx) => GameManager.instance.OnKevinKilled();
+            //input.Player.RestartLevel.performed -= (ctx) => Levels.Manager.RestartHard();
+            //input.Player.RestartCheckpoint.performed -= (ctx) => Levels.Manager.RestartSoft();
+            //input.Player.RestartCheckpointKevin.performed -= (ctx) => GameManager.instance.OnKevinKilled();
             input.Player.Console.performed -= (ctx) => Debug.Console.Toggle();
         }
 
