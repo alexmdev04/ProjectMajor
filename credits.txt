@@ -1,24 +1,11 @@
-Unity Source Movement (https://github.com/Olezen/UnitySourceMovement)
-
-Copyright (c) 2019 Ole Ellefsen Farner
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
-
+Teleport by TiesWijnen -- https://freesound.org/s/734635/ -- License: Creative Commons 0
+Teleport-01a.wav by DWOBoyle -- https://freesound.org/s/474180/ -- License: Attribution 4.0
+fweeng + Reverb by Fupicat -- https://freesound.org/s/607208/ -- License: Creative Commons 0
+Paintball gun setup air.wav by Arq1998 -- https://freesound.org/s/408273/ -- License: Attribution NonCommercial 4.0
+Springy jump by EFindlay -- https://freesound.org/s/663831/ -- License: Creative Commons 0
+Jumppad by zivs -- https://freesound.org/s/725734/ -- License: Creative Commons 0
+Spaceship compartment door.With pneumatics(8lrs,mltprcssng).wav by newlocknew -- https://freesound.org/s/546922/ -- License: Attribution 4.0
+Futuristic Grenade Launcher by PedroGuyman -- https://freesound.org/s/470709/ -- License: Creative Commons 0
+Thud.wav by Bird_man -- https://freesound.org/s/275160/ -- License: Creative Commons 0
+Thud1.wav by nebulasnails -- https://freesound.org/s/405539/ -- License: Creative Commons 0
+Thud 3.wav by nebulasnails -- https://freesound.org/s/405536/ -- License: Creative Commons 0

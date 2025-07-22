@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 2413936329211900247}
   - component: {fileID: 3247371834346811731}
   - component: {fileID: 7473686017355411848}
+  - component: {fileID: 1357668072189463352}
   m_Layer: 6
   m_Name: CCube
   m_TagString: Untagged
@@ -222,3 +223,24 @@ MonoBehaviour:
   prompt: Pickup
   slottedPrompt: Unslot
   triggerObject: {fileID: 2378351621010240178}
+--- !u!114 &1357668072189463352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6459007583272411451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af400f37b811bf4ba52b402c11e3438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: a222a94a64b46944da0abc1cfc0b42af, type: 3}
+  - {fileID: 8300000, guid: 77cc7edafea0c804c92bbba27bb18d07, type: 3}
+  - {fileID: 8300000, guid: b2fef1b93bbc2384c98e84bde802d49d, type: 3}
+  rb: {fileID: 0}
+  linearDeltaRange: {x: 5, y: 100}
+  angularDeltaRange: {x: 1, y: 100}
+  minVolume: 0.0001
+  maxVolume: 1
