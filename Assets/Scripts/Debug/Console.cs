@@ -57,13 +57,15 @@ namespace Major {
                 previousInputs.Insert(1, input);
                 previousInputsIndex = 0;
 
-                ExecuteWithArgs(inputTrimmed.ToLower().Split(' '));
+                ExecuteWithArgs(inputTrimmed.Split(' '));
             }
 
             private static void ExecuteWithArgs(string[] args) {
                 if (args.Length == 0) {
                     return;
                 }
+
+                args[0] = args[0].ToLower();
 
                 if (!cmds.TryGetValue(args[0], out var cmd)) {
                     UnknownCommand(args[0]);
