@@ -480,6 +480,16 @@ namespace Major {
                     new(args: 2, cmd: (args) => {
                         UI.UI.instance.Popup(args[1], args[2]);
                     } )
+                },
+                { "fade",
+                    new(args: 1, cmd: (args) => {
+                        if (!float.TryParse(args[1], out var fadeIn)) { InvalidArgs(args); return; }
+                        float fadeOut = 0.0f;
+                        if (args.Length > 2){
+                            if (!float.TryParse(args[2], out fadeOut)) { InvalidArgs(args); return; }
+                        }
+                        UI.UI.instance.Fade(fadeOut, fadeIn);
+                    } )
                 }
             };
         }

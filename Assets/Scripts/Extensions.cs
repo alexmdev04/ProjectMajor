@@ -53,6 +53,24 @@ namespace Major {
             onTaskComplete?.Invoke(task.Result);
             return result;
         }
+
+        public static Color WithAlpha(this Color color, float alpha) {
+            var c = color;
+            c.a = alpha;
+            return c;
+        }
+
+        public static Color SubtractAlpha(this Color color, float alpha) {
+            var c = color;
+            c.a -= alpha;
+            return c;
+        }
+
+        public static Color AddAlpha(this Color color, float alpha) {
+            var c = color;
+            c.a += alpha;
+            return c;
+        }
     }
 
     public static class MathExt {
