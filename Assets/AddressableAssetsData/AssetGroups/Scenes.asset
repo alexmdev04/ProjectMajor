@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - lbl_scene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 13f25e2f7bdf25a4fa37757072da9977
+    m_Address: Assets/Scenes/Levels/mainmenu.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lbl_scene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15a4128ac553c47479bcb5f409e0f168
     m_Address: Assets/Scenes/Levels/doorway.unity
     m_ReadOnly: 0
