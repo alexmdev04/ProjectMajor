@@ -6,6 +6,7 @@ namespace Major.UI {
         public static UI instance { get; private set; }
         [HideInInspector] public HUD hud;
         public Debug.Console debugConsole;
+        [SerializeField] private Popup popupPrefab;
 
         private void Awake() {
             instance = this;
@@ -28,6 +29,10 @@ namespace Major.UI {
 
         public void HideInteractPrompt() {
             hud.interactText.enabled = false;
+        }
+
+        public void Popup(string titleText, string bodyText, Popup.ButtonConstructor[] buttons = null) {
+            Instantiate(popupPrefab, gameObject.transform).Init(titleText, bodyText, buttons);
         }
     }
 }

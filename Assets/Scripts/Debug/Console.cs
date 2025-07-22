@@ -475,6 +475,11 @@ namespace Major {
                         if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
                         Time.timeScale = value;
                     } )
+                },
+                { "popup",
+                    new(args: 2, cmd: (args) => {
+                        UI.UI.instance.Popup(args[1], args[2]);
+                    } )
                 }
             };
         }
