@@ -12,6 +12,7 @@ namespace Major.Levels {
         public static bool isBusy;
         public static GameObject exitHallway;
         [SerializeField] private GameObject exitHallwayPrefab;
+        public static event Action<Level> onNextLevelLoaded = (level) => {};
 
         private void Awake() {
             if (!GameManager.startupComplete) {
@@ -93,6 +94,8 @@ namespace Major.Levels {
             Player.instance.rb.isKinematic = false;
             Player.instance.autoDropItemsDistance = true;
             isBusy = false;
+            onNextLevelLoaded(newLevel);
+            onNextLevelLoaded = (l) => { };
             Log2.Debug("Loading level " + key + " completed.", "Levels.Manager");
         }
 
