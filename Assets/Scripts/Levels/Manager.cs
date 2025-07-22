@@ -26,7 +26,7 @@ namespace Major.Levels {
             GameManager.onStartupComplete += async () => {
                 exitHallway = Instantiate(exitHallwayPrefab);
                 await Addressables.LoadAssetsAsync<LevelAsset>(AssetKeys.Labels.level, levelAsset => { levelDatabase.Add(levelAsset.name, levelAsset); }).Task;//.WaitForCompletion();
-                LoadLevel(GameManager.startupSettings.levelKey, false, false);
+                LoadLevel(GameManager.startupSettings.levelKey, true, false);
             };
         }
 
