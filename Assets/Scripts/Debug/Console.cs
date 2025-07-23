@@ -15,6 +15,7 @@ namespace Major {
             private static int previousInputsIndex = 0;
             public static Console instance { get; private set; }
             private Selectable returnSelection;
+            public static bool cheats { get; private set; }
 
             private void Awake() {
                 inputField = GetComponent<TMP_InputField>();
@@ -81,6 +82,11 @@ namespace Major {
                     return;
                 }
 
+                if (cmd.cheatsRequired && !cheats) {
+                    Log2.Debug(args[0] + " command requires cheats to be enabled.", "DebugConsole");
+                    return;
+                }
+
                 if (args.Length < cmd.args) {
                     InvalidArgCount(args, cmd.args);
                     return;
@@ -142,15 +148,18 @@ namespace Major {
             public struct Command {
                 public Action<string[]> cmd;
                 public uint args;
-                public Command(Action<string[]> cmd, uint args = 0) {
+                public bool cheatsRequired;
+                public Command(Action<string[]> cmd, bool cheatsRequired, uint args = 0) {
                     if (cmd == null) {
                         cmd = (args) => { Log2.Debug("Command not implemented", "DebugConsole", true); };
                     }
                     this.cmd = cmd;
                     this.args = args;
+                    this.cheatsRequired = cheatsRequired;
                 }
                 public Command(string cmd) {
                     this.args = 0;
+                    this.cheatsRequired = false;
                     this.cmd = (args) => {
                         args[0] = cmd;
                         ExecuteWithArgs(args);
@@ -159,8 +168,58 @@ namespace Major {
             }
 
             public static Dictionary<string, Command> cmds = new() {
+                { "cheats",
+                    new (args: 0, cheatsRequired: false, cmd: (args) => {
+                        bool value = !cheats;
+                        if (args.Length > 2) {
+                            bool.TryParse(args[1], out value);
+                        }
+
+                        if (value) { // Disabling cheats
+                            if (cheats) { // Cheats enabled
+                                if (Levels.Manager.levelCurrent.key != AssetKeys.Levels.mainMenu) {
+                                    Log2.Warning("You must be in the main menu to disable cheats.", "DebugConsole");
+                                    return;
+                                }
+                                else {
+                                    Log2.Debug("Cheats Disabled.", "DebugConsole", true);
+                                    cheats = false;
+                                }
+                            }
+                        }
+                        else { // Enabling cheats
+                            if (!cheats) {
+                                UI.UI.Popup(
+                                    "Warning",
+                                    "Enabling cheats will disable data collection." +
+                                    "You must disable them while in the main menu.",
+                                    new UI.Popup.ButtonConstructor[] {
+                                        new UI.Popup.ButtonConstructor() {
+                                            text = "Cancel",
+                                            textColor = Color.black,
+                                            bgColor = Color.white,
+                                            onClick = (popup) => { popup.Destroy(); },
+                                        },
+                                        new UI.Popup.ButtonConstructor() {
+                                            text = "Enable",
+                                            textColor = Color.black,
+                                            bgColor = Color.white,
+                                            onClick = (popup) => {
+                                                popup.Destroy();
+                                                cheats = true;
+                                                Log2.Debug("Cheats Enabled.", "DebugConsole", true);
+                                            }
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                    } )
+
+                },
+                { "sv_cheats", new("cheats") },
                 { "fov",
-                    new(args: 1, cmd: (args) => {
+                    new(args: 1, cheatsRequired: false, cmd: (args) => {
                         if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
                         Camera.main.fieldOfView = Mathf.Clamp(value, 1.0f, 179.0f);
                     } )
@@ -168,14 +227,14 @@ namespace Major {
                 { "fieldofview", new("fov") },
 
                 { "level",
-                    new(args: 1, cmd: (args) => {
+                    new(args: 1, cheatsRequired: true, cmd: (args) => {
                         Levels.Manager.LoadLevel(args[1]);
                     } )
                 },
                 { "map", new("level") },
 
                 { "tp",
-                    new(args: 3, cmd: (args) => {
+                    new(args: 3, cheatsRequired: true, cmd: (args) => {
                         var value = Player.instance.rb.position;
                         if (!TryParseVec3Arg(args, ref value)) {
                             return;
@@ -186,7 +245,7 @@ namespace Major {
                 { "teleport", new("tp") },
 
                 { "fps",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
                         if (args.Length < 2) {
                             Execute("stats");
                         }
@@ -199,14 +258,14 @@ namespace Major {
                 { "framerate", new("fps") },
 
                 { "vsync",
-                    new(args: 1, cmd: (args) => {
+                    new(args: 1, cheatsRequired: false, cmd: (args) => {
                         if (!int.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
                         QualitySettings.vSyncCount = value;
                     } )
                 },
 
                 { "sens",
-                    new(args: 1, cmd: (args) => {
+                    new(args: 1, cheatsRequired: false, cmd: (args) => {
                         if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
                         Input.Handler.sensitivity = value;
                     } )
@@ -214,19 +273,19 @@ namespace Major {
                 { "sensitivity", new("sens") },
 
                 { "reload",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: true, cmd: (args) => {
                         Levels.Manager.RestartHard();
                     } )
                 },
 
                 { "restart",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
                         if (args.Length > 2) {
-                            if (args[0] == "soft") {
+                            if (args[1] == "soft") {
                                 Levels.Manager.RestartSoft();
                                 return;
                             }
-                            else if (args[0] == "hard") {
+                            else if (args[1] == "hard") {
                                 Levels.Manager.RestartHard();
                                 return;
                             }
@@ -245,13 +304,13 @@ namespace Major {
                 },
 
                 { "menu",
-                    new(args: 1, cmd: (args) => {
-                        UI.UI.instance.SetMenu(args[1]);
+                    new(args: 1, cheatsRequired: true, cmd: (args) => {
+                        UI.UI.SetMenu(args[1]);
                     })
                 },
 
                 { "exit",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
                         GameManager.QuitToDesktop();
                     } )
                 },
@@ -267,7 +326,7 @@ namespace Major {
                 // },
 
                 { "kill",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
                         if (args.Length > 1) {
                             if (args[1] == "kevin") {
                                 GameManager.instance.OnKevinKilled();
@@ -287,19 +346,19 @@ namespace Major {
                 },
 
                 { "suicide",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
                     GameManager.instance.OnPlayerKilled();
                     } )
                 },
 
                 { "kevin",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: true, cmd: (args) => {
 
                     } )
                 },
 
                 { "player",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: true, cmd: (args) => {
 
                     } )
                 },
@@ -443,20 +502,20 @@ namespace Major {
                 // },
 
                 { "ping",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
                         Log2.Debug("pong", "DebugConsole", true);
                     } )
                 },
 
                 { "noclip",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: true, cmd: (args) => {
                         if (args.Length < 2) { GameManager.instance.Dbg_ToggleNoclip(); return; }
                         if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
                         GameManager.instance.dbg_noclipSpeed = Mathf.Max(value, 0.0f);
                     } )
                 },
                 { "stats",
-                    new(args: 0, cmd: (args) => {
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
                         if (args.Length < 2) {
                             Debug.Stats.isEnabled = !Debug.Stats.isEnabled;
                         }
@@ -479,24 +538,24 @@ namespace Major {
                     } )
                 },
                 { "timescale",
-                    new(args: 1, cmd: (args) => {
+                    new(args: 1, cheatsRequired: true, cmd: (args) => {
                         if (!float.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
                         Time.timeScale = value;
                     } )
                 },
                 { "popup",
-                    new(args: 2, cmd: (args) => {
-                        UI.UI.instance.Popup(args[1], args[2]);
+                    new(args: 2, cheatsRequired: false, cmd: (args) => {
+                        UI.UI.Popup(args[1], args[2]);
                     } )
                 },
                 { "fade",
-                    new(args: 1, cmd: (args) => {
+                    new(args: 1, cheatsRequired: false, cmd: (args) => {
                         if (!float.TryParse(args[1], out var fadeIn)) { InvalidArgs(args); return; }
                         float fadeOut = 0.0f;
                         if (args.Length > 2){
                             if (!float.TryParse(args[2], out fadeOut)) { InvalidArgs(args); return; }
                         }
-                        UI.UI.instance.Fade(fadeOut, fadeIn);
+                        UI.UI.Fade(fadeOut, fadeIn);
                     } )
                 },
             };
