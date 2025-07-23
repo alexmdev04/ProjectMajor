@@ -29,10 +29,10 @@ namespace Major {
 
         private void OnApplicationQuit() {
             // Destruction protection is not needed if the app is quitting
-            ClearCallbacks();
+            ClearCallbacks(Levels.Manager.levelCurrent);
         }
 
-        public void ClearCallbacks() {
+        public void ClearCallbacks(Levels.Level level) {
             onDestroyed = (go) => { };
             onColliderDestroyed = (c) => { };            
         }

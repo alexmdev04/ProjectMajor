@@ -31,8 +31,8 @@ namespace Major.Levels {
         public World.Checkpoint checkpointCurrent { get; private set; }
         private World.Checkpoint firstCheckpoint;
 
-        public event Action onLevelLoaded = () => { };
-        public event Action onLevelUnloaded = () => { };
+        public event Action<Level> onLevelUnloaded = (l) => { };
+
 
         // Constructs and loads a level, loads the first scene present and fills the asset databases
         public void Construct(ConstructData constructData) {
