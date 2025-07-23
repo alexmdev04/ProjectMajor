@@ -12,6 +12,7 @@ namespace Major.AssetKeys {
         public const string bounce = "bounce";
         public const string elevate = "elevate";
         public const string race = "race";
+        public const string mainMenu = "mainmenu";
     }
 
     // Contains keys to addressable prefabs
