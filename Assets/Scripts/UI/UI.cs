@@ -4,24 +4,27 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System;
 using System.Collections.Generic;
+using Unity.Logging;
+using TMPro;
 
 namespace Major.UI {
     public class UI : MonoBehaviour {
         public static UI instance { get; private set; }
         public static Dictionary<string, Menu> menus { get; private set; }
         public static Menu currentMenu;
-        public bool fading { get; private set; }
+        public static string currentMenuString = "none";
+        public static bool fading { get; private set; }
 
-        [HideInInspector] public HUD hud;
+        [HideInInspector] public static HUD hud;
         public Debug.Console debugConsole;
         [SerializeField] private Popup popupPrefab;
-        private Coroutine fadeCoroutine;
+        private static Coroutine fadeCoroutine;
         [SerializeField] private Image fade;
 
         private void Awake() {
             instance = this;
             menus = new();
-            fade.color = Color.black;
+            SetScreenBlack();
         }
 
         private void Update() {
@@ -30,7 +33,7 @@ namespace Major.UI {
             }
         }
 
-        public void ShowInteractPrompt(string text) {
+        public static void ShowInteractPrompt(string text) {
             if (text == string.Empty) {
                 HideInteractPrompt();
                 return;
@@ -39,21 +42,29 @@ namespace Major.UI {
             hud.interactText.enabled = true;
         }
 
-        public void HideInteractPrompt() {
+        public static void HideInteractPrompt() {
             hud.interactText.enabled = false;
         }
 
-        public void Popup(string titleText, string bodyText, Popup.ButtonConstructor[] buttons = null, int buttonFocus = 0) {
-            Instantiate(popupPrefab, gameObject.transform).Init(titleText, bodyText, buttons);
+        public static void Popup(string titleText, string bodyText, Popup.ButtonConstructor[] buttons = null, int buttonFocus = 0) {
+            Instantiate(instance.popupPrefab, instance.gameObject.transform).Init(titleText, bodyText, buttons);
         }
 
         /// <param name="fadeOut">To Opaque</param>
         /// <param name="fadeIn">To Transparent</param>
-        public void Fade(float fadeOut = 0.0f, float fadeIn = 0.0f) {
+        public static void Fade(float fadeOut = 0.0f, float fadeIn = 0.0f) {
             if (fading) {
-                StopCoroutine(fadeCoroutine);
+                instance.StopCoroutine(fadeCoroutine);
             }
-            StartCoroutine(FadeCoroutine(fadeOut, fadeIn));
+            fadeCoroutine = instance.StartCoroutine(instance.FadeCoroutine(fadeOut, fadeIn));
+        }
+
+        public static void SetScreenBlack() {
+            instance.fade.color = Color.black;
+        }
+
+        public static void SetScreenClear() {
+            instance.fade.color = Color.clear;
         }
 
         private IEnumerator FadeCoroutine(float fadeOut, float fadeIn) {
@@ -78,7 +89,7 @@ namespace Major.UI {
             fading = false;
         }
 
-        public void RegisterMenu(string menuName, Menu menu, bool activate = false) {
+        public static void RegisterMenu(string menuName, Menu menu, bool activate = false) {
             if (menuName == "New Menu") {
                 Log2.Warning("'" + menu.name + "' menu name was not set. It has been ignored.", "UI");
                 return;
@@ -90,7 +101,7 @@ namespace Major.UI {
             }
         }
 
-        public void SetMenu(string menuName) {
+        public static void SetMenu(string menuName) {
             if (menuName == "Unset") {
                 return;
             }
@@ -106,10 +117,16 @@ namespace Major.UI {
             SetMenu(menu);
         }
 
-        public void SetMenu(Menu menu) {
-            if (currentMenu) { currentMenu.Deactivate(); }
+        public static void SetMenu(Menu menu) {
+            if (currentMenu) {
+                if (currentMenu == menu) {
+                    return;
+                }
+                currentMenu.Deactivate();
+            }
             menu.Activate();
             currentMenu = menu;
+            currentMenuString = menu.menuName;
         }
     }
 }

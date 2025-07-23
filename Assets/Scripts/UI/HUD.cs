@@ -6,7 +6,7 @@ namespace Major.UI {
         public TextMeshProUGUI interactText;
 
         private void Awake() {
-            UI.instance.hud = this;
+            UI.hud = this;
         }
     }
 }

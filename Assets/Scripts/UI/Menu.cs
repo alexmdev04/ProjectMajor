@@ -14,17 +14,18 @@ namespace Major.UI {
         [SerializeField] private float animDistance = 100.0f;
         [SerializeField] private float animTime = 1.0f;
         [SerializeField] private Vector2 animDirection = Vector2.up;
-        [SerializeField] private Selectable selectOnActivate;
+        [field: SerializeField] public Selectable selectOnActivate { get; private set; }
         private Vector2 basePos;
 
         private void Awake() {
             rectTransform = GetComponent<RectTransform>();
             basePos = rectTransform.anchoredPosition;
             gameObject.SetActive(false);
-            UI.instance.RegisterMenu(menuName, this, activateOnRegistered);
+            UI.RegisterMenu(menuName, this, activateOnRegistered);
         }
 
         public void Activate(bool animDirection = true) {
+            OnActivated(this);
             gameObject.SetActive(true);
             if (animating) {
                 StopCoroutine(menuAnimCoroutine);
@@ -36,6 +37,7 @@ namespace Major.UI {
         }
 
         public void Deactivate(bool animDirection = true) {
+            OnDeactivated(this);
             if (animating) {
                 StopCoroutine(menuAnimCoroutine);
             }
@@ -61,7 +63,7 @@ namespace Major.UI {
             animating = false;
         }
 
-        public event Action OnActivated;
-        public event Action OnDeactivated;
+        public event Action<Menu> OnActivated = (menu) => { };
+        public event Action<Menu> OnDeactivated = (menu) => { };
     }
 }

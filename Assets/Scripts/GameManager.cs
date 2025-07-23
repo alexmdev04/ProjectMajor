@@ -52,7 +52,7 @@ namespace Major {
             onStartupComplete = () => {
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
                 if (startupSettings.startupMessage) {
-                    UI.UI.instance.Popup(
+                    UI.UI.Popup(
                         startupSettings.startupMessageTitle,
                         startupSettings.startupMessageBody,
                         new UI.Popup.ButtonConstructor[] {
@@ -72,14 +72,14 @@ namespace Major {
                                 text = "Agree",
                                 textColor = Color.black,
                                 bgColor = Color.white,
-                                onClick = (popup) => { popup.Destroy(); UI.UI.instance.Fade(fadeIn: 1.0f); }
+                                onClick = (popup) => { popup.Destroy(); UI.UI.Fade(fadeIn: 1.0f); }
                             },
                         }
                     );
                 }
                 else {
-                    UI.UI.instance.Fade(fadeIn: 1.0f);
-                }                
+                    UI.UI.Fade(fadeIn: 1.0f);
+                }
                 Levels.Manager.onNextLevelLoaded += (level) => {
                     OnMainMenuStart();
                 };
@@ -100,7 +100,8 @@ namespace Major {
             Levels.Manager.onNextLevelLoaded += (level) => {
                 OnMainMenuStart();
             };
-            UI.UI.instance.SetMenu("main");
+            SetPause(false);
+            UI.UI.SetMenu("main");
         }
 
         private IEnumerator Startup() {
@@ -149,16 +150,17 @@ namespace Major {
                 return;
             }
             if (!isInGame) { return; }
+
             SetCursorVisible(state);
             isPaused = state;
             if (state) {
-                // UI.instance.SetMenuState(UI.MenuState.paused);
+                UI.UI.SetMenu("pause");
                 Time.timeScale = 0.0f;
                 Input.Handler.input.Player.Disable();
                 Input.Handler.input.Player.Pause.Enable();
             }
             else {
-                // UI.instance.SetMenuState(UI.MenuState.inGame);
+                UI.UI.SetMenu("hud");
                 Time.timeScale = 1.0f;
                 Input.Handler.input.Player.Enable();
             }
