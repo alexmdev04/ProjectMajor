@@ -240,7 +240,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 77cc7edafea0c804c92bbba27bb18d07, type: 3}
   - {fileID: 8300000, guid: b2fef1b93bbc2384c98e84bde802d49d, type: 3}
   rb: {fileID: 3247371834346811731}
-  linearDeltaRange: {x: 1, y: 100}
+  linearDeltaRange: {x: 7, y: 100}
   angularDeltaRange: {x: 1, y: 100}
   minVolume: 0.0001
   maxVolume: 1
