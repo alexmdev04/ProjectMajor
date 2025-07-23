@@ -4,7 +4,8 @@ using UnityEngine.AddressableAssets;
 namespace Major.Startup {
     [CreateAssetMenu(fileName = "New Startup Settings", menuName = "Scriptable Objects/Startup Settings")]
     public class Settings : ScriptableObject {
-        public string levelKey = "dev";
+        public string firstLevel = "slotting";
+        public string finalLevel = "pit_jump";
         public bool startupMessage = true;
         public string startupMessageTitle = "Notice";
         public string startupMessageBody =
