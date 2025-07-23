@@ -5,14 +5,11 @@ namespace Major.Startup {
     [CreateAssetMenu(fileName = "New Startup Settings", menuName = "Scriptable Objects/Startup Settings")]
     public class Settings : ScriptableObject {
         public string levelKey = "dev";
-        // public SettingsData Export() {
-        //     return new() {
-        //         levelKey = levelKey
-        //     };
-        // }
+        public bool startupMessage = true;
+        public string startupMessageTitle = "Notice";
+        public string startupMessageBody =
+            "This game collects data about your gameplay and your hardware.\n" +
+            "This data is used only by the developer for research purposes.\n" +
+            "Visit xae0.itch.io/quadrasylum for more details.";
     }
-
-    // public struct SettingsData {
-    //     public string levelKey;
-    // }
 }

@@ -51,32 +51,35 @@ namespace Major {
             startupComplete = true;
             onStartupComplete = () => {
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
-                UI.UI.instance.Popup(
-                    "Warning",
-                    "This game collects data about your gameplay and your hardware.\n" +
-                    "This data is sent only to the developer.\n" +
-                    "Visit xae0.itch.io//quadrasylum for more details.",
-                    new UI.Popup.ButtonConstructor[] {
-                        new() {
-                            text = "Quit",
-                            textColor = Color.black,
-                            bgColor = Color.white,
-                            onClick = (popup) => { QuitToDesktop(); }
-                        },
-                        new() {
-                            text = "itch.io",
-                            textColor = Color.black,
-                            bgColor = Color.white,
-                            onClick = (popup) => { Application.OpenURL("https://xae0.itch.io/quadrasylum"); }
-                        },
-                        new() {
-                            text = "Agree",
-                            textColor = Color.black,
-                            bgColor = Color.white,
-                            onClick = (popup) => { popup.Destroy(); UI.UI.instance.Fade(fadeIn: 1.0f); }
-                        },
-                    }
-                );
+                if (startupSettings.startupMessage) {
+                    UI.UI.instance.Popup(
+                        startupSettings.startupMessageTitle,
+                        startupSettings.startupMessageBody,
+                        new UI.Popup.ButtonConstructor[] {
+                            new() {
+                                text = "Quit",
+                                textColor = Color.black,
+                                bgColor = Color.white,
+                                onClick = (popup) => { QuitToDesktop(); }
+                            },
+                            new() {
+                                text = "itch.io",
+                                textColor = Color.black,
+                                bgColor = Color.white,
+                                onClick = (popup) => { Application.OpenURL("https://xae0.itch.io/quadrasylum"); }
+                            },
+                            new() {
+                                text = "Agree",
+                                textColor = Color.black,
+                                bgColor = Color.white,
+                                onClick = (popup) => { popup.Destroy(); UI.UI.instance.Fade(fadeIn: 1.0f); }
+                            },
+                        }
+                    );
+                }
+                else {
+                    UI.UI.instance.Fade(fadeIn: 1.0f);
+                }                
                 Levels.Manager.onNextLevelLoaded += (level) => {
                     OnMainMenuStart();
                 };
