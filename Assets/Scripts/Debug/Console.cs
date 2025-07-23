@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Major {
 
@@ -12,6 +14,7 @@ namespace Major {
             private static List<string> previousInputs = new() { string.Empty };
             private static int previousInputsIndex = 0;
             public static Console instance { get; private set; }
+            private Selectable returnSelection;
 
             private void Awake() {
                 inputField = GetComponent<TMP_InputField>();
@@ -24,6 +27,9 @@ namespace Major {
                 if (!GameManager.startupComplete) {
                     return;
                 }
+                if (EventSystem.current.currentSelectedGameObject) {
+                    returnSelection = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+                }
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
@@ -31,6 +37,9 @@ namespace Major {
             private void OnDisable() {
                 if (!GameManager.startupComplete) {
                     return;
+                }
+                if (returnSelection) {
+                    returnSelection.Select();
                 }
                 GameManager.SetCursorVisible(GameManager.isCursorVisible);
                 previousInputs[0] = string.Empty;
