@@ -173,6 +173,7 @@ MonoBehaviour:
   animDistance: 700
   animTime: 0.1
   animDirection: {x: 0, y: 1}
+  <selectOnActivate>k__BackingField: {fileID: 0}
 --- !u!1 &34206792
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,12 +238,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa6c700c302ab3459d9a5ef2b900722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuName: inGame
+  menuName: hud
   previousMenu: Unset
   activateOnRegistered: 0
   animDistance: 0
   animTime: 1
   animDirection: {x: 0, y: 0}
+  <selectOnActivate>k__BackingField: {fileID: 0}
 --- !u!1 &126889616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,65 +1100,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Resume
       objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4059298593165401811, guid: f4bad92de4a7dca4b9ea0150c96eb4a2, type: 3}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Quit
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Major.UI.Popup, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 418527468}
+      objectReference: {fileID: 947500651}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetMenu
+      value: SetPause
       objectReference: {fileID: 0}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Major.UI.UI, Assembly-CSharp
+      value: Major.GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 34206795}
+      objectReference: {fileID: 0}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: Major.UI.Menu, Assembly-CSharp
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1180,6 +1154,7 @@ GameObject:
   - component: {fileID: 947500651}
   - component: {fileID: 947500650}
   - component: {fileID: 947500653}
+  - component: {fileID: 947500654}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -1244,6 +1219,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exitHallwayPrefab: {fileID: 6427767822469238928, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
+--- !u!82 &947500654
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947500649}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0dfc13cc3e6704f40aa0fab202c370f5, type: 3}
+  m_Resource: {fileID: 8300000, guid: 0dfc13cc3e6704f40aa0fab202c370f5, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.05
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &955231820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,6 +1697,7 @@ MonoBehaviour:
   animDistance: 700
   animTime: 0.1
   animDirection: {x: 0, y: 1}
+  <selectOnActivate>k__BackingField: {fileID: 0}
 --- !u!1 &1226202461
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,6 +2093,7 @@ MonoBehaviour:
   animDistance: 700
   animTime: 0.1
   animDirection: {x: 0, y: 1}
+  <selectOnActivate>k__BackingField: {fileID: 0}
 --- !u!1 &1646627177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,34 +2767,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
+    - target: {fileID: 5530820650509917087, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 4059298593165401811, guid: f4bad92de4a7dca4b9ea0150c96eb4a2, type: 3}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Quit
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Major.UI.Popup, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8776795035628132786, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 418527468}
+    - target: {fileID: 5530820650509917087, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2308915}
     - target: {fileID: 8999204572896693534, guid: 1400becccae8e0c40a47e8cbb4230a34, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
