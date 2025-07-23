@@ -43,7 +43,7 @@ namespace Major.UI {
             hud.interactText.enabled = false;
         }
 
-        public void Popup(string titleText, string bodyText, Popup.ButtonConstructor[] buttons = null) {
+        public void Popup(string titleText, string bodyText, Popup.ButtonConstructor[] buttons = null, int buttonFocus = 0) {
             Instantiate(popupPrefab, gameObject.transform).Init(titleText, bodyText, buttons);
         }
 

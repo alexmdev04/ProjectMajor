@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Major.UI {
     public class Menu : MonoBehaviour {
@@ -13,6 +14,7 @@ namespace Major.UI {
         [SerializeField] private float animDistance = 100.0f;
         [SerializeField] private float animTime = 1.0f;
         [SerializeField] private Vector2 animDirection = Vector2.up;
+        [SerializeField] private Selectable selectOnActivate;
         private Vector2 basePos;
 
         private void Awake() {
@@ -28,7 +30,9 @@ namespace Major.UI {
                 StopCoroutine(menuAnimCoroutine);
             }
             menuAnimCoroutine = StartCoroutine(MenuAnim(true, animDirection));
-            
+            if (selectOnActivate) {
+                selectOnActivate.Select();
+            }
         }
 
         public void Deactivate(bool animDirection = true) {
