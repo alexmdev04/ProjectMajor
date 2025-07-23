@@ -173,16 +173,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
       propertyPath: triggerables.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: 'triggerables.Array.data[0]'
+      propertyPath: 'triggerables.Array.data[2]'
       value: 
       objectReference: {fileID: 1942599770}
-    - target: {fileID: 7547502174366443717, guid: 130b5140e3ce0a246979d80569bc319e, type: 3}
-      propertyPath: 'triggerables.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2317,6 +2313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerables:
   - {fileID: 1809592749}
+  ignoreWarnings: 0
   minimumEntities: 1
   triggeredByEveryEntity: 1
 --- !u!114 &1809592752

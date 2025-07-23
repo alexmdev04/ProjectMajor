@@ -297,7 +297,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: playerSpawnRotation.y
-      value: 307
+      value: 290
       objectReference: {fileID: 0}
     - target: {fileID: 6812003171527875693, guid: 8e487a9fc91b29940bdae2a9151d29a4, type: 3}
       propertyPath: firstCheckpointInLevel
