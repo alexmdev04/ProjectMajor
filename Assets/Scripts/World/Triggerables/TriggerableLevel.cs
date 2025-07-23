@@ -12,7 +12,7 @@ namespace Major.World {
                 Levels.Manager.NextLevel(teleportOnLoad, seamlessTeleport);
                 return;
             }
-            Levels.Manager.LoadLevel(level, teleportOnLoad, seamlessTeleport);
+            Levels.Manager.LoadLevel(level, teleportOnLoad, seamlessTeleport, false);
         }
 
         protected override void OnUntriggered(Trigger senderTrigger, GameObject sender) {

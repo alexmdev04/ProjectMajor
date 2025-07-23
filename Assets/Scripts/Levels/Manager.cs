@@ -13,6 +13,7 @@ namespace Major.Levels {
         public static GameObject exitHallway;
         [SerializeField] private GameObject exitHallwayPrefab;
         public static event Action<Level> onNextLevelLoaded = (level) => {};
+        public static event Action<Level> onLevelCompleted = (level) => {};
 
         private void Awake() {
             if (!GameManager.startupComplete) {
@@ -26,11 +27,11 @@ namespace Major.Levels {
             GameManager.onStartupComplete += async () => {
                 exitHallway = Instantiate(exitHallwayPrefab);
                 await Addressables.LoadAssetsAsync<LevelAsset>(AssetKeys.Labels.level, levelAsset => { levelDatabase.Add(levelAsset.name, levelAsset); }).Task;//.WaitForCompletion();
-                LoadLevel(GameManager.startupSettings.levelKey, true, false);
+                LoadLevel(AssetKeys.Levels.mainMenu, true, false, false);
             };
         }
 
-        public static async void LoadLevel(string key, bool teleportOnLoad = true, bool seamlessTeleport = false) {
+        public static async void LoadLevel(string key, bool teleportOnLoad = true, bool seamlessTeleport = false, bool wasLevelCompleted = false) {
             if (!levelDatabase.TryGetValue(key, out var levelAsset)) {
                 Log2.Error("Load level failed: Key " + key + " does not exist.", "Levels.Manager");
                 return;
@@ -43,10 +44,10 @@ namespace Major.Levels {
 
             Log2.Debug("Loading level: " + key, "Levels.Manager");
             isBusy = true;
-            await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
+            await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport, wasLevelCompleted);
         }
 
-        public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true, bool seamlessTeleport = false) {
+        public static async void LoadLevel(LevelAsset levelAsset, bool teleportOnLoad = true, bool seamlessTeleport = false, bool wasLevelCompleted = false) {
             if (!levelAsset) {
                 Log2.Error("Load level failed: Null level asset.", "Levels.Manager");
                 return;
@@ -59,10 +60,10 @@ namespace Major.Levels {
 
             Log2.Debug("Loading level: " + levelAsset.name, "Levels.Manager");
             isBusy = true;
-            await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport);
+            await LoadLevelAssetAsync(levelAsset, teleportOnLoad, seamlessTeleport, wasLevelCompleted);
         }
 
-        private static async Task LoadLevelAssetAsync(LevelAsset levelAsset, bool teleportOnLoad, bool seamlessTeleport) {
+        private static async Task LoadLevelAssetAsync(LevelAsset levelAsset, bool teleportOnLoad, bool seamlessTeleport, bool wasLevelCompleted) {
             if (levelAsset.sceneReference == null) {
                 Log2.Error("Load level failed: Level asset '" + levelAsset.name + "' has no scene reference .", "Levels.Manager");
                 isBusy = false;
@@ -77,7 +78,11 @@ namespace Major.Levels {
                 }
             }
 
-            UnloadLevelCurrent();
+            if (wasLevelCompleted) {
+                onLevelCompleted(levelCurrent);
+            }
+            
+            UnloadLevelCurrent(wasLevelCompleted);
             var key = levelAsset.name;
             var levelConstructData = await levelAsset.LoadAsync(true, true);
             levelConstructData.teleportOnLoad = teleportOnLoad;
@@ -119,7 +124,7 @@ namespace Major.Levels {
             rb.rotation = Quaternion.Euler(eul);
         }
 
-        private static void UnloadLevelCurrent() {
+        private static void UnloadLevelCurrent(bool wasLevelComplete) {
             if (!levelCurrent) {
                 return;
             }
@@ -146,7 +151,7 @@ namespace Major.Levels {
                 Log2.Warning("'" + levelCurrent.levelAsset.name + "' does not have a specified next level.", "Levels.Manager");
                 return false;
             }
-            LoadLevel(levelCurrent.levelAsset.nextLevel, teleportOnLoad, seamlessTeleport);
+            LoadLevel(levelCurrent.levelAsset.nextLevel, teleportOnLoad, seamlessTeleport, true);
             return true;
         }
 
