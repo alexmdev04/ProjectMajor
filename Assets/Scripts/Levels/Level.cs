@@ -6,6 +6,7 @@ using Unity.Logging;
 using UnityEngine.SceneManagement;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using System;
+using System.Diagnostics;
 
 namespace Major.Levels {
     public class Level : MonoBehaviour {
@@ -33,6 +34,10 @@ namespace Major.Levels {
 
         public event Action<Level> onLevelUnloaded = (l) => { };
 
+        public int restarts { get; private set; }
+        public int playerDeaths { get; private set; }
+        public int kevinDeaths { get; private set; }
+        public Stopwatch stopwatch { get; private set; }
 
         // Constructs and loads a level, loads the first scene present and fills the asset databases
         public void Construct(ConstructData constructData) {
@@ -70,11 +75,18 @@ namespace Major.Levels {
                 Kevin.instance.item.OnUnslotted();
             }
 
-            onLevelLoaded();
+            stopwatch.Start();
         }
 
-        public async void Unload() {
-            onLevelUnloaded();
+        public async void Unload(bool wasLevelComplete) {
+            stopwatch.Stop();
+            if (wasLevelComplete) {
+                if (key == GameManager.startupSettings.finalLevel) {
+                    GameManager.OnGameCompleted();
+                }
+            }
+
+            onLevelUnloaded(this);
 
             await Addressables.UnloadSceneAsync(sceneInstance, UnloadSceneOptions.None).Task;
 
@@ -99,6 +111,7 @@ namespace Major.Levels {
         }
 
         public void GoToCheckpoint(World.Checkpoint checkpoint) {
+            restarts++;
             ActivateCheckpoint(checkpoint, true);
         }
 
@@ -108,6 +121,8 @@ namespace Major.Levels {
                 checkpointCurrent.Teleport();
             }
         }
+
+        public void IncrementDeaths() => playerDeaths++;
 
         public struct ConstructData {
             public LevelAsset levelAsset;

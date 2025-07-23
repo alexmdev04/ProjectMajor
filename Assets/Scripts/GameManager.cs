@@ -17,6 +17,9 @@ namespace Major {
         public static bool isQuitting { get; private set; }
         public static Startup.Settings startupSettings { get; private set; }
         public static event Action onStartupComplete;
+        public static event Action onStartGame = () => {};
+        public static event Action onPlayerKilled = () => {};
+        public static event Action onKevinKilled = () => {};
 
         // Debug
         [HideInInspector] public bool dbg_noclipEnabled { get; private set; }
@@ -39,8 +42,13 @@ namespace Major {
             if (!startupComplete) {
                 return;
             }
+            if (!PlayerPrefs.HasKey("timeplayed")) {
+                PlayerPrefs.SetFloat("timeplayed", 0.0f);
+            }
+            if (!PlayerPrefs.HasKey("gamecompleted")) {
+                PlayerPrefs.SetInt("gamecompleted", 0);
+            }
             QualitySettings.vSyncCount = 1;
-            isInGame = true;
             Addressables.InitializeAsync();
             Input.Handler.OnPause += SetPause;
             StartCoroutine(Startup());
@@ -88,20 +96,30 @@ namespace Major {
         }
 
         private static void OnMainMenuStart() {
+            var mainMenu = UI.UI.menus["main"];
             Player.instance.DropCarriedItem();
             Player.instance.moveActive = false;
             Player.instance.lookActive = false;
             Player.instance.rb.isKinematic = true;
             SetCursorVisible(true);
+            if (PlayerPrefs.HasKey("recentlevel")) {
+                mainMenu.selectOnActivate.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Continue";
+            }
         }
 
         public static void ReturnToMainMenu() {
+            if (UI.UI.currentMenuString == "main") {
+                return;
+            }
+            PlayerPrefs.SetString("recentlevel", Levels.Manager.levelCurrent.key);
             Levels.Manager.LoadLevel("mainmenu");
             Levels.Manager.onNextLevelLoaded += (level) => {
                 OnMainMenuStart();
             };
             SetPause(false);
             UI.UI.SetMenu("main");
+
+            isInGame = false;
         }
 
         private IEnumerator Startup() {
@@ -125,10 +143,13 @@ namespace Major {
         }
 
         public static void StartGame() {
-            Levels.Manager.LoadLevel("slotting");
+            Levels.Manager.LoadLevel(PlayerPrefs.HasKey("recentlevel") ? PlayerPrefs.GetString("recentlevel") : startupSettings.firstLevel);
+            SetCursorVisible(false);
             Player.instance.moveActive = true;
             Player.instance.lookActive = true;
             Player.instance.rb.isKinematic = false;
+            isInGame = true;
+            onStartGame();
         }
 
         public static void QuitToDesktop() {
@@ -174,11 +195,12 @@ namespace Major {
             if (Player.instance.carriedItem) {
                 Player.instance.DropCarriedItem();
             }
-            OnKevinKilled();
+            OnKevinKilled(true);
             Levels.Manager.levelCurrent.checkpointCurrent.TeleportPlayer();
+            onPlayerKilled();
         }
 
-        public void OnKevinKilled() {
+        public void OnKevinKilled(bool killedWithPlayer = false) {
             Log2.Debug("The cube was destroyed.", "DebugConsole", true);
 
             if (Player.instance.carriedItem == Kevin.instance.item) {
@@ -188,6 +210,7 @@ namespace Major {
                 Kevin.instance.item.itemSlot.Release(false);
             }
             Levels.Manager.levelCurrent.checkpointCurrent.TeleportKevin();
+            if (!killedWithPlayer) { onKevinKilled(); }
         }
 
         public void OnPlayerDestroyed() {
@@ -213,6 +236,7 @@ namespace Major {
 
         private void OnApplicationQuit() {
             isQuitting = true;
+            PlayerPrefs.SetFloat("timeplayed", PlayerPrefs.GetFloat("timeplayed") + Time.time);
             Log2.Debug("Quitting.", "GameManager");
         }
 
@@ -226,7 +250,12 @@ namespace Major {
             Player.instance.rb.detectCollisions = !state;
             Player.instance.rb.useGravity = !state;
             Player.instance.rb.isKinematic = state;
-            Player.instance.autoDropItemsDistance = !state;            
+            Player.instance.autoDropItemsDistance = !state;
+        }
+
+        public static void OnGameCompleted() {
+            PlayerPrefs.SetInt("gamecompleted", 1);
+            // TODO POPUP
         }
     }
 }

@@ -71,6 +71,10 @@ namespace Major {
             c.a += alpha;
             return c;
         }
+
+        public static long GetUnixTimestamp() {
+            return ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds();
+        }
     }
 
     public static class MathExt {

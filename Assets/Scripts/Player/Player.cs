@@ -217,17 +217,17 @@ namespace Major {
             var isFacingInteractable = TryGetFacingInteractable(out var interactable, out var hit, out var isFacingWall);
 
             if (carriedItem) {
-                UI.UI.instance.ShowInteractPrompt("Drop");
+                UI.UI.ShowInteractPrompt("Drop");
                 if (autoDropItemsBehindWall && isFacingWall && hit.distance < Vector3.Distance(transform.position, carriedItem.transform.position)) {
                     Log2.Debug("The object was dropped because it's behind a wall!", "Player", true);
                     DropCarriedItem();
                 }
             }
             else if (isFacingInteractable) {
-                UI.UI.instance.ShowInteractPrompt(interactable.GetPrompt());
+                UI.UI.ShowInteractPrompt(interactable.GetPrompt());
             }
             else {
-                UI.UI.instance.HideInteractPrompt();
+                UI.UI.HideInteractPrompt();
             }
         }
 

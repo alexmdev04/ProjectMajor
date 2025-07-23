@@ -128,7 +128,7 @@ namespace Major.Levels {
             if (!levelCurrent) {
                 return;
             }
-            levelCurrent.Unload();
+            levelCurrent.Unload(wasLevelComplete);
             levelCurrent = null;
         }
 
