@@ -13,7 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 2
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -27,6 +27,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _QueueControl: 0
+    - _emissionMult: 0.5
     - _layer1_normalMax: 1
     - _layer1_normalMin: -1
     - _layer1_scale: 2.5

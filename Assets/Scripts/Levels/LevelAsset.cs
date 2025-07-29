@@ -34,6 +34,9 @@ namespace Major.Levels {
         [field: SerializeField]
         public string nextLevel { get; private set; } = "dev";
 
+        [field: SerializeField, Tooltip("The average time it takes to complete the level in seconds for someone who knows the level.")]
+        public float timeToComplete { get; private set; } = 5.0f;
+
         public async Task<Level.ConstructData> LoadAsync(bool logTasks = false, bool timeTasks = false) {
             return new(
                 this,

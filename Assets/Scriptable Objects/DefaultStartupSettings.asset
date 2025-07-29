@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab06a41612073474980230faaa65061a, type: 3}
   m_Name: DefaultStartupSettings
   m_EditorClassIdentifier: 
-  levelKey: mainmenu
+  baseFpsLimit: 0
+  firstLevel: slotting
+  finalLevel: pit_jump
+  startupMessage: 1
+  startupMessageTitle: Notice
+  startupMessageBody: 'This game collects data about your gameplay and your hardware.
+
+    This
+    data is used only by the developer for research purposes.
+
+    Visit xae0.itch.io/quadrasylum
+    for more details.'
+  enableProgressSaving: 0

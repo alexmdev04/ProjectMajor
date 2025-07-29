@@ -12,8 +12,8 @@ namespace Major.Levels {
         public static bool isBusy;
         public static GameObject exitHallway;
         [SerializeField] private GameObject exitHallwayPrefab;
-        public static event Action<Level> onNextLevelLoaded = (level) => {};
-        public static event Action<Level> onLevelCompleted = (level) => {};
+        public static event Action<Level> onNextLevelLoaded = (level) => { };
+        public static event Action<Level> onLevelCompleted = (level) => { };
 
         private void Awake() {
             if (!GameManager.startupComplete) {
@@ -72,16 +72,27 @@ namespace Major.Levels {
 
             if (levelCurrent) {
                 if (teleportOnLoad && seamlessTeleport) {
-                    (Player.instance.rb.position, Player.instance.eulerAngles, Player.instance.rb.linearVelocity) =
-                        ExitTransform(Player.instance.rb.position, Player.instance.eulerAngles, Player.instance.rb.linearVelocity);
+                    var playerTarget = ExitTransform(Player.instance.rb.position, Player.instance.eulerAngles, Player.instance.rb.linearVelocity);
+                    Player.instance.rb.position = playerTarget.position;
+                    Player.instance.transform.position = playerTarget.position;
+                    Player.instance.eulerAngles = playerTarget.eulerAngles;
+                    Player.instance.rb.linearVelocity = playerTarget.linearVelocity;
                     ExitTransform(Kevin.instance.rb);
                 }
             }
 
             if (wasLevelCompleted) {
+                var skillRating = Mathf.Min(1.0f, levelAsset.timeToComplete / (levelCurrent.stopwatch.ElapsedMilliseconds / 1000.0f));
+                if (GameManager.skillRatingData.ContainsKey(levelCurrent.key)) {
+                    GameManager.skillRatingData[levelCurrent.key] = skillRating;
+                }
+                else {
+                    GameManager.skillRatingData.Add(levelCurrent.key, skillRating);
+                }
+                Tester.instance.UpdateSkillRating();
                 onLevelCompleted(levelCurrent);
             }
-            
+
             UnloadLevelCurrent(wasLevelCompleted);
             var key = levelAsset.name;
             var levelConstructData = await levelAsset.LoadAsync(true, true);
@@ -98,6 +109,9 @@ namespace Major.Levels {
             Player.instance.rb.useGravity = true;
             Player.instance.rb.isKinematic = false;
             Player.instance.autoDropItemsDistance = true;
+            if (key != AssetKeys.Levels.mainMenu) {
+                PlayerPrefs.SetString("recentlevel", key);
+            }
             isBusy = false;
             onNextLevelLoaded(newLevel);
             onNextLevelLoaded = (l) => { };
@@ -120,7 +134,9 @@ namespace Major.Levels {
 
         private static void ExitTransform(Rigidbody rb) {
             Vector3 eul;
-            (rb.position, eul, rb.linearVelocity) = ExitTransform(rb.position, rb.rotation.eulerAngles, rb.linearVelocity);
+            var target = ExitTransform(rb.position, rb.rotation.eulerAngles, rb.linearVelocity);
+            (rb.position, eul, rb.linearVelocity) = target;
+            rb.transform.position = target.position;
             rb.rotation = Quaternion.Euler(eul);
         }
 

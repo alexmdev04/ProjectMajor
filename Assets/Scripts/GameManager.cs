@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
@@ -15,6 +16,9 @@ namespace Major {
         public static bool isCursorVisible { get; private set; }
         public static bool startupComplete { get; private set; }
         public static bool isQuitting { get; private set; }
+        public static int baseFrameRateLimit { get; private set; } = 0;
+        public static int baseVsyncCount { get; private set; } = 0;
+        public static Dictionary<string, float> skillRatingData { get; private set; } = new();
         public static Startup.Settings startupSettings { get; private set; }
         public static event Action onStartupComplete;
         public static event Action onStartGame = () => {};
@@ -26,6 +30,7 @@ namespace Major {
         [HideInInspector] public float dbg_noclipSpeed = 15.0f;
         [SerializeField] private GameObject playerPrefab;
         [SerializeField] private GameObject kevinPrefab;
+        public static bool gameCompleted { get; private set; }
 
         private void Awake() {
             if (instance != null) {
@@ -36,6 +41,16 @@ namespace Major {
                 return;
             }
             instance = this;
+            QualitySettings.vSyncCount = 0;
+#if !UNITY_EDITOR
+            Application.wantsToQuit += () => {
+                if (UI.Popup.resultsVisible || !Tester.consent) {
+                    return true;
+                }
+                QuitGame();
+                return false;
+            };
+#endif
         }
 
         public void Start() {
@@ -45,45 +60,60 @@ namespace Major {
             if (!PlayerPrefs.HasKey("timeplayed")) {
                 PlayerPrefs.SetFloat("timeplayed", 0.0f);
             }
-            if (!PlayerPrefs.HasKey("gamecompleted")) {
-                PlayerPrefs.SetInt("gamecompleted", 0);
-            }
-            QualitySettings.vSyncCount = 1;
+            // if (!PlayerPrefs.HasKey("gamecompleted")) {
+            //     PlayerPrefs.SetInt("gamecompleted", 0);
+            // }
             Addressables.InitializeAsync();
             Input.Handler.OnPause += SetPause;
             StartCoroutine(Startup());
         }
 
+        public static void SetFrameRate(int value) {
+            baseFrameRateLimit = value;
+            if (!Tester.instance.enabled) {
+                Application.targetFrameRate = baseFrameRateLimit;
+            }
+            else {
+                Log2.Warning("FPS limits will be ignored while testing is enabled.", "DebugConsole");                
+            }
+        }
+
+        public static void SetVsyncCount(int value) {
+            baseVsyncCount = value;
+            if (!Tester.instance.enabled) {
+                QualitySettings.vSyncCount = baseVsyncCount;
+            }
+            else {
+                Log2.Warning("Vsync count will be ignored while testing is enabled.", "DebugConsole");
+            }
+        }
+
         public static void OnStartupComplete(Startup.Settings newStartupSettings) {
             startupSettings = newStartupSettings;
             startupComplete = true;
+            skillRatingData.Add(startupSettings.firstLevel, 0.5f);
             onStartupComplete = () => {
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
                 if (startupSettings.startupMessage) {
-                    UI.UI.Popup(
+                    UI.Popup.Create(
                         startupSettings.startupMessageTitle,
                         startupSettings.startupMessageBody,
                         new UI.Popup.ButtonConstructor[] {
-                            new() {
-                                text = "Quit",
-                                textColor = Color.black,
-                                bgColor = Color.white,
-                                onClick = (popup) => { QuitToDesktop(); }
-                            },
-                            new() {
-                                text = "itch.io",
-                                textColor = Color.black,
-                                bgColor = Color.white,
-                                onClick = (popup) => { Application.OpenURL("https://xae0.itch.io/quadrasylum"); }
-                            },
-                            new() {
-                                text = "Agree",
-                                textColor = Color.black,
-                                bgColor = Color.white,
-                                onClick = (popup) => { popup.Destroy(); UI.UI.Fade(fadeIn: 1.0f); }
-                            },
+                            new("Quit", (popup) => { QuitToDesktop(); }),
+                            new("itch.io", (popup) => { Application.OpenURL("https://xae0.itch.io/quadrasylum"); }),
+                            new("Agree", (popup) => { popup.Destroy(); UI.UI.Fade(fadeIn: 1.0f); }),
                         }
                     );
+#if UNITY_ANDROID
+                    UI.Popup.Create(
+                        "Notice",
+                        "This game does not have on-screen controls.\n" +
+                        "You will need to connect a controller.",
+                        new UI.Popup.ButtonConstructor[] {
+                            new("Ok", (popup) => { popup.Destroy(); }),
+                        }
+                    );                    
+#endif
                 }
                 else {
                     UI.UI.Fade(fadeIn: 1.0f);
@@ -102,20 +132,19 @@ namespace Major {
             Player.instance.lookActive = false;
             Player.instance.rb.isKinematic = true;
             SetCursorVisible(true);
-            if (PlayerPrefs.HasKey("recentlevel")) {
-                mainMenu.selectOnActivate.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Continue";
-            }
         }
 
-        public static void ReturnToMainMenu() {
+        public static void ReturnToMainMenu(bool loadLevel = true) {
             if (UI.UI.currentMenuString == "main") {
                 return;
             }
-            PlayerPrefs.SetString("recentlevel", Levels.Manager.levelCurrent.key);
-            Levels.Manager.LoadLevel("mainmenu");
-            Levels.Manager.onNextLevelLoaded += (level) => {
-                OnMainMenuStart();
-            };
+
+            if (loadLevel) {
+                Levels.Manager.LoadLevel("mainmenu");
+                Levels.Manager.onNextLevelLoaded += (level) => {
+                    OnMainMenuStart();
+                };
+            }
             SetPause(false);
             UI.UI.SetMenu("main");
 
@@ -129,7 +158,7 @@ namespace Major {
 
         private void Update() {
             if (dbg_noclipEnabled) {
-                Player.instance.transform.position += Player.instance.cam.transform.TransformDirection(Input.Handler.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
+                Player.instance.rb.position += Player.instance.cam.transform.TransformDirection(Input.Handler.movementDirection) * (dbg_noclipSpeed * Time.deltaTime);
                 dbg_noclipSpeed = Mathf.Clamp(dbg_noclipSpeed + Mouse.current.scroll.value.y, 0.0f, 100.0f);
             }
         }
@@ -142,14 +171,23 @@ namespace Major {
             PlayerPrefs.Save();
         }
 
-        public static void StartGame() {
-            Levels.Manager.LoadLevel(PlayerPrefs.HasKey("recentlevel") ? PlayerPrefs.GetString("recentlevel") : startupSettings.firstLevel);
+        public static void StartGame(bool loadRecentLevel = false) {
+            Levels.Manager.LoadLevel(
+                loadRecentLevel ?
+                    PlayerPrefs.HasKey("recentlevel") ? PlayerPrefs.GetString("recentlevel") : startupSettings.firstLevel :
+                    startupSettings.firstLevel
+            );
             SetCursorVisible(false);
             Player.instance.moveActive = true;
             Player.instance.lookActive = true;
             Player.instance.rb.isKinematic = false;
             isInGame = true;
             onStartGame();
+        }
+
+        public static void QuitGame() {
+            UI.UI.SetMenu("none");
+            UI.Popup.Results();
         }
 
         public static void QuitToDesktop() {
@@ -254,8 +292,16 @@ namespace Major {
         }
 
         public static void OnGameCompleted() {
-            PlayerPrefs.SetInt("gamecompleted", 1);
-            // TODO POPUP
+            gameCompleted = true;
+            // PlayerPrefs.SetInt("gamecompleted", 1);
+            ReturnToMainMenu(false);
+            Levels.Manager.onNextLevelLoaded += (level) => {
+                OnMainMenuStart();
+                level.GoToCheckpoint();
+            };
+            UI.UI.SetMenu("none");
+            UI.Popup.Results();
+            Tester.SendGameComplete();
         }
     }
 }

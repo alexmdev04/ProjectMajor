@@ -3,18 +3,18 @@ using Unity.Logging;
 using UnityEngine;
 
 namespace Major.World {
-    [RequireComponent(typeof(Animations.SlideAnimation))]
+    [RequireComponent(typeof(Animations.SlideAnimationRigidbody))]
     [RequireComponent(typeof(Animations.RotateAnimation))]
     public class ItemSlot : Trigger {
         private Item item;
-        private Animations.SlideAnimation slideAnimation;
+        private Animations.SlideAnimationRigidbody slideAnimation;
         private Animations.RotateAnimation rotateAnimation;
         public bool passthrough;
         public bool requireKevin = true;
 
         private void Awake() {
             rotateAnimation = GetComponent<Animations.RotateAnimation>();
-            slideAnimation = GetComponent<Animations.SlideAnimation>();
+            slideAnimation = GetComponent<Animations.SlideAnimationRigidbody>();
             slideAnimation.onAnimEnd += (state) => {
                 if (state) {
                     item.rb.MovePosition(transform.position);
@@ -72,7 +72,7 @@ namespace Major.World {
                 rotateAnimation.SetAnimationState(true);
             }
 
-            slideAnimation.OverrideObject(item.gameObject);
+            slideAnimation.OverrideRigidbody(item.rb);
             slideAnimation.OverrideAnimPos(animStartPos, transform.position);
             slideAnimation.SetAnimationState(takeIn, takeIn);
         }

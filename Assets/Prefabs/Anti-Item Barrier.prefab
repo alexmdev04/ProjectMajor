@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerables:
   - {fileID: 4410661488425928152}
+  ignoreWarnings: 0
   minimumEntities: 1
   triggeredByEveryEntity: 0
 --- !u!114 &4410661488425928152

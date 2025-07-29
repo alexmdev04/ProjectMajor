@@ -318,7 +318,6 @@ MonoBehaviour:
   playerHeight: 1
   playerCrouchHeight: 0.6
   cameraHeight: 0.85
-  eulerAngles: {x: 0, y: 0, z: 0}
   moveActive: 1
   acceleration: 50
   accelerationAir: 20
@@ -326,7 +325,7 @@ MonoBehaviour:
   flatvelMin: 0.1
   walkVelocity: 4
   crouchVelocity: 2
-  sprintVelocity: 5
+  sprintVelocity: 6.5
   jumpForce: 5
   interactLayerMask:
     serializedVersion: 2

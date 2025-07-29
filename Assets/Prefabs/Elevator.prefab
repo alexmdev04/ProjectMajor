@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 8646918473670484448}
   - component: {fileID: 4693566201829538953}
   - component: {fileID: 3861942183364445126}
-  - component: {fileID: 1752069433608425002}
+  - component: {fileID: 6615407394292093792}
   - component: {fileID: 224133935834217974}
   m_Layer: 0
   m_Name: Elevator
@@ -233,9 +233,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggersRequired: 1
-  scriptedAnimation: {fileID: 1752069433608425002}
+  scriptedAnimation: {fileID: 6615407394292093792}
   waitForFixedUpdate: 0
---- !u!114 &1752069433608425002
+--- !u!114 &6615407394292093792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,11 +244,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3042858216573437623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
+  m_Script: {fileID: 11500000, guid: e9601f07b17bcaa4fab4e56c02adcb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 3042858216573437623}
-  animSpeed: 10
+  animSpeed: 7
   <animDirection>k__BackingField: {x: 0, y: 1, z: 0}
   <animDistance>k__BackingField: 10
 --- !u!54 &224133935834217974

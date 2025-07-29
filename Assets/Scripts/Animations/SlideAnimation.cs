@@ -7,11 +7,11 @@ namespace Major.Animations {
     public class SlideAnimation : ScriptedAnimation {
         [field: SerializeField] public Vector3 animDirection { get; private set; } = Vector3.zero;
         [field: SerializeField] public float animDistance { get; private set; } = 1.0f;
-        private Vector3 animStartPos;
-        private Vector3 animEndPos;
-        private Vector3 targetPos;
+        protected Vector3 animStartPos;
+        protected Vector3 animEndPos;
+        protected Vector3 targetPos;
 
-        private void OnEnable() {
+        protected void OnEnable() {
             if (!obj) {
                 return;
             }

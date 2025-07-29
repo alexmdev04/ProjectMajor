@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4026301294658512998}
   - component: {fileID: 5558203459501636381}
   - component: {fileID: 4465675760859289712}
-  - component: {fileID: 1750205459238814544}
+  - component: {fileID: 446055363631366734}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.65, z: 0}
-  m_LocalScale: {x: 1.5, y: 0.2, z: 1.1}
+  m_LocalScale: {x: 1.1, y: 0.2, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4681521435094215460}
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: df92524224a6e0f4b9b4c074446e8469, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1750205459238814544
+--- !u!65 &446055363631366734
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.0000019073486}
 --- !u!1 &2211019280581354344
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 4747174178670767884}
   - component: {fileID: 6865746489205576313}
   - component: {fileID: 8439669993849078020}
-  - component: {fileID: 8895363454340878563}
+  - component: {fileID: 5378649163899951290}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -294,7 +294,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b260b399f7a891e48acc91cde27224d9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -316,7 +316,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8895363454340878563
+--- !u!65 &5378649163899951290
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,7 +336,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.0000019073486}
 --- !u!1 &3551850013540337098
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 4681521435094215460}
   - component: {fileID: 1684169543805680988}
   - component: {fileID: 7547502174366443717}
-  - component: {fileID: 3315855491759224014}
+  - component: {fileID: 8544752909234321124}
   - component: {fileID: 3436202254359013725}
   - component: {fileID: 9011195705038254963}
   m_Layer: 0
@@ -668,6 +668,7 @@ Transform:
   - {fileID: 4747174178670767884}
   - {fileID: 4026301294658512998}
   - {fileID: 4695735957071133199}
+  - {fileID: 148200795310250489}
   - {fileID: 55306667857308566}
   - {fileID: 2758519787899927719}
   m_Father: {fileID: 0}
@@ -711,7 +712,7 @@ MonoBehaviour:
   ignoreWarnings: 0
   passthrough: 0
   requireKevin: 1
---- !u!114 &3315855491759224014
+--- !u!114 &8544752909234321124
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -720,11 +721,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5389618338231501104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d244ec65e4e16f2489e13b0eab1541b1, type: 3}
+  m_Script: {fileID: 11500000, guid: e9601f07b17bcaa4fab4e56c02adcb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 0}
-  animSpeed: 10
+  animSpeed: 5
   <animDirection>k__BackingField: {x: 1, y: 1, z: 0}
   <animDistance>k__BackingField: 1.1
 --- !u!114 &3436202254359013725
@@ -774,7 +775,7 @@ GameObject:
   - component: {fileID: 3170654007474399168}
   - component: {fileID: 544596389083035467}
   - component: {fileID: 7099365862531545108}
-  - component: {fileID: 4582712476065764192}
+  - component: {fileID: 6030474198036485289}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -828,7 +829,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7b2ab69065bc584448b0cfe063616ff9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -850,7 +851,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4582712476065764192
+--- !u!65 &6030474198036485289
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -871,6 +872,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6772363041117406948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 148200795310250489}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &148200795310250489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772363041117406948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4681521435094215460}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7947734939651299312
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +914,7 @@ GameObject:
   - component: {fileID: 4695735957071133199}
   - component: {fileID: 6824084112626653097}
   - component: {fileID: 6851999567145089058}
-  - component: {fileID: 8518694640554899477}
+  - component: {fileID: 524828051272595599}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -900,7 +932,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.65, z: 0}
-  m_LocalScale: {x: 1.5, y: 0.2, z: 1.1}
+  m_LocalScale: {x: 1.1, y: 0.2, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4681521435094215460}
@@ -936,7 +968,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e20e0d4184af61b45aeb8954b4d56725, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -958,7 +990,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8518694640554899477
+--- !u!65 &524828051272595599
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -978,4 +1010,4 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.0000019073486}

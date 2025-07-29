@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace Major {
@@ -15,9 +17,17 @@ namespace Major {
             private static int previousInputsIndex = 0;
             public static Console instance { get; private set; }
             private Selectable returnSelection;
-            public static bool cheats { get; private set; }
+            public static bool cheats { get; private set; } =
+#if UNITY_EDITOR
+                true;
+#else
+                false;
+#endif
 
             private void Awake() {
+                var cmdKeys = cmds.Keys;
+                cmdStrings = new string[cmdKeys.Count];
+                cmdKeys.CopyTo(cmdStrings, 0);
                 inputField = GetComponent<TMP_InputField>();
                 inputField.onSubmit.AddListener(input => Execute(input));
                 gameObject.SetActive(false);
@@ -54,7 +64,7 @@ namespace Major {
             }
 
             public static void Toggle() {
-                instance.gameObject.SetActive(instance.gameObject.activeSelf);
+                instance.gameObject.SetActive(!instance.gameObject.activeSelf);
             }
 
             public static void Execute(string input) {
@@ -83,11 +93,11 @@ namespace Major {
                 }
 
                 if (cmd.cheatsRequired && !cheats) {
-                    Log2.Debug(args[0] + " command requires cheats to be enabled.", "DebugConsole");
+                    Log2.Debug(args[0] + " command requires cheats to be enabled.", "DebugConsole", true);
                     return;
                 }
 
-                if (args.Length < cmd.args) {
+                if (args.Length <= cmd.args) {
                     InvalidArgCount(args, cmd.args);
                     return;
                 }
@@ -167,51 +177,51 @@ namespace Major {
                 }
             }
 
+            public static string[] cmdStrings;
+
             public static Dictionary<string, Command> cmds = new() {
                 { "cheats",
                     new (args: 0, cheatsRequired: false, cmd: (args) => {
                         bool value = !cheats;
                         if (args.Length > 2) {
-                            bool.TryParse(args[1], out value);
+                            if (bool.TryParse(args[1], out var parseValue)){
+                                value = parseValue;
+                            }
+                            else if (args[1] == "0") {
+                                value = false;
+                            }
+                            else if (args[1] == "1") {
+                                value = true;
+                            }
                         }
 
-                        if (value) { // Disabling cheats
+                        if (value) {
+                            if (!cheats) {
+                                UI.Popup.Create(
+                                    "Warning",
+                                    "Enabling cheats will disable data collection.\n" +
+                                    "You can only disable cheats while in the main menu.",
+                                    new UI.Popup.ButtonConstructor[] {
+                                        new("Cancel", (popup) => { popup.Destroy(); }),
+                                        new("Enable", (popup) => {
+                                            popup.Destroy();
+                                            cheats = true;
+                                            Log2.Debug("Cheats Enabled.", "DebugConsole", true);
+                                        } )
+                                    }
+                                );
+                            }
+                        }
+                        else {
                             if (cheats) { // Cheats enabled
                                 if (Levels.Manager.levelCurrent.key != AssetKeys.Levels.mainMenu) {
-                                    Log2.Warning("You must be in the main menu to disable cheats.", "DebugConsole");
+                                    Log2.Warning("You must be in the main menu to disable cheats.", "DebugConsole", true);
                                     return;
                                 }
                                 else {
                                     Log2.Debug("Cheats Disabled.", "DebugConsole", true);
                                     cheats = false;
                                 }
-                            }
-                        }
-                        else { // Enabling cheats
-                            if (!cheats) {
-                                UI.UI.Popup(
-                                    "Warning",
-                                    "Enabling cheats will disable data collection." +
-                                    "You must disable them while in the main menu.",
-                                    new UI.Popup.ButtonConstructor[] {
-                                        new UI.Popup.ButtonConstructor() {
-                                            text = "Cancel",
-                                            textColor = Color.black,
-                                            bgColor = Color.white,
-                                            onClick = (popup) => { popup.Destroy(); },
-                                        },
-                                        new UI.Popup.ButtonConstructor() {
-                                            text = "Enable",
-                                            textColor = Color.black,
-                                            bgColor = Color.white,
-                                            onClick = (popup) => {
-                                                popup.Destroy();
-                                                cheats = true;
-                                                Log2.Debug("Cheats Enabled.", "DebugConsole", true);
-                                            }
-                                        }
-                                    }
-                                );
                             }
                         }
                     } )
@@ -251,16 +261,21 @@ namespace Major {
                         }
                         else {
                             if (!int.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
-                            Application.targetFrameRate = value;
+                            GameManager.SetFrameRate(value);
                         }
                     } )
                 },
                 { "framerate", new("fps") },
 
                 { "vsync",
-                    new(args: 1, cheatsRequired: false, cmd: (args) => {
-                        if (!int.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
-                        QualitySettings.vSyncCount = value;
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
+                        if (args.Length < 2) {
+                            GameManager.SetVsyncCount(GameManager.baseVsyncCount != 0 ? 0 : 1);
+                        }
+                        else {
+                            if (!int.TryParse(args[1], out var value)) { InvalidArgs(args); return; }
+                            GameManager.SetVsyncCount(value);
+                        }
                     } )
                 },
 
@@ -300,13 +315,20 @@ namespace Major {
                 },
 
                 { "post",
-                    new(null)
+                    new(args: 1, cheatsRequired: false, cmd: (args) => {
+                        var output = new StringBuilder();
+                        for (int i = 1; i < args.Length; i++) {
+                            output.Append(args[i]).Append(' ');
+                        }
+                        output.Remove(output.Length - 1, 1);
+                        Tester.SendData(output.ToString());
+                    } )
                 },
 
                 { "menu",
                     new(args: 1, cheatsRequired: true, cmd: (args) => {
                         UI.UI.SetMenu(args[1]);
-                    })
+                    } )
                 },
 
                 { "exit",
@@ -317,13 +339,18 @@ namespace Major {
                 { "quit", new("exit") },
 
 
-                // { "say", cmdDict["echo"] },
-                // { "msg", cmdDict["echo"] },
-                // { "echo",
-                //     new(args: 1, cmd: (args) => {
-                //         // Log2.Debug(input.TrimStart()[(args[0].Length + 1)..], "DebugConsole", true);
-                //     } )
-                // },
+                { "say", new("echo") },
+                { "msg", new("echo") },
+                { "echo",
+                    new(args: 1, cheatsRequired: false, cmd: (args) => {
+                        var output = new StringBuilder();
+                        for (int i = 1; i < args.Length; i++) {
+                            output.Append(args[i]).Append(' ');
+                        }
+                        output.Remove(output.Length - 1, 1);
+                        Log2.Debug(output.ToString(), "DebugConsole", true);
+                    } )
+                },
 
                 { "kill",
                     new(args: 0, cheatsRequired: false, cmd: (args) => {
@@ -516,25 +543,7 @@ namespace Major {
                 },
                 { "stats",
                     new(args: 0, cheatsRequired: false, cmd: (args) => {
-                        if (args.Length < 2) {
-                            Debug.Stats.isEnabled = !Debug.Stats.isEnabled;
-                        }
-                        else {
-                            switch (args[1]) {
-                                case "speed":
-                                    Debug.Stats.isSpeedEnabled = !Debug.Stats.isSpeedEnabled;{
-                                    break;
-                                }
-                                case "level":
-                                    Debug.Stats.isLevelEnabled = !Debug.Stats.isLevelEnabled;{
-                                    break;
-                                }
-                                default: {
-                                    InvalidArgs(args);
-                                    break;
-                                }
-                            }
-                        }
+                        Stats.isEnabled = !Stats.isEnabled;
                     } )
                 },
                 { "timescale",
@@ -545,7 +554,7 @@ namespace Major {
                 },
                 { "popup",
                     new(args: 2, cheatsRequired: false, cmd: (args) => {
-                        UI.UI.Popup(args[1], args[2]);
+                        UI.Popup.Create(args[1], args[2]);
                     } )
                 },
                 { "fade",
@@ -558,6 +567,46 @@ namespace Major {
                         UI.UI.Fade(fadeOut, fadeIn);
                     } )
                 },
+                { "testing",
+                    new(args: 0, cheatsRequired: true, cmd: (args) => {
+                        bool value = !Tester.instance.enabled;
+                        if (args.Length > 2) {
+                            if (bool.TryParse(args[1], out var parseValue)){
+                                value = parseValue;
+                            }
+                            else if (args[1] == "0") {
+                                value = false;
+                            }
+                            else if (args[1] == "1") {
+                                value = true;
+                            }
+                        }
+
+                        Tester.instance.enabled = value;
+                        Log2.Debug("Testing " + (value ? "Enabled." : "Disabled."), "DebugConsole", true);
+                    } )
+                },
+                { "tests", new("testing") },
+                { "shadows",
+                    new(args: 0, cheatsRequired: false, cmd: (args) => {
+                        var camData = Camera.main.GetUniversalAdditionalCameraData();
+                        bool value = !camData.renderShadows;
+                        if (args.Length > 2) {
+                            if (bool.TryParse(args[1], out var parseValue)){
+                                value = parseValue;
+                            }
+                            else if (args[1] == "0") {
+                                value = false;
+                            }
+                            else if (args[1] == "1") {
+                                value = true;
+                            }
+                        }
+
+                        camData.renderShadows = value;
+                        Log2.Debug("Shadows " + (value ? "Enabled." : "Disabled."), "DebugConsole", true);
+                    })
+                }
             };
         }
     }

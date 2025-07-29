@@ -3,7 +3,17 @@ guid: a59c0759d9257be43ad8ed2dbcf12164
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: buttonRoundInner
+    second: {fileID: 2100000, guid: 9f1fd177567a289469dbdfdcba96303a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: buttonRoundOuter
+    second: {fileID: 2100000, guid: 04395974aedcf994c914446af15dda26, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

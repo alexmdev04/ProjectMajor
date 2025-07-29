@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000004, guid: d12cc14dba8c83f43837b3d8208baa9c, type: 2}
+  m_LightingDataAsset: {fileID: 112000004, guid: 9068b5ff91c58084e893a51e4608304f, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: c048217392acdf54abdbce0ce1766c3d, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -377,6 +377,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5051253512078568764, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051253512078568764, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0.00000021781341
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051253512078568764, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051253512078568764, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1.974e-42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051253512078568764, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5944703592505494058, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.5
@@ -421,6 +441,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: startHallway
       objectReference: {fileID: 0}
+    - target: {fileID: 6427767822469238928, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792854961976904107, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4463978215103135107, guid: 003cdc5eba8c33d4884d0cb2271bf5b8, type: 3}
     m_RemovedGameObjects:
@@ -443,6 +471,10 @@ PrefabInstance:
     - target: {fileID: 5825377341236930540, guid: b560d81a9c3d9ec47a8f1be30bcbf716, type: 3}
       propertyPath: m_Name
       value: Kevin
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955080934284653804, guid: b560d81a9c3d9ec47a8f1be30bcbf716, type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8580536674897409613, guid: b560d81a9c3d9ec47a8f1be30bcbf716, type: 3}
       propertyPath: m_LocalPosition.x

@@ -17,7 +17,7 @@ namespace Major.UI {
 
         [HideInInspector] public static HUD hud;
         public Debug.Console debugConsole;
-        [SerializeField] private Popup popupPrefab;
+        [field: SerializeField] public Popup popupPrefab { get; private set; }
         private static Coroutine fadeCoroutine;
         [SerializeField] private Image fade;
 
@@ -25,12 +25,6 @@ namespace Major.UI {
             instance = this;
             menus = new();
             SetScreenBlack();
-        }
-
-        private void Update() {
-            if (Keyboard.current.backquoteKey.wasPressedThisFrame) {
-                debugConsole.gameObject.SetActive(!debugConsole.gameObject.activeSelf);
-            }
         }
 
         public static void ShowInteractPrompt(string text) {
@@ -44,10 +38,6 @@ namespace Major.UI {
 
         public static void HideInteractPrompt() {
             hud.interactText.enabled = false;
-        }
-
-        public static void Popup(string titleText, string bodyText, Popup.ButtonConstructor[] buttons = null, int buttonFocus = 0) {
-            Instantiate(instance.popupPrefab, instance.gameObject.transform).Init(titleText, bodyText, buttons);
         }
 
         /// <param name="fadeOut">To Opaque</param>

@@ -44,8 +44,8 @@ namespace Major.World {
             targetPlayerEulerAngles.z = 0.0f; // player has no z rotation
             Player.instance.eulerAngles = targetPlayerEulerAngles;
 
-            targetPlayerEulerAngles.x = 0.0f; // rigidbody only uses y rotation
-            Player.instance.rb.rotation = Quaternion.Euler(targetPlayerEulerAngles);
+            // targetPlayerEulerAngles.x = 0.0f; // rigidbody only uses y rotation
+            // Player.instance.rb.rotation = Quaternion.Euler(targetPlayerEulerAngles);
         }
 
         public void TeleportKevin() {

@@ -33,7 +33,7 @@ namespace Major.Input {
 
         private void Update() {
             // mouse vector
-            lookDelta = input.Player.Look.ReadValue<Vector2>();
+            lookDelta = input.Player.LookMouse.ReadValue<Vector2>() + (input.Player.LookJoystick.ReadValue<Vector2>() * Time.deltaTime);
 
             // movement vector
             var vec = input.Player.Movement.ReadValue<Vector2>();

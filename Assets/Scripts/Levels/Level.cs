@@ -37,7 +37,8 @@ namespace Major.Levels {
         public int restarts { get; private set; }
         public int playerDeaths { get; private set; }
         public int kevinDeaths { get; private set; }
-        public Stopwatch stopwatch { get; private set; }
+        public float skillRating { get; private set; }
+        public Stopwatch stopwatch { get; private set; } = new();
 
         // Constructs and loads a level, loads the first scene present and fills the asset databases
         public void Construct(ConstructData constructData) {
@@ -48,6 +49,8 @@ namespace Major.Levels {
             prefabs = constructData.cachedPrefabs.prefabs;
             prefabAddresses = constructData.cachedPrefabs.addresses;
             isConstructed = true;
+            GameManager.onPlayerKilled += () => playerDeaths++;
+            GameManager.onKevinKilled += () => kevinDeaths++;
 
             var checkpoints = GetComponentsInChildren<World.Checkpoint>();
             foreach (var checkpoint in checkpoints) {
@@ -76,6 +79,10 @@ namespace Major.Levels {
             }
 
             stopwatch.Start();
+        }
+
+        private void Update() {
+            skillRating = Mathf.Min(1.0f, (stopwatch.ElapsedMilliseconds / 1000.0f) / levelAsset.timeToComplete);
         }
 
         public async void Unload(bool wasLevelComplete) {
